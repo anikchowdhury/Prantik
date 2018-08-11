@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PrantikModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BookingDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookingCode" Type="char" MaxLength="16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookingDetailsUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookingDetailsId" Type="bigint" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookingDetailsId" Type="bigint" Nullable="false" />
+          <Property Name="MenuId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="smallint" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="RoomNumber" />
+          </Key>
+          <Property Name="RoomNumber" Type="char" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoomBooking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoomRoomNumber" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="BookingDetailsId" Type="bigint" Nullable="false" />
+          <Property Name="BookingStartDate" Type="date" Nullable="false" />
+          <Property Name="BookingEndDate" Type="date" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="ComingFrom" Type="varchar" MaxLength="50" />
+          <Property Name="GoingTo" Type="varchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="Age" Type="char" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BookingDetailsUser_BookingDetails">
+          <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="1" />
+          <End Role="BookingDetailsUser" Type="Self.BookingDetailsUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingDetailsUser">
+              <PropertyRef Name="BookingDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingDetailsUser_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="BookingDetailsUser" Type="Self.BookingDetailsUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingDetailsUser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_BookingDetails">
+          <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="BookingDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomBooking_BookingDetails">
+          <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="1" />
+          <End Role="RoomBooking" Type="Self.RoomBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoomBooking">
+              <PropertyRef Name="BookingDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomBooking_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="RoomBooking" Type="Self.RoomBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="RoomNumber" />
+            </Principal>
+            <Dependent Role="RoomBooking">
+              <PropertyRef Name="RoomRoomNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PrantikModelStoreContainer">
+          <EntitySet Name="BookingDetails" EntityType="Self.BookingDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingDetailsUser" EntityType="Self.BookingDetailsUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomBooking" EntityType="Self.RoomBooking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BookingDetailsUser_BookingDetails" Association="Self.FK_BookingDetailsUser_BookingDetails">
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+            <End Role="BookingDetailsUser" EntitySet="BookingDetailsUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingDetailsUser_User" Association="Self.FK_BookingDetailsUser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="BookingDetailsUser" EntitySet="BookingDetailsUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_BookingDetails" Association="Self.FK_OrderDetails_BookingDetails">
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Menu" Association="Self.FK_OrderDetails_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomBooking_BookingDetails" Association="Self.FK_RoomBooking_BookingDetails">
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+            <End Role="RoomBooking" EntitySet="RoomBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomBooking_Room" Association="Self.FK_RoomBooking_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="RoomBooking" EntitySet="RoomBooking" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PrantikModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BookingDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingCode" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BookingDetailsUsers" Relationship="Self.FK_BookingDetailsUser_BookingDetails" FromRole="BookingDetails" ToRole="BookingDetailsUser" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_BookingDetails" FromRole="BookingDetails" ToRole="OrderDetails" />
+          <NavigationProperty Name="RoomBookings" Relationship="Self.FK_RoomBooking_BookingDetails" FromRole="BookingDetails" ToRole="RoomBooking" />
+        </EntityType>
+        <EntityType Name="BookingDetailsUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingDetailsId" Type="Int64" Nullable="false" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="BookingDetail" Relationship="Self.FK_BookingDetailsUser_BookingDetails" FromRole="BookingDetailsUser" ToRole="BookingDetails" />
+          <NavigationProperty Name="User" Relationship="Self.FK_BookingDetailsUser_User" FromRole="BookingDetailsUser" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Menu" FromRole="Menu" ToRole="OrderDetails" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingDetailsId" Type="Int64" Nullable="false" />
+          <Property Name="MenuId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int16" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="BookingDetail" Relationship="Self.FK_OrderDetails_BookingDetails" FromRole="OrderDetails" ToRole="BookingDetails" />
+          <NavigationProperty Name="Menu" Relationship="Self.FK_OrderDetails_Menu" FromRole="OrderDetails" ToRole="Menu" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="RoomNumber" />
+          </Key>
+          <Property Name="RoomNumber" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="RoomBookings" Relationship="Self.FK_RoomBooking_Room" FromRole="Room" ToRole="RoomBooking" />
+        </EntityType>
+        <EntityType Name="RoomBooking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoomRoomNumber" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="BookingDetailsId" Type="Int64" Nullable="false" />
+          <Property Name="BookingStartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BookingEndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <NavigationProperty Name="BookingDetail" Relationship="Self.FK_RoomBooking_BookingDetails" FromRole="RoomBooking" ToRole="BookingDetails" />
+          <NavigationProperty Name="Room" Relationship="Self.FK_RoomBooking_Room" FromRole="RoomBooking" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ComingFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GoingTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BookingDetailsUsers" Relationship="Self.FK_BookingDetailsUser_User" FromRole="User" ToRole="BookingDetailsUser" />
+        </EntityType>
+        <Association Name="FK_BookingDetailsUser_BookingDetails">
+          <End Role="BookingDetails" Type="Self.BookingDetail" Multiplicity="1" />
+          <End Role="BookingDetailsUser" Type="Self.BookingDetailsUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingDetailsUser">
+              <PropertyRef Name="BookingDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_BookingDetails">
+          <End Role="BookingDetails" Type="Self.BookingDetail" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="BookingDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomBooking_BookingDetails">
+          <End Role="BookingDetails" Type="Self.BookingDetail" Multiplicity="1" />
+          <End Role="RoomBooking" Type="Self.RoomBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoomBooking">
+              <PropertyRef Name="BookingDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingDetailsUser_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="BookingDetailsUser" Type="Self.BookingDetailsUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingDetailsUser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomBooking_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="RoomBooking" Type="Self.RoomBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="RoomNumber" />
+            </Principal>
+            <Dependent Role="RoomBooking">
+              <PropertyRef Name="RoomRoomNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PrantikEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookingDetails" EntityType="Self.BookingDetail" />
+          <EntitySet Name="BookingDetailsUsers" EntityType="Self.BookingDetailsUser" />
+          <EntitySet Name="Menus" EntityType="Self.Menu" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="RoomBookings" EntityType="Self.RoomBooking" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_BookingDetailsUser_BookingDetails" Association="Self.FK_BookingDetailsUser_BookingDetails">
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+            <End Role="BookingDetailsUser" EntitySet="BookingDetailsUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_BookingDetails" Association="Self.FK_OrderDetails_BookingDetails">
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomBooking_BookingDetails" Association="Self.FK_RoomBooking_BookingDetails">
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+            <End Role="RoomBooking" EntitySet="RoomBookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingDetailsUser_User" Association="Self.FK_BookingDetailsUser_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="BookingDetailsUser" EntitySet="BookingDetailsUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Menu" Association="Self.FK_OrderDetails_Menu">
+            <End Role="Menu" EntitySet="Menus" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomBooking_Room" Association="Self.FK_RoomBooking_Room">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="RoomBooking" EntitySet="RoomBookings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PrantikModelStoreContainer" CdmEntityContainer="PrantikEntities">
+          <EntitySetMapping Name="BookingDetails">
+            <EntityTypeMapping TypeName="PrantikModel.BookingDetail">
+              <MappingFragment StoreEntitySet="BookingDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BookingCode" ColumnName="BookingCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingDetailsUsers">
+            <EntityTypeMapping TypeName="PrantikModel.BookingDetailsUser">
+              <MappingFragment StoreEntitySet="BookingDetailsUser">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BookingDetailsId" ColumnName="BookingDetailsId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="PrantikModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="PrantikModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BookingDetailsId" ColumnName="BookingDetailsId" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="PrantikModel.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="RoomNumber" ColumnName="RoomNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomBookings">
+            <EntityTypeMapping TypeName="PrantikModel.RoomBooking">
+              <MappingFragment StoreEntitySet="RoomBooking">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoomRoomNumber" ColumnName="RoomRoomNumber" />
+                <ScalarProperty Name="BookingDetailsId" ColumnName="BookingDetailsId" />
+                <ScalarProperty Name="BookingStartDate" ColumnName="BookingStartDate" />
+                <ScalarProperty Name="BookingEndDate" ColumnName="BookingEndDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PrantikModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ComingFrom" ColumnName="ComingFrom" />
+                <ScalarProperty Name="GoingTo" ColumnName="GoingTo" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

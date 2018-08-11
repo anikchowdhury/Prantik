@@ -45,10 +45,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -153,18 +160,66 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DataLayer\BookingDetail.cs">
+      <DependentUpon>PrantikDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\BookingDetailsUser.cs">
+      <DependentUpon>PrantikDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Menu.cs">
+      <DependentUpon>PrantikDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\OrderDetail.cs">
+      <DependentUpon>PrantikDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\PrantikDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PrantikDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\PrantikDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PrantikDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\PrantikDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PrantikDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Room.cs">
+      <DependentUpon>PrantikDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\RoomBooking.cs">
+      <DependentUpon>PrantikDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\User.cs">
+      <DependentUpon>PrantikDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DataLayer\PrantikDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PrantikDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>PrantikDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="DataLayer\PrantikDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PrantikDataModel.edmx</DependentUpon>
+      <LastGenOutput>PrantikDataModel.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -174,12 +229,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DataLayer\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="DataLayer\PrantikDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PrantikDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DataLayer\PrantikDataModel.edmx.diagram">
+      <DependentUpon>PrantikDataModel.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="414b221fbd554cd88ca18e9f9ee1e5ca" Name="Diagram1">
+        <EntityTypeShape EntityType="PrantikModel.BookingDetail" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PrantikModel.BookingDetailsUser" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PrantikModel.Menu" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PrantikModel.OrderDetail" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PrantikModel.Room" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PrantikModel.RoomBooking" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PrantikModel.User" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <AssociationConnector Association="PrantikModel.FK_BookingDetailsUser_BookingDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="PrantikModel.FK_OrderDetails_BookingDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="PrantikModel.FK_RoomBooking_BookingDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="PrantikModel.FK_BookingDetailsUser_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PrantikModel.FK_OrderDetails_Menu" ManuallyRouted="false" />
+        <AssociationConnector Association="PrantikModel.FK_RoomBooking_Room" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
