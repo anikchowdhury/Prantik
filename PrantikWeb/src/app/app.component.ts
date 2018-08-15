@@ -9,7 +9,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class AppComponent {
   constructor(private http: HttpClient) {
-    console.log('hello');
+    /*console.log('hello');
       this.http.get('api/Values').pipe(map(val => {
         console.log(val);
       },
@@ -18,7 +18,7 @@ export class AppComponent {
     }))
     .subscribe(val=>{
       console.log(val);
-    });
+    });*/
   }
   title = 'PrantikWeb';
 
