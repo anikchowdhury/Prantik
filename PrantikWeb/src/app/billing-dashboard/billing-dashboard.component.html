@@ -1,0 +1,60 @@
+<div class="row" *ngIf="!newBooking">
+  <div class="col-10">
+    <input class="form-control" type="text" [(ngModel)]="searchBooking">
+  </div>
+  <div class="col-2">
+    <button type="button" class="btn btn-outline-primary">New Booking</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <app-view-user [users]="users"></app-view-user>
+  </div>
+  <div class="col-12">
+    <button type="button" class="btn btn-lg btn-outline-primary" (click)="open(addUserContent)">Add User</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <app-view-room-booking [roomBookings]="roomBookings"></app-view-room-booking>
+  </div>
+  <div class="col-12">
+    <button type="button" class="btn btn-lg btn-outline-primary" (click)="open(addRoomBookingContent)">Add Room Booking</button>
+  </div>
+</div>
+
+<ng-template #addUserContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-add-user></app-add-user>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #addRoomBookingContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add New Room Booking</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-add-room-booking (roomAddedSuccesfully)="displayAddedRoom($event)"></app-add-room-booking>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+  </div>
+</ng-template>
+
+<hr>
+
+<pre>{{closeResult}}</pre>

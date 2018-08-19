@@ -1,0 +1,29 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Father/Husband Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Age</th>
+            <th scope="col">Id Card No</th>
+            <th scope="col">Coming From</th>
+            <th scope="col">Going To</th>
+            <th scope="col">Profession</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{user.name}}</td>
+            <td>{{user.address}}</td>
+            <td>{{user.phoneNo}}</td>
+            <td>{{user.age}}</td>
+            <td>{{user.idCardNo}}</td>
+            <td>{{user.comingFrom}}</td>
+            <td>{{user.goingTo}}</td>
+            <td>{{user.profession}}</td>            
+        </tr>
+    </tbody>
+</table>

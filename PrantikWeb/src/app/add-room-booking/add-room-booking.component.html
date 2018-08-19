@@ -1,0 +1,27 @@
+<form (ngSubmit)="addRoomBookingSubmit()" #addRoomForm="ngForm">
+  <div class="row">
+    <div class="col-12 col-md-3">
+      <label for="roomBookingModel.roomNumber">Room Number</label>
+      <input type="text" class="form-control" id="roomBookingModel.roomNumber" [(ngModel)]="roomBookingModel.roomNumber" name="roomBookingModel.roomNumber" required>
+    </div>
+    <div class="col-12 col-md-3">
+      <label for="roomBookingModel.bookingStartDate">Booking Start Date</label>
+      <input type="text" class="form-control" id="roomBookingModel.bookingStartDate" [(ngModel)]="roomBookingModel.bookingStartDate" name="roomBookingModel.bookingStartDate"
+        required>
+    </div>
+    <div class="col-12 col-md-3">
+      <label for="roomBookingModel.bookingEndDate">Booking End Date</label>
+      <input type="text" class="form-control" id="roomBookingModel.bookingEndDate" [(ngModel)]="roomBookingModel.bookingEndDate" name="roomBookingModel.bookingEndDate"
+        required>
+    </div>
+    <div class="col-12 col-md-3">
+      <label for="roomBookingModel.amount">Amount</label>
+      <input type="text" class="form-control" id="roomBookingModel.amount" [(ngModel)]="roomBookingModel.amount" name="roomBookingModel.amount" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary float-right" [disabled]="!addRoomForm.form.valid">Submit</button>
+    </div>
+  </div>
+</form>
