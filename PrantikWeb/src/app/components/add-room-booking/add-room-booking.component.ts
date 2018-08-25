@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { RoomBookingModel } from '../models/room-booking.model';
+import { RoomBookingModel } from '../../models/room-booking.model';
 
 @Component({
     selector: 'app-add-room-booking',

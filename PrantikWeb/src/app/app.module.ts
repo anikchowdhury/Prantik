@@ -7,12 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { AddUserComponent } from './add-user/add-user.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { BillingDashboardComponent } from './billing-dashboard/billing-dashboard.component';
-import { ViewUserComponent } from './view-user/view-user.component';
-import { AddRoomBookingComponent } from './add-room-booking/add-room-booking.component';
-import { ViewRoomBookingComponent } from './view-room-booking/view-room-booking.component';
+import { AddUserComponent } from './components/add-user/add-user.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { BillingDashboardComponent } from './components/billing-dashboard/billing-dashboard.component';
+import { ViewUserComponent } from './components/view-user/view-user.component';
+import { AddRoomBookingComponent } from './components/add-room-booking/add-room-booking.component';
+import { ViewRoomBookingComponent } from './components/view-room-booking/view-room-booking.component';
 
 const appRoutes: Routes = [
    { path: 'dashboard', component: DashboardComponent },
