@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace PrantikAPI
 {
@@ -26,6 +27,9 @@ namespace PrantikAPI
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects
             };
             config.Formatters.Add(jsonMediaTypeFormatter);
+
+            var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+            config.EnableCors(cors);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

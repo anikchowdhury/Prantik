@@ -1,0 +1,1 @@
+export const PostUserEndpointContsant = 'http://localhost:58335/api/Users'; 

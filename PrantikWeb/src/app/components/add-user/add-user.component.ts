@@ -1,18 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../../models/user.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from '../../services/user.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  styleUrls: ['./add-user.component.css'],
+  providers: [UserService]
 })
 export class AddUserComponent implements OnInit {
   user: UserModel; 
-  constructor(private modalService: NgbModal) { 
+  constructor(private modalService: NgbModal, private userService: UserService) { 
     this.user = {
       name: '',
-      address: ''
+      address: '',
+      comingFrom: '',
+      goingTo: '',
+      phoneNumber: '',
+      age: 0
     };
   }
 
@@ -20,6 +27,13 @@ export class AddUserComponent implements OnInit {
   }
 
   onSubmit() {
+    this.userService.PostUser(this.user)
+    .subscribe((response: HttpResponse<number>) => {
+      console.log(response);
+  },
+  (err) => {
+      console.log(err);
+  });;
     console.log('Submitted');
   }
 

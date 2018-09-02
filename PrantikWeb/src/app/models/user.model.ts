@@ -7,5 +7,5 @@ export class UserModel {
     profession?: string;
     comingFrom?: string;
     goingTo?: string;
-    phoneNo?: string;
+    phoneNumber?: string;
 }

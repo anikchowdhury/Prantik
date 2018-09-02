@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  myValParam: string;
+  constructor() { 
+
+  }
 
   ngOnInit() {
+    this.myValParam = 'I am Bound';
   }
 
 }

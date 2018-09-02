@@ -6,6 +6,8 @@ import { FormsModule }   from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { HttpInterceptorProviders } from './http-interceptors/index';
+
 import { AppComponent } from './app.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -51,7 +53,10 @@ const appRoutes: Routes = [
       //{ enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [HttpClientModule],
+  providers: [
+    HttpClientModule,
+    HttpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
