@@ -57,6 +57,11 @@ export class BillingDashboardComponent implements OnInit {
     this.roomBookings.push(roomBookingModel);
   }
 
+  displayAddedUser(userModel: UserModel) {
+    console.log(userModel);
+    this.users.push(userModel);
+  }
+
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, size: 'lg' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;

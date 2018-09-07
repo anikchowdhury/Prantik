@@ -33,7 +33,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-add-user></app-add-user>
+    <app-add-user (userAddedSuccesfully)="displayAddedUser($event)"></app-add-user>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>

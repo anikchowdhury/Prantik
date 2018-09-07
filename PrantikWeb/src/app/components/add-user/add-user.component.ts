@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserModel } from '../../models/user.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../services/user.service';
@@ -11,6 +11,8 @@ import { HttpResponse } from '@angular/common/http';
   providers: [UserService]
 })
 export class AddUserComponent implements OnInit {
+  @Output() userAddedSuccesfully: EventEmitter<UserModel> = new EventEmitter();
+
   user: UserModel; 
   constructor(private modalService: NgbModal, private userService: UserService) { 
     this.user = {
@@ -28,8 +30,24 @@ export class AddUserComponent implements OnInit {
 
   onSubmit() {
     this.userService.PostUser(this.user)
-    .subscribe((response: HttpResponse<number>) => {
-      console.log(response);
+    .subscribe((response: HttpResponse<UserModel>) => {      
+      this.userAddedSuccesfully.emit({
+        name: response.body.name,
+        address: response.body.address,
+        comingFrom: response.body.comingFrom,
+        goingTo: response.body.goingTo,
+        phoneNumber: response.body.phoneNumber,
+        age: response.body.age
+    });
+      //response.map     
+      /*this.userAddedSuccesfully.emit({
+        name: response.name,
+        address: response.address,
+        comingFrom: response.comingFrom,
+        goingTo: response.goingTo,
+        phoneNumber: response.phoneNumber,
+        age: response.age
+    });*/
   },
   (err) => {
       console.log(err);
