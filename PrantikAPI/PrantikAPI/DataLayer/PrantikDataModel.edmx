@@ -66,6 +66,9 @@
           <Property Name="GoingTo" Type="varchar" MaxLength="50" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
           <Property Name="Age" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="IdCardNumber" Type="varchar" MaxLength="30" />
+          <Property Name="RelativeName" Type="varchar" MaxLength="100" />
+          <Property Name="Profession" Type="varchar" MaxLength="20" />
         </EntityType>
         <Association Name="FK_BookingDetailsUser_BookingDetails">
           <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="1" />
@@ -249,6 +252,9 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Age" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="BookingDetailsUsers" Relationship="Self.FK_BookingDetailsUser_User" FromRole="User" ToRole="BookingDetailsUser" />
+          <Property Name="IdCardNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="RelativeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Profession" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_BookingDetailsUser_BookingDetails">
           <End Role="BookingDetails" Type="Self.BookingDetail" Multiplicity="1" />
@@ -420,6 +426,9 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="PrantikModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Profession" ColumnName="Profession" />
+                <ScalarProperty Name="RelativeName" ColumnName="RelativeName" />
+                <ScalarProperty Name="IdCardNumber" ColumnName="IdCardNumber" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Address" ColumnName="Address" />

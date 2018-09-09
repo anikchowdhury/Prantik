@@ -27,6 +27,9 @@ namespace PrantikAPI.DataLayer
         public string GoingTo { get; set; }
         public string PhoneNumber { get; set; }
         public string Age { get; set; }
+        public string IdCardNumber { get; set; }
+        public string RelativeName { get; set; }
+        public string Profession { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingDetailsUser> BookingDetailsUsers { get; set; }
