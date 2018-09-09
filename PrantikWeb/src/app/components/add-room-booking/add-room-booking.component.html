@@ -1,22 +1,40 @@
 <form (ngSubmit)="addRoomBookingSubmit()" #addRoomForm="ngForm">
   <div class="row">
     <div class="col-12 col-md-3">
-      <label for="roomBookingModel.roomNumber">Room Number</label>
-      <input type="text" class="form-control" id="roomBookingModel.roomNumber" [(ngModel)]="roomBookingModel.roomNumber" name="roomBookingModel.roomNumber" required>
+      <label for="roomBookingModel.id">Id</label>
+      <input type="number" class="form-control" id="roomBookingModel.id" [(ngModel)]="roomBookingModel.id" name="roomBookingModel.id" required>
+    </div>
+    <div class="col-12 col-md-3">
+      <label for="roomBookingModel.room">Room</label>
+      <input type="text" class="form-control" id="roomBookingModel.room" [(ngModel)]="roomBookingModel.room" name="roomBookingModel.room" required>
+    </div>
+    <div class="col-12 col-md-3">
+      <label for="roomBookingModel.roomRoomNumber">Room Number</label>
+        <select type="number" class="form-control" id="roomBookingModel.roomRoomNumber" [(ngModel)]="roomBookingModel.roomRoomNumber" name="roomBookingModel.roomRoomNumber" required>
+            <option *ngFor="let room of roomNumbersList" [ngValue]="room">{{room}}</option>
+        </select>
+    </div>
+    <div class="col-12 col-md-3">
+      <label for="roomBookingModel.bookingDetail">Booking Detail</label>
+      <input type="text" class="form-control" id="roomBookingModel.bookingDetail" [(ngModel)]="roomBookingModel.bookingDetail" name="roomBookingModel.bookingDetail" required>
+    </div>
+    <div class="col-12 col-md-3">
+      <label for="roomBookingModel.bookingDetailsId">Booking Details Id</label>
+      <input type="number" class="form-control" id="roomBookingModel.bookingDetailsId" [(ngModel)]="roomBookingModel.bookingDetailsId" name="roomBookingModel.bookingDetailsId" required>
     </div>
     <div class="col-12 col-md-3">
       <label for="roomBookingModel.bookingStartDate">Booking Start Date</label>
-      <input type="text" class="form-control" id="roomBookingModel.bookingStartDate" [(ngModel)]="roomBookingModel.bookingStartDate" name="roomBookingModel.bookingStartDate"
+      <input type="date" class="form-control" id="roomBookingModel.bookingStartDate" [(ngModel)]="roomBookingModel.bookingStartDate" name="roomBookingModel.bookingStartDate"
         required>
     </div>
     <div class="col-12 col-md-3">
       <label for="roomBookingModel.bookingEndDate">Booking End Date</label>
-      <input type="text" class="form-control" id="roomBookingModel.bookingEndDate" [(ngModel)]="roomBookingModel.bookingEndDate" name="roomBookingModel.bookingEndDate"
+      <input type="date" class="form-control" id="roomBookingModel.bookingEndDate" [(ngModel)]="roomBookingModel.bookingEndDate" name="roomBookingModel.bookingEndDate"
         required>
     </div>
     <div class="col-12 col-md-3">
       <label for="roomBookingModel.amount">Amount</label>
-      <input type="text" class="form-control" id="roomBookingModel.amount" [(ngModel)]="roomBookingModel.amount" name="roomBookingModel.amount" required>
+      <input type="number" class="form-control" id="roomBookingModel.amount" [(ngModel)]="roomBookingModel.amount" name="roomBookingModel.amount" required>
     </div>
   </div>
   <div class="row">
