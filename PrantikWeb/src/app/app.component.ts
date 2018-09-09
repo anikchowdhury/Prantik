@@ -8,17 +8,7 @@ import { catchError, map, tap } from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private http: HttpClient) {
-    /*console.log('hello');
-      this.http.get('api/Values').pipe(map(val => {
-        console.log(val);
-      },
-    error => {
-      console.log(error);
-    }))
-    .subscribe(val=>{
-      console.log(val);
-    });*/
+  constructor(private http: HttpClient) {   
   }
   title = 'PrantikWeb';
 

@@ -16,12 +16,12 @@ namespace PrantikAPI.DataLayer
     {
         public long Id { get; set; }
         public string RoomRoomNumber { get; set; }
-        public long BookingDetailsId { get; set; }
+        public Nullable<long> BookingDetailsId { get; set; }
         public System.DateTime BookingStartDate { get; set; }
         public System.DateTime BookingEndDate { get; set; }
         public decimal Amount { get; set; }
     
-        public virtual BookingDetail BookingDetail { get; set; }
         public virtual Room Room { get; set; }
+        public virtual BookingDetail BookingDetail { get; set; }
     }
 }

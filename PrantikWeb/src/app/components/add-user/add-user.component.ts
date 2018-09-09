@@ -13,8 +13,8 @@ import { HttpResponse } from '@angular/common/http';
 export class AddUserComponent implements OnInit {
   @Output() userAddedSuccesfully: EventEmitter<UserModel> = new EventEmitter();
 
-  user: UserModel; 
-  constructor(private modalService: NgbModal, private userService: UserService) { 
+  user: UserModel;
+  constructor(private modalService: NgbModal, private userService: UserService) {
     this.user = {
       name: '',
       address: '',
@@ -30,35 +30,25 @@ export class AddUserComponent implements OnInit {
 
   onSubmit() {
     this.userService.PostUser(this.user)
-    .subscribe((response: HttpResponse<UserModel>) => {      
-      this.userAddedSuccesfully.emit({
-        name: response.body.name,
-        address: response.body.address,
-        comingFrom: response.body.comingFrom,
-        goingTo: response.body.goingTo,
-        phoneNumber: response.body.phoneNumber,
-        age: response.body.age
-    });
-      //response.map     
-      /*this.userAddedSuccesfully.emit({
-        name: response.name,
-        address: response.address,
-        comingFrom: response.comingFrom,
-        goingTo: response.goingTo,
-        phoneNumber: response.phoneNumber,
-        age: response.age
-    });*/
-  },
-  (err) => {
-      console.log(err);
-  });;
-    console.log('Submitted');
+      .subscribe((response: UserModel) => {
+        this.userAddedSuccesfully.emit({
+          name: response.name,
+          address: response.address,
+          comingFrom: response.comingFrom,
+          goingTo: response.goingTo,
+          phoneNumber: response.phoneNumber,
+          age: response.age
+        });
+      },
+        (err) => {
+          console.log(err);
+        });
   }
 
-  closeResult: string;  
+  closeResult: string;
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -71,7 +61,7 @@ export class AddUserComponent implements OnInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
 }

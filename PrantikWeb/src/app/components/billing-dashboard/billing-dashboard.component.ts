@@ -16,6 +16,7 @@ export class BillingDashboardComponent implements OnInit {
   user: UserModel;
   users: UserModel[];
   roomBookings: RoomBookingModel[];
+  closeResult: string;
 
   constructor(private modalService: NgbModal, private route: ActivatedRoute, private userService: UserService) {
     this.user = {
@@ -27,16 +28,13 @@ export class BillingDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user.name = "Anik";
-    this.user.address = "Kolkata";
-    this.user.age = 27;
-    this.users.push(this.user);
+ 
     this.route.queryParams.subscribe(params => {
       console.log(params['myVal']);
       console.log(params['myAnotherVal']);
     });
     this.userService.GetAllUsers()
-      .subscribe((response: HttpResponse<UserModel[]>) => {
+      .subscribe((response: UserModel[]) => {
         console.log(response);
       },
         (err) => {
@@ -49,7 +47,7 @@ export class BillingDashboardComponent implements OnInit {
     console.log('Submitted');
   }
 
-  closeResult: string;
+  
 
   displayAddedRoom(roomBookingModel: RoomBookingModel) {
     console.log('Received');
@@ -60,6 +58,10 @@ export class BillingDashboardComponent implements OnInit {
   displayAddedUser(userModel: UserModel) {
     console.log(userModel);
     this.users.push(userModel);
+  }
+
+  createBooking() {
+    console.log("Booking Created");
   }
 
   open(content) {

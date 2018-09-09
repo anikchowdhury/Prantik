@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PrantikModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PrantikModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BookingDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -50,7 +50,7 @@
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoomRoomNumber" Type="char" MaxLength="3" Nullable="false" />
-          <Property Name="BookingDetailsId" Type="bigint" Nullable="false" />
+          <Property Name="BookingDetailsId" Type="bigint" />
           <Property Name="BookingStartDate" Type="date" Nullable="false" />
           <Property Name="BookingEndDate" Type="date" Nullable="false" />
           <Property Name="Amount" Type="decimal" Precision="12" Scale="2" Nullable="false" />
@@ -116,7 +116,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RoomBooking_BookingDetails">
-          <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="1" />
+          <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="0..1" />
           <End Role="RoomBooking" Type="Self.RoomBooking" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BookingDetails">
@@ -172,8 +172,7 @@
             <End Role="RoomBooking" EntitySet="RoomBooking" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PrantikModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -185,7 +184,7 @@
           <Property Name="BookingCode" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="BookingDetailsUsers" Relationship="Self.FK_BookingDetailsUser_BookingDetails" FromRole="BookingDetails" ToRole="BookingDetailsUser" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_BookingDetails" FromRole="BookingDetails" ToRole="OrderDetails" />
-          <NavigationProperty Name="RoomBookings" Relationship="Self.FK_RoomBooking_BookingDetails" FromRole="BookingDetails" ToRole="RoomBooking" />
+          <NavigationProperty Name="RoomBookings" Relationship="PrantikModel.FK_RoomBooking_BookingDetails" FromRole="BookingDetail" ToRole="RoomBooking" />
         </EntityType>
         <EntityType Name="BookingDetailsUser">
           <Key>
@@ -231,12 +230,12 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoomRoomNumber" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="BookingDetailsId" Type="Int64" Nullable="false" />
+          <Property Name="BookingDetailsId" Type="Int64" />
           <Property Name="BookingStartDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="BookingEndDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Amount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
-          <NavigationProperty Name="BookingDetail" Relationship="Self.FK_RoomBooking_BookingDetails" FromRole="RoomBooking" ToRole="BookingDetails" />
           <NavigationProperty Name="Room" Relationship="Self.FK_RoomBooking_Room" FromRole="RoomBooking" ToRole="Room" />
+          <NavigationProperty Name="BookingDetail" Relationship="PrantikModel.FK_RoomBooking_BookingDetails" FromRole="RoomBooking" ToRole="BookingDetail" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -271,18 +270,6 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="OrderDetails">
-              <PropertyRef Name="BookingDetailsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RoomBooking_BookingDetails">
-          <End Role="BookingDetails" Type="Self.BookingDetail" Multiplicity="1" />
-          <End Role="RoomBooking" Type="Self.RoomBooking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BookingDetails">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RoomBooking">
               <PropertyRef Name="BookingDetailsId" />
             </Dependent>
           </ReferentialConstraint>
@@ -339,10 +326,6 @@
             <End Role="BookingDetails" EntitySet="BookingDetails" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_RoomBooking_BookingDetails" Association="Self.FK_RoomBooking_BookingDetails">
-            <End Role="BookingDetails" EntitySet="BookingDetails" />
-            <End Role="RoomBooking" EntitySet="RoomBookings" />
-          </AssociationSet>
           <AssociationSet Name="FK_BookingDetailsUser_User" Association="Self.FK_BookingDetailsUser_User">
             <End Role="User" EntitySet="Users" />
             <End Role="BookingDetailsUser" EntitySet="BookingDetailsUsers" />
@@ -355,7 +338,23 @@
             <End Role="Room" EntitySet="Rooms" />
             <End Role="RoomBooking" EntitySet="RoomBookings" />
           </AssociationSet>
+          <AssociationSet Name="FK_RoomBooking_BookingDetails" Association="PrantikModel.FK_RoomBooking_BookingDetails">
+            <End Role="BookingDetail" EntitySet="BookingDetails" />
+            <End Role="RoomBooking" EntitySet="RoomBookings" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_RoomBooking_BookingDetails">
+          <End Type="PrantikModel.BookingDetail" Role="BookingDetail" Multiplicity="0..1" />
+          <End Type="PrantikModel.RoomBooking" Role="RoomBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoomBooking">
+              <PropertyRef Name="BookingDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

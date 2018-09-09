@@ -9,7 +9,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let roomBooking of roomBookings">
-                <td>{{roomBooking.roomNumber}}</td>
+                <td>{{roomBooking.roomRoomNumber}}</td>
                 <td>{{roomBooking.bookingStartDate}}</td>
                 <td>{{roomBooking.bookingEndDate}}</td>
                 <td>{{roomBooking.amount}}</td>    
@@ -18,7 +18,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>500</td>
+                <td>{{totalAmount}}</td>
             </tr>
         </tbody>
     </table>

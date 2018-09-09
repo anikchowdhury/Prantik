@@ -14,10 +14,10 @@
         <EntityTypeShape EntityType="PrantikModel.User" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
         <AssociationConnector Association="PrantikModel.FK_BookingDetailsUser_BookingDetails" ManuallyRouted="false" />
         <AssociationConnector Association="PrantikModel.FK_OrderDetails_BookingDetails" ManuallyRouted="false" />
-        <AssociationConnector Association="PrantikModel.FK_RoomBooking_BookingDetails" ManuallyRouted="false" />
         <AssociationConnector Association="PrantikModel.FK_BookingDetailsUser_User" ManuallyRouted="false" />
         <AssociationConnector Association="PrantikModel.FK_OrderDetails_Menu" ManuallyRouted="false" />
         <AssociationConnector Association="PrantikModel.FK_RoomBooking_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="PrantikModel.FK_RoomBooking_BookingDetails" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
