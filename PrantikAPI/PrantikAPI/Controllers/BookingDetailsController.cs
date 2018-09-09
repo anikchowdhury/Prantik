@@ -73,12 +73,12 @@ namespace PrantikAPI.Controllers
 
         // POST: api/BookingDetails
         [ResponseType(typeof(BookingDetail))]
-        public async Task<IHttpActionResult> PostBookingDetail(BookingDetail bookingDetail)
+        public async Task<IHttpActionResult> PostBookingDetail()
         {
-            if (!ModelState.IsValid)
+            var bookingDetail = new BookingDetail()
             {
-                return BadRequest(ModelState);
-            }
+                BookingCode = $"PR/{DateTime.Now.ToString("yyyyMMdd")}/{DateTime.Now.ToString("HHmm")}"
+            };
 
             db.BookingDetails.Add(bookingDetail);
             await db.SaveChangesAsync();

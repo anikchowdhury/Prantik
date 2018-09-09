@@ -11,10 +11,14 @@ export class RoomBookingService {
     }
 
     public GetAllBookedRooms(): Observable<object> {
-       return this.httpClient.get('http://localhost:58335/api/RoomBookings');      
+        return this.httpClient.get('http://localhost:58335/api/RoomBookings');
     }
 
     public PostRoomBookings(roomBooking: RoomBookingModel): Observable<RoomBookingModel> {
         return this.httpClient.post<RoomBookingModel>(PostRoomBookingEndpointContsant, roomBooking);
+    }
+
+    public PutRoomBookings(roomBooking: RoomBookingModel): Observable<void> {
+        return this.httpClient.put<void>(PostRoomBookingEndpointContsant + '/' + roomBooking.id, roomBooking);
     }
 }

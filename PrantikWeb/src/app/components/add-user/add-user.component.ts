@@ -37,7 +37,8 @@ export class AddUserComponent implements OnInit {
           comingFrom: response.comingFrom,
           goingTo: response.goingTo,
           phoneNumber: response.phoneNumber,
-          age: response.age
+          age: response.age,
+          id: response.id
         });
       },
         (err) => {
