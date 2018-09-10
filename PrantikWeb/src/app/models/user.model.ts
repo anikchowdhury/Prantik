@@ -4,7 +4,7 @@ export class UserModel {
     address?: string;
     age?: number;
     idCardNo?: string;
-    fatherName?: string;
+    relativeName?: string;
     profession?: string;
     comingFrom?: string;
     goingTo?: string;

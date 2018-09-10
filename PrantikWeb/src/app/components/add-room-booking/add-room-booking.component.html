@@ -1,24 +1,27 @@
 <form (ngSubmit)="addRoomBookingSubmit()" #addRoomForm="ngForm">
   <div class="row">
    
-    <div class="col-12 col-md-3">
+    <div class="col-12 col-md-6">
+      <label for="roomBookingModel.id">Id Card Number</label>
+      <input type="number" class="form-control" id="roomBookingModel.id" [(ngModel)]="roomBookingModel.id" name="roomBookingModel.id" required>
+    </div>
+   <div class="col-12 col-md-6">
       <label for="roomBookingModel.roomRoomNumber">Room Number</label>
         <select type="number" class="form-control" id="roomBookingModel.roomRoomNumber" [(ngModel)]="roomBookingModel.roomRoomNumber" name="roomBookingModel.roomRoomNumber" required>
             <option *ngFor="let room of roomNumbersList" [ngValue]="room">{{room}}</option>
         </select>
     </div>
-   
-    <div class="col-12 col-md-3">
+    <div class="col-12 col-md-4">
       <label for="roomBookingModel.bookingStartDate">Booking Start Date</label>
-      <input type="date" class="form-control" id="roomBookingModel.bookingStartDate" [(ngModel)]="roomBookingModel.bookingStartDate" name="roomBookingModel.bookingStartDate"
-        required>
+      <input type="date" class="form-control" min="{{today}}" id="roomBookingModel.bookingStartDate" [(ngModel)]="roomBookingModel.bookingStartDate" name="roomBookingModel.bookingStartDate" (change)="dateRange()"
+        required> 
     </div>
-    <div class="col-12 col-md-3">
+    <div class="col-12 col-md-4">
       <label for="roomBookingModel.bookingEndDate">Booking End Date</label>
-      <input type="date" class="form-control" id="roomBookingModel.bookingEndDate" [(ngModel)]="roomBookingModel.bookingEndDate" name="roomBookingModel.bookingEndDate"
+      <input type="date" class="form-control" min="{{startDate}}" id="roomBookingModel.bookingEndDate" [(ngModel)]="roomBookingModel.bookingEndDate" name="roomBookingModel.bookingEndDate"
         required>
     </div>
-    <div class="col-12 col-md-3">
+    <div class="col-12 col-md-4">
       <label for="roomBookingModel.amount">Amount</label>
       <input type="number" class="form-control" id="roomBookingModel.amount" [(ngModel)]="roomBookingModel.amount" name="roomBookingModel.amount" required>
     </div>

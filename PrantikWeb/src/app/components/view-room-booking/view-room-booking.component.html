@@ -1,6 +1,7 @@
 <table class="table">
         <thead>
             <tr>
+                <th scope="col">Id</th>
                 <th scope="col">Room Number</th>
                 <th scope="col">Booking Start Date</th>
                 <th scope="col">Booking End Date</th>
@@ -9,6 +10,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let roomBooking of roomBookings">
+                <td>{{roomBooking.id}}</td>
                 <td>{{roomBooking.roomRoomNumber}}</td>
                 <td>{{roomBooking.bookingStartDate}}</td>
                 <td>{{roomBooking.bookingEndDate}}</td>
