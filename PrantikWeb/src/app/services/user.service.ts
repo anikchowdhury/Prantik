@@ -11,7 +11,7 @@ export class UserService {
     }
 
     public GetAllUsers(): Observable<UserModel[]> {
-       return this.httpClient.get<UserModel[]>('http://localhost:58335/api/Users');      
+       return this.httpClient.get<UserModel[]>(PostUserEndpointContsant);      
     }
 
     public PostUser(user: UserModel): Observable<UserModel> {
