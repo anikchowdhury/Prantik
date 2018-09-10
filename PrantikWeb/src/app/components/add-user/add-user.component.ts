@@ -16,12 +16,15 @@ export class AddUserComponent implements OnInit {
   user: UserModel;
   constructor(private modalService: NgbModal, private userService: UserService) {
     this.user = {
-      name: '',
-      address: '',
-      comingFrom: '',
-      goingTo: '',
-      phoneNumber: '',
-      age: 0
+        name: '',
+        address: '',
+        age: 0,
+        idCardNo: '',
+        relativeName: '',
+        profession: '',
+        comingFrom: '',
+        goingTo: '',
+        phoneNumber: ''
     };
   }
 
@@ -32,12 +35,15 @@ export class AddUserComponent implements OnInit {
     this.userService.PostUser(this.user)
       .subscribe((response: UserModel) => {
         this.userAddedSuccesfully.emit({
-          name: response.name,
-          address: response.address,
-          comingFrom: response.comingFrom,
-          goingTo: response.goingTo,
-          phoneNumber: response.phoneNumber,
-          age: response.age
+            name: response.name,
+            address: response.address,
+            age: response.age,
+            idCardNo: response.idCardNo,
+            relativeName: response.relativeName,
+            profession: response.profession,
+            comingFrom: response.comingFrom,
+            goingTo: response.goingTo,
+            phoneNumber: response.phoneNumber
         });
       },
         (err) => {

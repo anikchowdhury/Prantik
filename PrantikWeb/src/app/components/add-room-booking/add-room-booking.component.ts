@@ -16,16 +16,15 @@ export class AddRoomBookingComponent implements OnInit {
 
   @Output() roomAddedSuccesfully: EventEmitter<RoomBookingModel> = new EventEmitter();
   roomBookingModel: RoomBookingModel;
-  roomNumbersList: number[] = new Array();
-
+  roomNumbersList: number[] = new Array(); 
+    today = <string>(new Date());
+  startDate = <string>(new Date());
 
   constructor(private modalService: NgbModal, private roomBookingService: RoomBookingService) {
     this.roomBookingModel = {
-      
       roomRoomNumber: 0,
       bookingStartDate: '',
-      bookingEndDate: '',
-      amount: 0
+      bookingEndDate: ''
     };
     this.roomNumbersList = [101, 102, 103, 104, 105, 106, 107, 108, 109,
       201, 202, 203, 204, 205, 206, 207, 208, 209,
@@ -35,6 +34,11 @@ export class AddRoomBookingComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+    
+  dateRange(){
+      this.roomBookingModel.bookingEndDate=this.roomBookingModel.bookingStartDate;
+      this.startDate = this.roomBookingModel.bookingStartDate;
   }
 
   addRoomBookingSubmit() {
