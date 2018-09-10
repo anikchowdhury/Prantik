@@ -15,10 +15,12 @@ import { BillingDashboardComponent } from './components/billing-dashboard/billin
 import { ViewUserComponent } from './components/view-user/view-user.component';
 import { AddRoomBookingComponent } from './components/add-room-booking/add-room-booking.component';
 import { ViewRoomBookingComponent } from './components/view-room-booking/view-room-booking.component';
+import { PrintRoomBillComponent } from './components/room-bill-print/room-bill-print.component';
 
 const appRoutes: Routes = [
    { path: 'dashboard', component: DashboardComponent },
-   { path: 'billing', component: BillingDashboardComponent },  
+   { path: 'billing', component: BillingDashboardComponent },
+   { path: 'printRoomBill', component: PrintRoomBillComponent },
   // {
   //   path: 'heroes',
   //   component: HeroListComponent,
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
     AddUserComponent,    
     ViewUserComponent,
     AddRoomBookingComponent,
-    ViewRoomBookingComponent
+    ViewRoomBookingComponent,
+    PrintRoomBillComponent
   ],
   imports: [
     BrowserModule,

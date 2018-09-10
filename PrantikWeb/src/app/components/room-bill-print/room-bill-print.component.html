@@ -1,30 +1,47 @@
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="row">
+  <div class="col-12">
+    <h1>Prantik Hotel And Resorts</h1>
+  </div>
+  <div class="col-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let i = index;">
+          <td>{{i+1}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.address}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Room Number</th>
+          <th>Arrival Date</th>
+          <th>Depurture Date</th>
+          <th>Rent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let roomBooking of roomBookings; let i = index;">
+          <td>{{i+1}}</td>
+          <td>{{roomBooking.roomRoomNumber}}</td>
+          <td>{{roomBooking.bookingStartDate}}</td>
+          <td>{{roomBooking.bookingEndDate}}</td>
+          <td class="text-right">{{roomBooking.amount}}</td>
+        </tr>
+        <tr>
+          <td class="text-right font-weight-bold" colspan="4">Total</td>
+          <td class="text-right font-weight-bold">{{totalAmount}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

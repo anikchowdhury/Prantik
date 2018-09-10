@@ -10,8 +10,8 @@ export class RoomBookingService {
 
     }
 
-    public GetAllBookedRooms(): Observable<object> {
-        return this.httpClient.get('http://localhost:58335/api/RoomBookings');
+    public GetAllRoomBookings(): Observable<RoomBookingModel[]> {
+        return this.httpClient.get<RoomBookingModel[]>(PostRoomBookingEndpointContsant);
     }
 
     public PostRoomBookings(roomBooking: RoomBookingModel): Observable<RoomBookingModel> {
