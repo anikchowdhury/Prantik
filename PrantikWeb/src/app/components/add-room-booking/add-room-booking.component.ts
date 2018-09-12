@@ -17,8 +17,8 @@ export class AddRoomBookingComponent implements OnInit {
   @Output() roomAddedSuccesfully: EventEmitter<RoomBookingModel> = new EventEmitter();
   roomBookingModel: RoomBookingModel;
   roomNumbersList: number[] = new Array(); 
-    today = <string>(new Date());
-  startDate = <string>(new Date());
+    today : any;
+  startDate : any;
 
   constructor(private modalService: NgbModal, private roomBookingService: RoomBookingService) {
     this.roomBookingModel = {
