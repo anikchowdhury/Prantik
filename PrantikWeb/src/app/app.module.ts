@@ -4,9 +4,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule }   from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpInterceptorProviders } from './http-interceptors/index';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 import { AppComponent } from './app.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
@@ -51,6 +53,8 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     FormsModule,
     NgbModule,
+    FontAwesomeModule,
+    NgxQRCodeModule,
     RouterModule.forRoot(
       appRoutes//,
       //{ enableTracing: true } // <-- debugging purposes only

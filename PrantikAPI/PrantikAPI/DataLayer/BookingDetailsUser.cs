@@ -17,6 +17,7 @@ namespace PrantikAPI.DataLayer
         public long Id { get; set; }
         public long BookingDetailsId { get; set; }
         public long UserId { get; set; }
+        public bool IsPrimary { get; set; }
     
         public virtual BookingDetail BookingDetail { get; set; }
         public virtual User User { get; set; }

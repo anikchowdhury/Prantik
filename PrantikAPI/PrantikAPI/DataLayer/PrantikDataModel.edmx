@@ -19,6 +19,7 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BookingDetailsId" Type="bigint" Nullable="false" />
           <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="IsPrimary" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -198,6 +199,7 @@
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="BookingDetail" Relationship="Self.FK_BookingDetailsUser_BookingDetails" FromRole="BookingDetailsUser" ToRole="BookingDetails" />
           <NavigationProperty Name="User" Relationship="Self.FK_BookingDetailsUser_User" FromRole="BookingDetailsUser" ToRole="User" />
+          <Property Name="IsPrimary" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -378,6 +380,7 @@
           <EntitySetMapping Name="BookingDetailsUsers">
             <EntityTypeMapping TypeName="PrantikModel.BookingDetailsUser">
               <MappingFragment StoreEntitySet="BookingDetailsUser">
+                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="BookingDetailsId" ColumnName="BookingDetailsId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />

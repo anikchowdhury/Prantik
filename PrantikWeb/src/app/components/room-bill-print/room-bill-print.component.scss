@@ -1,0 +1,17 @@
+.qr-size-class {
+    text-align: center;
+    img {
+        height: 50px;
+    }
+    padding: 0px;
+}
+/* .table-bordered {
+    border-color: black;
+    tr, td, th, thead {
+        border-color: black;
+    }
+} */
+
+.table thead th {
+    border-color: black;
+}

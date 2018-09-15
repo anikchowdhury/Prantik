@@ -1,26 +1,79 @@
 <div class="row">
   <div class="col-12">
-    <h1>Prantik Hotel And Resorts</h1>
-  </div>
-  <div class="col-12">
-    <table class="table table-bordered">
+    <div class="row">
+      <div class="col-3 text-left">
+        <div class="row">
+          <div class="col-12"><strong>Kolkata Booking:</strong></div>
+        </div>
+        <div class="row">
+          <div class="col-12">36/6 Nimchand Maitra Street</div>
+        </div>
+        <div class="row">
+          <div class="col-12">Kolkata - 700035</div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <fa-icon [icon]="faPhone"></fa-icon> 9830386745
+          </div>
+        </div>
+      </div>
+      <div class="col-7 text-center">
+        <div class="row">
+          <h1 class="col-12">Prantik Hotel And Resorts</h1>
+        </div>
+        <div class="row">
+          <div class="col-12">31, Mini Holiday Home Sector, New Digha, Purba Midnapur</div>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="row">
+          <div class="col-3">
+            <fa-icon [icon]="faPhone"></fa-icon>
+          </div>
+          <div class="col-9 pl-0 text-right"> 9062572195</div>
+          <div class="col-3">
+            <fa-icon [icon]="faHome"></fa-icon>
+          </div>
+          <div class="col-9 pl-0 text-right"> 03220-266541</div>
+        </div>
+      </div>
+    </div>
+
+    <table class="table">
       <thead>
         <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Address</th>
+          <th colspan="1">Bill Date &amp; Time:<span class="font-weight-normal"> {{billingDate}}</span></th>
+          <th colspan="3" class="text-center">Bill #PR/20180910/0125</th>
+          <th colspan="1" class="p-1">
+            <ngx-qrcode qrc-class="qr-size-class" [qrc-element-type]="elementType" [qrc-value]="value">
+            </ngx-qrcode>
+          </th>
         </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users; let i = index;">
-          <td>{{i+1}}</td>
-          <td>{{user.name}}</td>
-          <td>{{user.address}}</td>
+        <tr>
+          <th colspan="5">
+            <div class="row">
+              <div class="col-1">
+                <div class="row">
+                  <div class="col-12">Name: </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">Address: </div>
+                </div>
+              </div>
+              <div class="col-9">
+                <div class="row">
+                  <div class="col-12 font-weight-normal">Anik Chowdhury</div>
+                </div>
+                <div class="row">
+                  <div class="col-12 font-weight-normal">36/6 Nimchand Moitra Street, Kolkata - 700035</div>
+                </div>
+              </div>
+              <div class="col-2 text-right">
+                <fa-icon [icon]="faPhone"></fa-icon><span class="font-weight-normal"> 9830386745</span>
+              </div>
+            </div>
+          </th>
         </tr>
-      </tbody>
-    </table>
-    <table class="table table-bordered">
-      <thead>
         <tr>
           <th>#</th>
           <th>Room Number</th>
@@ -37,11 +90,17 @@
           <td>{{roomBooking.bookingEndDate}}</td>
           <td class="text-right">{{roomBooking.amount}}</td>
         </tr>
+      </tbody>
+      <tfoot>
         <tr>
           <td class="text-right font-weight-bold" colspan="4">Total</td>
           <td class="text-right font-weight-bold">{{totalAmount}}</td>
         </tr>
-      </tbody>
+        <tr></tr>
+        <tr>
+          <td colspan="5" class="text-right font-weight-bold pt-5">Signature &amp; Stamp</td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 </div>

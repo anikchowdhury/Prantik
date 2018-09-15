@@ -1,12 +1,3 @@
-<div class="row" *ngIf="!newBooking">
-  <div class="col-10">
-    <input class="form-control" type="text" [(ngModel)]="searchBooking">
-  </div>
-  <div class="col-2">
-    <button type="button" class="btn btn-outline-primary">New Booking</button>
-  </div>
-</div>
-
 <div class="row">
   <div class="col-12">
     <app-view-user [users]="users"></app-view-user>
