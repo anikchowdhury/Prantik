@@ -11,7 +11,6 @@ export class BookingDetailsUserService {
     }
 
     public PostRoomBookings(bookingDetailsUserModel: BookingDetailsUserModel): Observable<BookingDetailsUserModel> {
-        console.log(bookingDetailsUserModel);
         return this.httpClient.post<BookingDetailsUserModel>(PostBookingDetailsUsersEndpointContsant, bookingDetailsUserModel);
     }
 }

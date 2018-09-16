@@ -12,7 +12,6 @@ export class BookingDetailsService {
     }
 
     public PostRoomBookings(): Observable<BookingDetailsModel> {
-        console.log(PostBookingDetailsEndpointContsant);
         return this.httpClient.post<BookingDetailsModel>(PostBookingDetailsEndpointContsant, null);
     }
 }

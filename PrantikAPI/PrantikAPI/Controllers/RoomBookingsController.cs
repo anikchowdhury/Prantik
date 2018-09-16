@@ -10,29 +10,32 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PrantikAPI.DataLayer;
+using PrantikAPI.Models;
+using PrantikAPI.ProviderLayer;
 
 namespace PrantikAPI.Controllers
 {
     public class RoomBookingsController : ApiController
     {
         private PrantikEntities db = new PrantikEntities();
+        private RoomBookingProvider _providerLayer = new RoomBookingProvider();
 
         // GET: api/RoomBookings
-        public IQueryable<RoomBooking> GetRoomBookings()
+        public async Task<IEnumerable<RoomBookingModel>> GetRoomBookings()
         {
-            return db.RoomBookings;
+            return await _providerLayer.GetRoomBookings();
         }
 
         // GET: api/RoomBookings/5
-        [ResponseType(typeof(RoomBooking))]
+        [ResponseType(typeof(RoomBookingModel))]
         public async Task<IHttpActionResult> GetRoomBooking(long id)
         {
-            RoomBooking roomBooking = await db.RoomBookings.FindAsync(id);
+            RoomBookingModel roomBooking = await _providerLayer.GetRoomBookingFromId(id);
+
             if (roomBooking == null)
             {
                 return NotFound();
             }
-
             return Ok(roomBooking);
         }
 

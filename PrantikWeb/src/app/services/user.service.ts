@@ -17,4 +17,8 @@ export class UserService {
     public PostUser(user: UserModel): Observable<UserModel> {
         return this.httpClient.post<UserModel>(PostUserEndpointContsant, user);
     }
+
+    public PutUser(user: UserModel): Observable<void> {
+        return this.httpClient.put<void>(PostUserEndpointContsant + '/' + user.id, user);
+    }
 }

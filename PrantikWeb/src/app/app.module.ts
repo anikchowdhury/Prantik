@@ -18,6 +18,8 @@ import { ViewUserComponent } from './components/view-user/view-user.component';
 import { AddRoomBookingComponent } from './components/add-room-booking/add-room-booking.component';
 import { ViewRoomBookingComponent } from './components/view-room-booking/view-room-booking.component';
 import { PrintRoomBillComponent } from './components/room-bill-print/room-bill-print.component';
+import { AddPaymentComponent } from './components/add-payment/add-payment-component';
+
 
 const appRoutes: Routes = [
    { path: 'dashboard', component: DashboardComponent },
@@ -45,7 +47,8 @@ const appRoutes: Routes = [
     ViewUserComponent,
     AddRoomBookingComponent,
     ViewRoomBookingComponent,
-    PrintRoomBillComponent
+    PrintRoomBillComponent,
+    AddPaymentComponent
   ],
   imports: [
     BrowserModule,

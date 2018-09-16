@@ -219,7 +219,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\PaymentModel.cs" />
+    <Compile Include="Models\RoomBookingModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProviderLayer\PaymentModeProvider.cs" />
+    <Compile Include="ProviderLayer\RoomBookingProvider.cs" />
+    <Compile Include="ProviderLayer\UserProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataLayer\PrantikDataModel.Context.tt">
@@ -249,7 +255,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="DataLayer\PrantikDataModel.edmx">

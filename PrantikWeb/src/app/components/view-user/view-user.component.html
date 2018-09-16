@@ -24,7 +24,9 @@
             <td>{{user.idCardNo}}</td>
             <td>{{user.comingFrom}}</td>
             <td>{{user.goingTo}}</td>
-            <td>{{user.profession}}</td>            
+            <td>{{user.profession}}</td>
+            <td (click)="notifyEdit(user)"><fa-icon [icon]="faEdit"></fa-icon></td>           
+            <td (click)="notifyDelete(user)"><fa-icon [icon]="faTrashAlt"></fa-icon></td>
         </tr>
     </tbody>
 </table>

@@ -10,24 +10,27 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PrantikAPI.DataLayer;
+using PrantikAPI.Models;
+using PrantikAPI.ProviderLayer;
 
 namespace PrantikAPI.Controllers
 {
     public class UsersController : ApiController
     {
         private PrantikEntities db = new PrantikEntities();
+        private UserProvider _provider = new UserProvider();
 
         // GET: api/Users
-        public IQueryable<User> GetUsers()
+        public Task<IEnumerable<UserModel>> GetUsers()
         {
-            return db.Users;
+            return _provider.GetUsers();
         }
 
         // GET: api/Users/5
-        [ResponseType(typeof(User))]
+        [ResponseType(typeof(UserModel))]
         public async Task<IHttpActionResult> GetUser(long id)
         {
-            User user = await db.Users.FindAsync(id);
+            UserModel user = await _provider.GetUserById(id);
             if (user == null)
             {
                 return NotFound();

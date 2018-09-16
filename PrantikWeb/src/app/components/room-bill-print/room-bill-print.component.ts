@@ -36,7 +36,6 @@ export class PrintRoomBillComponent implements OnInit {
     ngOnInit() {
         this.userService.GetAllUsers()
         .subscribe((response: UserModel[]) => {
-            console.log(response);
             this.users = response;
         },
         (err) => {
@@ -44,12 +43,10 @@ export class PrintRoomBillComponent implements OnInit {
         });
         this.roomBookingService.GetAllRoomBookings()
         .subscribe((response: RoomBookingModel[]) => {
-            console.log(response);
             this.roomBookings = response;
             this.roomBookings.forEach((value) => {
                 this.totalAmount += value.amount;
             });
-            console.log(this.roomBookings[0]);
             this.value = this.roomBookings[0].bookingEndDate;
         },
         (err) => {

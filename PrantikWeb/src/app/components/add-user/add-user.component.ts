@@ -1,8 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { UserModel } from '../../models/user.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../services/user.service';
-import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-user',
@@ -11,30 +10,20 @@ import { HttpResponse } from '@angular/common/http';
   providers: [UserService]
 })
 export class AddUserComponent implements OnInit {
-  @Output() userAddedSuccesfully: EventEmitter<UserModel> = new EventEmitter();
+  @Output() userOperationSuccess: EventEmitter<UserModel> = new EventEmitter();
 
-  user: UserModel;
+  @Input() user: UserModel;
   constructor(private modalService: NgbModal, private userService: UserService) {
-    this.user = {
-        name: '',
-        address: '',
-        age: 0,
-        idCardNo: '',
-        relativeName: '',
-        profession: '',
-        comingFrom: '',
-        goingTo: '',
-        phoneNumber: ''
-    };
   }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    this.userService.PostUser(this.user)
-      .subscribe((response: UserModel) => {
-        this.userAddedSuccesfully.emit({
+    if (this.user.id == 0)
+      this.userService.PostUser(this.user)
+        .subscribe((response: UserModel) => {
+          this.userOperationSuccess.emit({
             name: response.name,
             address: response.address,
             age: response.age,
@@ -43,12 +32,21 @@ export class AddUserComponent implements OnInit {
             profession: response.profession,
             comingFrom: response.comingFrom,
             goingTo: response.goingTo,
-            phoneNumber: response.phoneNumber
-        });
-      },
-        (err) => {
-          console.log(err);
-        });
+            phoneNumber: response.phoneNumber,
+            id: response.id
+          });
+        },
+          (err) => {
+            console.log(err);
+          });
+    else
+      this.userService.PutUser(this.user)
+        .subscribe((response: void) => {
+          this.userOperationSuccess.emit(this.user);
+        },
+          (err) => {
+            console.log(err);
+          });
   }
 
   closeResult: string;

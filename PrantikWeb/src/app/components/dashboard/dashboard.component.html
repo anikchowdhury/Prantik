@@ -1,13 +1,4 @@
 <div class="row">
-  <div class="col-10">    
-    <input class="form-control" type="text" [(ngModel)]="searchBookingModel" (selectItem)="selectBooking($event)"
-      [class.is-invalid]="searchFailed" [ngbTypeahead]="searchBookingFn" [resultFormatter]="bookingSearchFormatter" [inputFormatter]="bookingSearchFormatter">
-  </div>
-  <div class="col-2">
-    <button type="button" class="btn btn-outline-primary">Search</button>
-  </div>
-</div>
-<!-- <div class="row">
   <div class="col-6">
     <a [routerLink]="['/billing']" [queryParams]="{ myVal: myValParam, myAnotherVal: 'Hi' }">
       <div class="card">
@@ -17,4 +8,13 @@
       </div>
     </a>
   </div>
-</div>-->
+</div>
+<div class="row mt-2">
+  <div class="col-10">    
+    <input class="form-control" type="text" [(ngModel)]="searchBookingModel" (selectItem)="selectBooking($event)"
+      [class.is-invalid]="searchFailed" [ngbTypeahead]="searchBookingFn" [resultFormatter]="bookingSearchFormatter" [inputFormatter]="bookingSearchFormatter">
+  </div>
+  <div class="col-2">
+    <button type="button" class="btn btn-outline-primary">Search</button>
+  </div>
+</div>

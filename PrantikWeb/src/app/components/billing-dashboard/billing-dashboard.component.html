@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-12">
-    <app-view-user [users]="users"></app-view-user>
+    <app-view-user [users]="users" (editButtonClicked)="editUser($event)" (deleteButtonClicked)="deleteUser($event)"></app-view-user>
   </div>
   <div class="col-12">
-    <button type="button" class="btn btn-lg btn-outline-primary" (click)="open(addUserContent)">Add User</button>
+    <button type="button" class="btn btn-lg btn-outline-primary" (click)="open(userOperationContent)">Add User</button>
   </div>
 </div>
 
@@ -20,7 +20,7 @@
   <button type="button" class="float-right" (click)="createBooking()">Submit</button>
 </div>
 
-<ng-template #addUserContent let-c="close" let-d="dismiss">
+<ng-template #userOperationContent let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -28,7 +28,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-add-user (userAddedSuccesfully)="displayAddedUser($event)"></app-add-user>
+    <app-add-user [user]="newUser" (userOperationSuccess)="displayAddedUser($event)"></app-add-user>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>

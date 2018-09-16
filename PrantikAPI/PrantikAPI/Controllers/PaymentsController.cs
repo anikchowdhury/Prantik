@@ -10,24 +10,27 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PrantikAPI.DataLayer;
+using PrantikAPI.Models;
+using PrantikAPI.ProviderLayer;
 
 namespace PrantikAPI.Controllers
 {
     public class PaymentsController : ApiController
     {
         private PrantikEntities db = new PrantikEntities();
+        private PaymentModeProvider _provider = new PaymentModeProvider();
 
         // GET: api/Payments
-        public IQueryable<Payment> GetPayments()
+        public async Task<IEnumerable<PaymentModel>> GetPayments()
         {
-            return db.Payments;
+            return await _provider.GetPayments();
         }
 
         // GET: api/Payments/5
-        [ResponseType(typeof(Payment))]
+        [ResponseType(typeof(PaymentModel))]
         public async Task<IHttpActionResult> GetPayment(long id)
         {
-            Payment payment = await db.Payments.FindAsync(id);
+            PaymentModel payment = await _provider.GetPaymentFromId(id);
             if (payment == null)
             {
                 return NotFound();
