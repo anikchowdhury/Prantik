@@ -32,5 +32,7 @@ namespace PrantikAPI.DataLayer
         public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<RoomBooking> RoomBookings { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<MasterPaymentMode> MasterPaymentModes { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
     }
 }

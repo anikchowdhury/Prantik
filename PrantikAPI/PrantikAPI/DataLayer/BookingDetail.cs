@@ -20,6 +20,7 @@ namespace PrantikAPI.DataLayer
             this.BookingDetailsUsers = new HashSet<BookingDetailsUser>();
             this.OrderDetails = new HashSet<OrderDetail>();
             this.RoomBookings = new HashSet<RoomBooking>();
+            this.Payments = new HashSet<Payment>();
         }
     
         public long Id { get; set; }
@@ -31,5 +32,7 @@ namespace PrantikAPI.DataLayer
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RoomBooking> RoomBookings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Payment> Payments { get; set; }
     }
 }

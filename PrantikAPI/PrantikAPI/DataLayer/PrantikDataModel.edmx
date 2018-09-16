@@ -21,6 +21,13 @@
           <Property Name="UserId" Type="bigint" Nullable="false" />
           <Property Name="IsPrimary" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="MasterPaymentMode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentModeName" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="Menu">
           <Key>
             <PropertyRef Name="Id" />
@@ -38,6 +45,16 @@
           <Property Name="Quantity" Type="smallint" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
           <Property Name="OrderDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PaymentModeId" Type="smallint" Nullable="false" />
+          <Property Name="AdditionalDetails" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BookingDetailsId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
@@ -119,6 +136,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Payment_BookingDetails">
+          <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="BookingDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_MasterPaymentMode">
+          <End Role="MasterPaymentMode" Type="Self.MasterPaymentMode" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterPaymentMode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PaymentModeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RoomBooking_BookingDetails">
           <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="0..1" />
           <End Role="RoomBooking" Type="Self.RoomBooking" Multiplicity="*" />
@@ -146,8 +187,10 @@
         <EntityContainer Name="PrantikModelStoreContainer">
           <EntitySet Name="BookingDetails" EntityType="Self.BookingDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookingDetailsUser" EntityType="Self.BookingDetailsUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterPaymentMode" EntityType="Self.MasterPaymentMode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoomBooking" EntityType="Self.RoomBooking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -166,6 +209,14 @@
           <AssociationSet Name="FK_OrderDetails_Menu" Association="Self.FK_OrderDetails_Menu">
             <End Role="Menu" EntitySet="Menu" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_BookingDetails" Association="Self.FK_Payment_BookingDetails">
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_MasterPaymentMode" Association="Self.FK_Payment_MasterPaymentMode">
+            <End Role="MasterPaymentMode" EntitySet="MasterPaymentMode" />
+            <End Role="Payment" EntitySet="Payment" />
           </AssociationSet>
           <AssociationSet Name="FK_RoomBooking_BookingDetails" Association="Self.FK_RoomBooking_BookingDetails">
             <End Role="BookingDetails" EntitySet="BookingDetails" />
@@ -189,6 +240,7 @@
           <NavigationProperty Name="BookingDetailsUsers" Relationship="Self.FK_BookingDetailsUser_BookingDetails" FromRole="BookingDetails" ToRole="BookingDetailsUser" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_BookingDetails" FromRole="BookingDetails" ToRole="OrderDetails" />
           <NavigationProperty Name="RoomBookings" Relationship="PrantikModel.FK_RoomBooking_BookingDetails" FromRole="BookingDetail" ToRole="RoomBooking" />
+          <NavigationProperty Name="Payments" Relationship="PrantikModel.FK_Payment_BookingDetails" FromRole="BookingDetail" ToRole="Payment" />
         </EntityType>
         <EntityType Name="BookingDetailsUser">
           <Key>
@@ -350,6 +402,16 @@
             <End Role="BookingDetail" EntitySet="BookingDetails" />
             <End Role="RoomBooking" EntitySet="RoomBookings" />
           </AssociationSet>
+          <EntitySet Name="MasterPaymentModes" EntityType="PrantikModel.MasterPaymentMode" />
+          <EntitySet Name="Payments" EntityType="PrantikModel.Payment" />
+          <AssociationSet Name="FK_Payment_BookingDetails" Association="PrantikModel.FK_Payment_BookingDetails">
+            <End Role="BookingDetail" EntitySet="BookingDetails" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_MasterPaymentMode" Association="PrantikModel.FK_Payment_MasterPaymentMode">
+            <End Role="MasterPaymentMode" EntitySet="MasterPaymentModes" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_RoomBooking_BookingDetails">
           <End Type="PrantikModel.BookingDetail" Role="BookingDetail" Multiplicity="0..1" />
@@ -360,6 +422,50 @@
             </Principal>
             <Dependent Role="RoomBooking">
               <PropertyRef Name="BookingDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MasterPaymentMode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentModeName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Payments" Relationship="PrantikModel.FK_Payment_MasterPaymentMode" FromRole="MasterPaymentMode" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PaymentModeId" Type="Int16" Nullable="false" />
+          <Property Name="AdditionalDetails" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BookingDetailsId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="BookingDetail" Relationship="PrantikModel.FK_Payment_BookingDetails" FromRole="Payment" ToRole="BookingDetail" />
+          <NavigationProperty Name="MasterPaymentMode" Relationship="PrantikModel.FK_Payment_MasterPaymentMode" FromRole="Payment" ToRole="MasterPaymentMode" />
+        </EntityType>
+        <Association Name="FK_Payment_BookingDetails">
+          <End Type="PrantikModel.BookingDetail" Role="BookingDetail" Multiplicity="1" />
+          <End Type="PrantikModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="BookingDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_MasterPaymentMode">
+          <End Type="PrantikModel.MasterPaymentMode" Role="MasterPaymentMode" Multiplicity="1" />
+          <End Type="PrantikModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterPaymentMode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PaymentModeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -439,6 +545,25 @@
                 <ScalarProperty Name="GoingTo" ColumnName="GoingTo" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Age" ColumnName="Age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterPaymentModes">
+            <EntityTypeMapping TypeName="PrantikModel.MasterPaymentMode">
+              <MappingFragment StoreEntitySet="MasterPaymentMode">
+                <ScalarProperty Name="PaymentModeName" ColumnName="PaymentModeName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="PrantikModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="BookingDetailsId" ColumnName="BookingDetailsId" />
+                <ScalarProperty Name="AdditionalDetails" ColumnName="AdditionalDetails" />
+                <ScalarProperty Name="PaymentModeId" ColumnName="PaymentModeId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

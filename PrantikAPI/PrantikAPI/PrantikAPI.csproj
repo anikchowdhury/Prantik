@@ -169,6 +169,7 @@
     <Compile Include="Controllers\BookingDetailsUsersController.cs" />
     <Compile Include="Controllers\MenusController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\RoomBookingsController.cs" />
     <Compile Include="Controllers\RoomsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -179,10 +180,16 @@
     <Compile Include="DataLayer\BookingDetailsUser.cs">
       <DependentUpon>PrantikDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataLayer\MasterPaymentMode.cs">
+      <DependentUpon>PrantikDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataLayer\Menu.cs">
       <DependentUpon>PrantikDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\OrderDetail.cs">
+      <DependentUpon>PrantikDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataLayer\Payment.cs">
       <DependentUpon>PrantikDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\PrantikDataModel.Context.cs">
