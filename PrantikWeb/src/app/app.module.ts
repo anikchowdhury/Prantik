@@ -19,12 +19,14 @@ import { AddRoomBookingComponent } from './components/add-room-booking/add-room-
 import { ViewRoomBookingComponent } from './components/view-room-booking/view-room-booking.component';
 import { PrintRoomBillComponent } from './components/room-bill-print/room-bill-print.component';
 import { AddPaymentComponent } from './components/add-payment/add-payment-component';
+import { SearchResult } from './components/search-result/search-result.component';
 
 
 const appRoutes: Routes = [
    { path: 'dashboard', component: DashboardComponent },
    { path: 'billing', component: BillingDashboardComponent },
    { path: 'printRoomBill', component: PrintRoomBillComponent },
+   { path: 'searchResult', component: SearchResult },
   // {
   //   path: 'heroes',
   //   component: HeroListComponent,
@@ -48,7 +50,8 @@ const appRoutes: Routes = [
     AddRoomBookingComponent,
     ViewRoomBookingComponent,
     PrintRoomBillComponent,
-    AddPaymentComponent
+    AddPaymentComponent,
+    SearchResult
   ],
   imports: [
     BrowserModule,

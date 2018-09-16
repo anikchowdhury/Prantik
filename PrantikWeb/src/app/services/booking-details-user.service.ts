@@ -10,7 +10,7 @@ export class BookingDetailsUserService {
 
     }
 
-    public PostRoomBookings(bookingDetailsUserModel: BookingDetailsUserModel): Observable<BookingDetailsUserModel> {
+    public PostBookingDetailsUser(bookingDetailsUserModel: BookingDetailsUserModel): Observable<BookingDetailsUserModel> {
         return this.httpClient.post<BookingDetailsUserModel>(PostBookingDetailsUsersEndpointContsant, bookingDetailsUserModel);
     }
 }

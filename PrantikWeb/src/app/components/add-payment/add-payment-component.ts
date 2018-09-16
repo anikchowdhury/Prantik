@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PaymentModel } from '../../models/payment.model';
 
 @Component({
@@ -8,10 +8,14 @@ import { PaymentModel } from '../../models/payment.model';
     providers: []
 })
 
-export class AddPaymentComponent{
+export class AddPaymentComponent implements OnInit {
     @Input() paymentDetails: PaymentModel;
-    
+
     constructor() {
 
+    }
+
+    ngOnInit() {
+        
     }
 }

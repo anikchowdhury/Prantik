@@ -11,7 +11,12 @@ export class BookingDetailsService {
 
     }
 
-    public PostRoomBookings(): Observable<BookingDetailsModel> {
+    public PostBookingDetails(): Observable<BookingDetailsModel> {
         return this.httpClient.post<BookingDetailsModel>(PostBookingDetailsEndpointContsant, null);
+    }
+
+    public GetBookingDetails(bookingCode: string): Observable<BookingDetailsModel> {
+        console.log(bookingCode);
+        return this.httpClient.get<BookingDetailsModel>(PostBookingDetailsEndpointContsant + '?bookingCode=' + bookingCode)
     }
 }

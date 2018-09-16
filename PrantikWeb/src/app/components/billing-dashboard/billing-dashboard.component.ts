@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
 import { UserModel } from '../../models/user.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { RoomBookingModel } from '../../models/room-booking.model';
@@ -16,16 +16,16 @@ import { RoomBookingService } from '../../services/room-booking.service';
   providers: [BookingDetailsService, BookingDetailsUserService, RoomBookingService]
 })
 export class BillingDashboardComponent implements OnInit {
+
+  @Input() users: UserModel[];
+  @Input() roomBookings: RoomBookingModel[];
+
   newUser: UserModel;
-  users: UserModel[];
-  roomBookings: RoomBookingModel[];
   closeResult: string;
 
-  @ViewChild('userOperationContent')
-  private userOperationContentTpl: TemplateRef<any>;
+  @ViewChild('userOperationContent') userOperationContentTpl: TemplateRef<any>;
 
-  constructor(private modalService: NgbModal, private route: ActivatedRoute, private bookingDetailsService: BookingDetailsService,
-    private roomBookingService: RoomBookingService, private bookingDetailsUserService: BookingDetailsUserService) {
+  constructor(private modalService: NgbModal, private route: ActivatedRoute, private bookingDetailsService: BookingDetailsService, private roomBookingService: RoomBookingService, private bookingDetailsUserService: BookingDetailsUserService) {
     this.newUser = {
       id: 0
     };
@@ -34,19 +34,10 @@ export class BillingDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.route.queryParams.subscribe(params => {
       console.log(params['myVal']);
       console.log(params['myAnotherVal']);
     });
-    /* this.userService.GetAllUsers()
-       .subscribe((response: UserModel[]) => {
-         console.log(response);
-       },
-         (err) => {
-           console.log(err);
-           console.log('Inside Subscribe');
-       });*/
   }
 
   onSubmit() {
@@ -55,7 +46,7 @@ export class BillingDashboardComponent implements OnInit {
 
   editUser(userToEdit: UserModel) {
     this.newUser = Object.assign({}, userToEdit);
-    this.open(this.userOperationContentTpl);
+    this.openModal(this.userOperationContentTpl);
   }
 
   deleteUser(userToDelete: UserModel) {
@@ -80,10 +71,10 @@ export class BillingDashboardComponent implements OnInit {
   }
 
   createBooking() {
-    this.bookingDetailsService.PostRoomBookings()
+    this.bookingDetailsService.PostBookingDetails()
       .subscribe((response: BookingDetailsModel) => {
         this.users.forEach((value) => {
-          this.bookingDetailsUserService.PostRoomBookings(
+          this.bookingDetailsUserService.PostBookingDetailsUser(
             {
               bookingDetailsId: response.id,
               userId: value.id
@@ -108,7 +99,7 @@ export class BillingDashboardComponent implements OnInit {
         });
   }
 
-  open(content) {
+  openModal(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, size: 'lg' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

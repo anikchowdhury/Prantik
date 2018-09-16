@@ -10,12 +10,15 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PrantikAPI.DataLayer;
+using PrantikAPI.Models;
+using PrantikAPI.ProviderLayer;
 
 namespace PrantikAPI.Controllers
 {
     public class BookingDetailsController : ApiController
     {
         private PrantikEntities db = new PrantikEntities();
+        private BookingDetailProvider _provider = new BookingDetailProvider();
 
         // GET: api/BookingDetails
         public IQueryable<BookingDetail> GetBookingDetails()
@@ -24,10 +27,11 @@ namespace PrantikAPI.Controllers
         }
 
         // GET: api/BookingDetails/5
-        [ResponseType(typeof(BookingDetail))]
-        public async Task<IHttpActionResult> GetBookingDetail(long id)
+        [ResponseType(typeof(BookingDetailModel))]
+        public async Task<IHttpActionResult> GetBookingDetail(string bookingCode)
         {
-            BookingDetail bookingDetail = await db.BookingDetails.FindAsync(id);
+            var bookingDetail = await _provider.GetBookingDetailFromBookingCode(bookingCode);
+
             if (bookingDetail == null)
             {
                 return NotFound();

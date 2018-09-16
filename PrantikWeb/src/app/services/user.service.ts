@@ -21,4 +21,8 @@ export class UserService {
     public PutUser(user: UserModel): Observable<void> {
         return this.httpClient.put<void>(PostUserEndpointContsant + '/' + user.id, user);
     }
+
+    public DeleteUser(user: UserModel): Observable<UserModel> {
+        return this.httpClient.delete<UserModel>(PostUserEndpointContsant + '/' + user.id);
+    }
 }
