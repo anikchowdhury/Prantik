@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { RoomBookingService } from '../../services/room-booking.service';
 import { UserService } from '../../services/user.service';
@@ -7,50 +7,35 @@ import { RoomBookingModel } from '../../models/room-booking.model';
 import { faPhone, faHome, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-    selector: 'print-room-bill',
+    selector: 'app-print-room-bill',
     encapsulation: ViewEncapsulation.None,
     templateUrl: './room-bill-print.component.html',
     styleUrls: ['./room-bill-print.component.scss'],
     providers: [UserService, RoomBookingService]
 })
 export class PrintRoomBillComponent implements OnInit {
-    users: UserModel[];
-    roomBookings: RoomBookingModel[];
-    totalAmount: number;
+    
+    @Input() customerDetail: UserModel;
+    @Input() roomBookings: RoomBookingModel[];
+    @Input() totalAmount: number;
+    @Input() qrValue: string;
+    
     faPhone: IconDefinition;
     faHome: IconDefinition;
     billingDate: string;
-    elementType : string;
-    value : string;
+    elementType: string;
 
-    constructor(private userService: UserService, private roomBookingService: RoomBookingService) {
-        this.users = [];
-        this.roomBookings = [];
-        this.totalAmount = 0;
+    constructor(private userService: UserService, private roomBookingService: RoomBookingService) {       
         this.faPhone = faPhone;
         this.faHome = faHome;
-        let today= new Date(); 
+        let today = new Date();
         this.billingDate = formatDate(today, 'dd-MM-yyyy hh:mm:ss a', 'en-IN', '+0530');
         this.elementType = 'img';        
     }
     ngOnInit() {
-        this.userService.GetAllUsers()
-        .subscribe((response: UserModel[]) => {
-            this.users = response;
-        },
-        (err) => {
-            console.log(err);
-        });
-        this.roomBookingService.GetAllRoomBookings()
-        .subscribe((response: RoomBookingModel[]) => {
-            this.roomBookings = response;
-            this.roomBookings.forEach((value) => {
-                this.totalAmount += value.amount;
-            });
-            this.value = this.roomBookings[0].bookingEndDate;
-        },
-        (err) => {
-            console.log(err);
-        });
+    }
+
+    printBill() {
+        window.print();
     }
 }

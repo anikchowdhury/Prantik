@@ -12,12 +12,16 @@
     <app-view-room-booking [roomBookings]="roomBookings"></app-view-room-booking>
   </div>
   <div class="col-12">
-    <button type="button" class="btn btn-lg btn-outline-primary" (click)="openModal(addRoomBookingContent)">Add Room Booking</button>
+    <button type="button" class="btn btn-lg btn-outline-primary" (click)="openModal(addRoomBookingContent)">Add Room
+      Booking</button>
   </div>
 </div>
-
 <div class="row">
   <button type="button" class="float-right" (click)="createBooking()">Submit</button>
+</div>
+
+<div class="row" *ngIf="bookingCodeId != ''">
+  <a [routerLink]="['/printBill', bookingCodeId]" class="btn btn-primary">Print Bill</a>
 </div>
 
 <ng-template #userOperationContent let-c="close" let-d="dismiss">

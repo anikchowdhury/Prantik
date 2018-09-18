@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row">  
   <div class="col-12">
     <div class="row">
       <div class="col-3 text-left">
@@ -43,9 +43,9 @@
       <thead>
         <tr>
           <th colspan="1">Bill Date &amp; Time:<span class="font-weight-normal"> {{billingDate}}</span></th>
-          <th colspan="3" class="text-center">Bill #PR/20180910/0125</th>
+          <th colspan="3">Bill #{{qrValue}}</th>
           <th colspan="1" class="p-1">
-            <ngx-qrcode qrc-class="qr-size-class" [qrc-element-type]="elementType" [qrc-value]="value">
+            <ngx-qrcode qrc-class="qr-size-class" [qrc-element-type]="elementType" [qrc-value]="qrValue">
             </ngx-qrcode>
           </th>
         </tr>
@@ -62,14 +62,14 @@
               </div>
               <div class="col-9">
                 <div class="row">
-                  <div class="col-12 font-weight-normal">Anik Chowdhury</div>
+                  <div class="col-12 font-weight-normal">{{customerDetail.name}}</div>
                 </div>
                 <div class="row">
-                  <div class="col-12 font-weight-normal">36/6 Nimchand Moitra Street, Kolkata - 700035</div>
+                  <div class="col-12 font-weight-normal">{{customerDetail.address}}</div>
                 </div>
               </div>
               <div class="col-2 text-right">
-                <fa-icon [icon]="faPhone"></fa-icon><span class="font-weight-normal"> 9830386745</span>
+                <fa-icon [icon]="faPhone"></fa-icon><span class="font-weight-normal"> {{customerDetail.phoneNumber}}</span>
               </div>
             </div>
           </th>
@@ -103,4 +103,5 @@
       </tfoot>
     </table>
   </div>
+  <div class="col-12 text-center"><button type="button" *ngIf="!isPrint" class="btn btn-link" (click)="printBill()">&copy; Prantik Hotel And Resorts</button></div>
 </div>

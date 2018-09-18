@@ -19,6 +19,7 @@ export class BillingDashboardComponent implements OnInit {
 
   @Input() users: UserModel[];
   @Input() roomBookings: RoomBookingModel[];
+  @Input() bookingCodeId: string;
 
   newUser: UserModel;
   closeResult: string;
@@ -31,6 +32,7 @@ export class BillingDashboardComponent implements OnInit {
     };
     this.users = [];
     this.roomBookings = [];
+    this.bookingCodeId = '';
   }
 
   ngOnInit() {
