@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RoomBookingModel } from '../../models/room-booking.model';
 import { RoomBookingService } from '../../services/room-booking.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -15,13 +15,16 @@ import { HttpResponse } from '@angular/common/http';
 export class AddRoomBookingComponent implements OnInit {
 
   @Output() roomAddedSuccesfully: EventEmitter<RoomBookingModel> = new EventEmitter();
-  roomBookingModel: RoomBookingModel;
+    
+  @Input() roomBooking: RoomBookingModel;
+  
   roomNumbersList: number[] = new Array(); 
     today : any;
   startDate : any;
 
   constructor(private modalService: NgbModal, private roomBookingService: RoomBookingService) {
-    this.roomBookingModel = {
+    this.roomBooking = {
+      id: 0,
       roomRoomNumber: 0,
       bookingStartDate: '',
       bookingEndDate: ''
@@ -33,47 +36,37 @@ export class AddRoomBookingComponent implements OnInit {
   }
 
   ngOnInit() {
-
+      console.log(this.roomBooking);
   }
     
   dateRange(){
-      this.roomBookingModel.bookingEndDate=this.roomBookingModel.bookingStartDate;
-      this.startDate = this.roomBookingModel.bookingStartDate;
+      this.roomBooking.bookingEndDate=this.roomBooking.bookingStartDate;
+      this.startDate = this.roomBooking.bookingStartDate;
   }
 
   addRoomBookingSubmit() {
-    this.roomBookingService.PostRoomBookings(this.roomBookingModel)
-      .subscribe((response: RoomBookingModel) => {
-        this.roomAddedSuccesfully.emit({
-          id: response.id,
-          roomRoomNumber: response.roomRoomNumber,
-          bookingStartDate: response.bookingStartDate,
-          bookingEndDate: response.bookingEndDate,
-          amount: response.amount
-        });
-      },
-        (err) => {
-          console.log(err);
-        });
+      if(this.roomBooking.id == 0)
+        this.roomBookingService.PostRoomBookings(this.roomBooking)
+          .subscribe((response: RoomBookingModel) => {
+            this.roomAddedSuccesfully.emit({
+              id: response.id,
+              roomRoomNumber: response.roomRoomNumber,
+              bookingStartDate: response.bookingStartDate,
+              bookingEndDate: response.bookingEndDate,
+              amount: response.amount
+            });
+          },
+            (err) => {
+              console.log(err);
+            });
+      else
+          this.roomBookingService.PutRoomBookings(this.roomBooking)
+            .subscribe((response: void) => {
+              this.roomAddedSuccesfully.emit(this.roomBooking);
+            },
+              (err) => {
+                console.log(err);
+              });
   }
 
-  closeResult: string;
-
-  open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
 }

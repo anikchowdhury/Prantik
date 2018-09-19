@@ -1,6 +1,6 @@
 export class PaymentModel{
     id?: number;
-    smount?: number;
+    amount?: number;
     paymentModeId?: number;
     additionalDetails?: string;
     bookingDetailsId?: number;

@@ -14,7 +14,9 @@
                 <td>{{roomBooking.roomRoomNumber}}</td>
                 <td>{{roomBooking.bookingStartDate}}</td>
                 <td>{{roomBooking.bookingEndDate}}</td>
-                <td>{{roomBooking.amount}}</td>    
+                <td>{{roomBooking.amount}}</td>
+                <td (click)="notifyEdit(roomBooking)"><fa-icon [icon]="faEdit"></fa-icon></td>           
+                <td (click)="notifyDelete(roomBoking)"><fa-icon [icon]="faTrashAlt"></fa-icon></td>
             </tr>
             <tr>
                 <td></td>

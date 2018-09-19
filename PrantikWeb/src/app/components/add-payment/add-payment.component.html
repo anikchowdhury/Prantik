@@ -1,0 +1,29 @@
+<form (ngSubmit)="addPaymentSubmit()" #addPaymentForm="ngForm">
+  <div class="row">
+   
+    
+    <div class="col-12 col-md-6">
+      <label for="paymentModel.amount">Amount</label>
+      <input type="number" class="form-control" id="paymentModel.amount" [(ngModel)]="paymentModel.amount" name="paymentModel.amount" required>
+    </div>
+   <div class="col-12 col-md-6">
+      <label for="paymentModel.paymentModeId">Payment Type</label>
+        <select type="number" class="form-control" id="paymentModel.paymentModeId" [(ngModel)]="paymentModel.paymentModeId" name="paymentModel.paymentModeId" required>
+            <option *ngFor="let mode of paymentModes" [ngValue]="mode.value">{{mode.title}}</option>
+        </select>
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="paymentModel.bookingDetailsId">Booking Details Id</label>
+      <input type="number" class="form-control" id="paymentModel.bookingDetailsId" [(ngModel)]="paymentModel.bookingDetailsId" name="paymentModel.bookingDetailsId" required>
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="paymentModel.additionalDetails">Additional Details</label>
+      <input type="text" class="form-control" id="paymentModel.additionalDetails" [(ngModel)]="paymentModel.additionalDetails" name="paymentModel.additionalDetails" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary float-right" [disabled]="!addPaymentForm.form.valid">Submit</button>
+    </div>
+  </div>
+</form>

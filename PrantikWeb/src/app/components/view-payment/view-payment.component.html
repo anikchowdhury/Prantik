@@ -1,0 +1,20 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Payment Mode</th>
+            <th scope="col">Details</th>
+            <th scope="col">Booking Details Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let payment of paymentDetails">
+            <td>{{payment.id}}</td>
+            <td>{{payment.amount}}</td>
+            <td>{{payment.paymentModeId}}</td>
+            <td>{{payment.additionalDetails}}</td>
+            <td>{{payment.bookingDetailsId}}</td>
+        </tr>
+    </tbody>
+</table>
