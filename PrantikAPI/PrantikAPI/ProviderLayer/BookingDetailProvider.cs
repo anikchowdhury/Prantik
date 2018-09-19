@@ -11,14 +11,20 @@ namespace PrantikAPI.ProviderLayer
 {
     public class BookingDetailProvider
     {
+
         internal async Task<BookingDetailModel> GetBookingDetailFromBookingCode(string bookingCode)
         {
             using (PrantikEntities db = new PrantikEntities())
             {
-                var bookingDetail = await db.BookingDetails.Include(x => x.BookingDetailsUsers.Select(y => y.User)).Include(x => x.RoomBookings).FirstOrDefaultAsync(item => item.BookingCode.ToUpper() == bookingCode.ToUpper());
+                BookingDetail bookingDetail = null;
+                if (long.TryParse(bookingCode, out long outVal))
+                    bookingDetail = await db.BookingDetails.Include(x => x.BookingDetailsUsers.Select(y => y.User)).Include(x => x.RoomBookings).FirstOrDefaultAsync(item => item.Id == outVal);
+                else
+                    bookingDetail = await db.BookingDetails.Include(x => x.BookingDetailsUsers.Select(y => y.User)).Include(x => x.RoomBookings).FirstOrDefaultAsync(item => item.BookingCode.ToUpper() == bookingCode.ToUpper());
 
                 return new BookingDetailModel()
                 {
+                    Id = bookingDetail.Id,
                     BookingCode = bookingDetail.BookingCode,
                     Users = bookingDetail.BookingDetailsUsers.Select(x => new UserModel()
                     {
@@ -41,6 +47,14 @@ namespace PrantikAPI.ProviderLayer
                         BookingStartDate = x.BookingStartDate,
                         Id = x.Id,
                         RoomRoomNumber = x.RoomRoomNumber
+                    }),
+                    Payments = bookingDetail.Payments.Select(x => new PaymentModel()
+                    {
+                        Id = x.Id,
+                        AdditionalDetails = x.AdditionalDetails,
+                        Amount = x.Amount,
+                        BookingDetailsId = x.BookingDetailsId,
+                        PaymentModeId = x.PaymentModeId
                     })
                 };
             }

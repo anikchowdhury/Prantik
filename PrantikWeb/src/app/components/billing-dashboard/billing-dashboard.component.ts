@@ -19,10 +19,12 @@ export class BillingDashboardComponent implements OnInit {
 
   @Input() users: UserModel[];
   @Input() roomBookings: RoomBookingModel[];
-  @Input() bookingCodeId: string;
+  @Input() bookingCodeId: number;
+
 
   newUser: UserModel;
   closeResult: string;
+  bookingCode: string;
 
   @ViewChild('userOperationContent') userOperationContentTpl: TemplateRef<any>;
 
@@ -32,7 +34,7 @@ export class BillingDashboardComponent implements OnInit {
     };
     this.users = [];
     this.roomBookings = [];
-    this.bookingCodeId = '';
+    this.bookingCodeId = 0;
   }
 
   ngOnInit() {
@@ -68,23 +70,17 @@ export class BillingDashboardComponent implements OnInit {
         id: 0
       };
     }
-    else
-      this.users.push(userModel);
+    else {
+      this.addBookingDetailsUser(this.bookingCodeId, userModel.id);
+      this.users.push(userModel);      
+    }
   }
 
   createBooking() {
     this.bookingDetailsService.PostBookingDetails()
       .subscribe((response: BookingDetailsModel) => {
         this.users.forEach((value) => {
-          this.bookingDetailsUserService.PostBookingDetailsUser(
-            {
-              bookingDetailsId: response.id,
-              userId: value.id
-            }).subscribe((bookingDetailsUserResponse: BookingDetailsUserModel) => {
-            },
-              (err) => {
-                console.log(err);
-              });
+          this.addBookingDetailsUser(response.id, value.id);
         });
         this.roomBookings.forEach((value) => {
           value.bookingDetailsId = response.id;
@@ -117,5 +113,17 @@ export class BillingDashboardComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  private addBookingDetailsUser(bookingId: number, userId: number): void {
+    this.bookingDetailsUserService.PostBookingDetailsUser(
+      {
+        bookingDetailsId: bookingId,
+        userId: userId
+      }).subscribe((bookingDetailsUserResponse: BookingDetailsUserModel) => {
+      },
+        (err) => {
+          console.log(err);
+        });
   }
 }
