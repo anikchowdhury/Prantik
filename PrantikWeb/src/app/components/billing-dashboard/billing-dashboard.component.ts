@@ -21,6 +21,7 @@ export class BillingDashboardComponent implements OnInit {
 
   @Input() users: UserModel[];
   @Input() roomBookings: RoomBookingModel[];
+  @Input() bookingCodeId: string;
   @Input() payments: PaymentModel[];
 
   newUser: UserModel;
@@ -39,6 +40,7 @@ export class BillingDashboardComponent implements OnInit {
     };
     this.users = [];
     this.roomBookings = [];
+    this.bookingCodeId = '';
     this.payments= [];
   }
 
