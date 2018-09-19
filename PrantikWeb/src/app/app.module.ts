@@ -20,6 +20,7 @@ import { ViewRoomBookingComponent } from './components/view-room-booking/view-ro
 import { PrintRoomBillComponent } from './components/room-bill-print/room-bill-print.component';
 import { AddPaymentComponent } from './components/add-payment/add-payment-component';
 import { SearchResult } from './components/search-result/search-result.component';
+import { ViewPaymentComponent } from './components/view-payment/view-payment.component';
 
 
 const appRoutes: Routes = [
@@ -51,7 +52,8 @@ const appRoutes: Routes = [
     ViewRoomBookingComponent,
     PrintRoomBillComponent,
     AddPaymentComponent,
-    SearchResult
+    SearchResult,
+    ViewPaymentComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { UserModel } from '../../models/user.model';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -13,7 +12,7 @@ export class AddUserComponent implements OnInit {
   @Output() userOperationSuccess: EventEmitter<UserModel> = new EventEmitter();
 
   @Input() user: UserModel;
-  constructor(private modalService: NgbModal, private userService: UserService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
@@ -27,7 +26,7 @@ export class AddUserComponent implements OnInit {
             name: response.name,
             address: response.address,
             age: response.age,
-            idCardNo: response.idCardNo,
+            idCardNumber: response.idCardNumber,
             relativeName: response.relativeName,
             profession: response.profession,
             comingFrom: response.comingFrom,
@@ -48,24 +47,5 @@ export class AddUserComponent implements OnInit {
             console.log(err);
           });
   }
-
-  closeResult: string;
-
-  open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
+  
 }

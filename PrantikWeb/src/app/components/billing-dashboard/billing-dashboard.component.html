@@ -9,12 +9,23 @@
 
 <div class="row">
   <div class="col-12">
-    <app-view-room-booking [roomBookings]="roomBookings"></app-view-room-booking>
+    <app-view-room-booking [roomBookings]="roomBookings" (editButtonClicked)="editRoomBooking($event)" (deleteButtonClicked)="deleteRoomBooking($event)"></app-view-room-booking>
   </div>
   <div class="col-12">
     <button type="button" class="btn btn-lg btn-outline-primary" (click)="openModal(addRoomBookingContent)">Add Room Booking</button>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-12">
+      <app-view-payment [paymentDetails]="payments"></app-view-payment>
+  </div>
+  <div class="col-12">
+    <button type="button" class="btn btn-lg btn-outline-primary" (click)="openModal(addPayment)">Add Payment</button>
+  </div>
+</div>
+
+
 
 <div class="row">
   <button type="button" class="float-right" (click)="createBooking()">Submit</button>
@@ -43,7 +54,22 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-add-room-booking (roomAddedSuccesfully)="displayAddedRoom($event)"></app-add-room-booking>
+    <app-add-room-booking [roomBooking]="newRoomBooking" (roomAddedSuccesfully)="displayAddedRoom($event)"></app-add-room-booking>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #addPayment let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add New Payment</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <add-payment (paymentAddedSuccesfully)="displayAddedPayment($event)"></add-payment>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
