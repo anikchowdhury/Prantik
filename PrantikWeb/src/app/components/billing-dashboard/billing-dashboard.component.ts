@@ -21,7 +21,7 @@ export class BillingDashboardComponent implements OnInit {
 
   @Input() users: UserModel[];
   @Input() roomBookings: RoomBookingModel[];
-  @Input() bookingCodeId: string;
+  @Input() bookingCodeId: number;
   @Input() payments: PaymentModel[];
 
 
@@ -42,8 +42,8 @@ export class BillingDashboardComponent implements OnInit {
     };
     this.users = [];
     this.roomBookings = [];
-    this.bookingCodeId = 0;    
-    this.payments= [];
+    this.bookingCodeId = 0;
+    this.payments = [];
   }
 
   ngOnInit() {
@@ -65,11 +65,11 @@ export class BillingDashboardComponent implements OnInit {
   deleteUser(userToDelete: UserModel) {
     console.log(userToDelete);
   }
-    
+
   editRoomBooking(roomBookingToEdit: RoomBookingModel) {
-      console.log(roomBookingToEdit);
+    console.log(roomBookingToEdit);
     this.newRoomBooking = Object.assign({}, roomBookingToEdit);
-      console.log(this.newRoomBooking);
+    console.log(this.newRoomBooking);
     this.openModal(this.roomBookingOperationContentTpl);
   }
 
@@ -78,19 +78,19 @@ export class BillingDashboardComponent implements OnInit {
   }
 
   displayAddedRoom(roomBookingModel: RoomBookingModel) {
- //   this.roomBookings.push(roomBookingModel);
+    //   this.roomBookings.push(roomBookingModel);
     let roomBookingIndex = this.roomBookings.findIndex(roomBooking => roomBooking.id == roomBookingModel.id);
     if (roomBookingIndex > -1) {
       this.roomBookings[roomBookingIndex] = Object.assign({}, roomBookingModel);
       this.modalService.dismissAll("Updated Room Booking");
       this.newRoomBooking = {
-          id: 0
+        id: 0
       };
     }
     else
       this.roomBookings.push(roomBookingModel);
   }
-    
+
   displayAddedPayment(paymentModel: PaymentModel) {
     this.payments.push(paymentModel);
   }
@@ -106,7 +106,7 @@ export class BillingDashboardComponent implements OnInit {
     }
     else {
       this.addBookingDetailsUser(this.bookingCodeId, userModel.id);
-      this.users.push(userModel);      
+      this.users.push(userModel);
     }
   }
 
@@ -146,6 +146,18 @@ export class BillingDashboardComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  setBlankUser() {
+    this.newUser = {
+      id: 0
+    };
+  }
+
+  setBlankRoomBooking() {
+    this.newRoomBooking = {
+      id: 0
+    }
   }
 
   private getDismissReason(reason: any): string {

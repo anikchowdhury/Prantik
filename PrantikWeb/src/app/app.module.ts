@@ -53,7 +53,7 @@ const appRoutes: Routes = [
     ViewRoomBookingComponent,
     PrintRoomBillComponent,
     AddPaymentComponent,    
-    BillPrintComponent
+    BillPrintComponent,
     SearchResult,
     ViewPaymentComponent
   ],
