@@ -53,7 +53,7 @@ const appRoutes: Routes = [
     ViewRoomBookingComponent,
     PrintRoomBillComponent,
     AddPaymentComponent,    
-    BillPrintComponent
+    BillPrintComponent,
     SearchResult,
     ViewPaymentComponent
   ],
@@ -66,7 +66,7 @@ const appRoutes: Routes = [
     FontAwesomeModule,
     NgxQRCodeModule,
     RouterModule.forRoot(
-      appRoutes//,
+      appRoutes,
       //{ enableTracing: true } // <-- debugging purposes only
     )
   ],
