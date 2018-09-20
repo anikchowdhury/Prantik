@@ -1,1 +1,7 @@
-<app-billing-dashboard *ngIf="bookingCodeId != 0" [users]="usersForBooking" [roomBookings]="roomBookingsForBooking" [bookingCodeId]="bookingCodeId"></app-billing-dashboard>
+<div class="row text-center" *ngIf="bookingCodeId != 0">
+    <div class="col-12">
+        <strong>{{bookingCodeToDisplay}}</strong>
+    </div>
+</div>
+<app-billing-dashboard *ngIf="bookingCodeId != 0" [users]="usersForBooking" [roomBookings]="roomBookingsForBooking"
+    [bookingCodeId]="bookingCodeId"></app-billing-dashboard>

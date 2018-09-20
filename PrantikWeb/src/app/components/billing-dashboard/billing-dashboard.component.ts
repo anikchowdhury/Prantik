@@ -28,22 +28,19 @@ export class BillingDashboardComponent implements OnInit {
   newUser: UserModel;
   newRoomBooking: RoomBookingModel;
   closeResult: string;
-  bookingCode: string;
+  isProcessingCreateBooking: boolean;
 
   @ViewChild('userOperationContent') userOperationContentTpl: TemplateRef<any>;
   @ViewChild('addRoomBookingContent') roomBookingOperationContentTpl: TemplateRef<any>;
 
   constructor(private modalService: NgbModal, private route: ActivatedRoute, private bookingDetailsService: BookingDetailsService, private roomBookingService: RoomBookingService, private paymentService: PaymentService, private bookingDetailsUserService: BookingDetailsUserService) {
-    this.newUser = {
-      id: 0
-    };
-    this.newRoomBooking = {
-      id: 0
-    };
+    this.setBlankUser();
+    this.setBlankRoomBooking();
     this.users = [];
     this.roomBookings = [];
     this.bookingCodeId = 0;
     this.payments = [];
+    this.isProcessingCreateBooking = false;
   }
 
   ngOnInit() {
@@ -51,10 +48,6 @@ export class BillingDashboardComponent implements OnInit {
       console.log(params['myVal']);
       console.log(params['myAnotherVal']);
     });
-  }
-
-  onSubmit() {
-    console.log('Submitted');
   }
 
   editUser(userToEdit: UserModel) {
@@ -67,9 +60,7 @@ export class BillingDashboardComponent implements OnInit {
   }
 
   editRoomBooking(roomBookingToEdit: RoomBookingModel) {
-    console.log(roomBookingToEdit);
     this.newRoomBooking = Object.assign({}, roomBookingToEdit);
-    console.log(this.newRoomBooking);
     this.openModal(this.roomBookingOperationContentTpl);
   }
 
@@ -83,9 +74,7 @@ export class BillingDashboardComponent implements OnInit {
     if (roomBookingIndex > -1) {
       this.roomBookings[roomBookingIndex] = Object.assign({}, roomBookingModel);
       this.modalService.dismissAll("Updated Room Booking");
-      this.newRoomBooking = {
-        id: 0
-      };
+      this.setBlankRoomBooking();
     }
     else
       this.roomBookings.push(roomBookingModel);
@@ -96,27 +85,31 @@ export class BillingDashboardComponent implements OnInit {
   }
 
   displayAddedUser(userModel: UserModel) {
-    let userIndex = this.users.findIndex(user => user.id == userModel.id);
-    if (userIndex > -1) {
-      this.users[userIndex] = Object.assign({}, userModel);
-      this.modalService.dismissAll("Updated User");
-      this.newUser = {
-        id: 0
-      };
-    }
+    if (this.bookingCodeId == 0) this.users.push(userModel);
     else {
-      this.addBookingDetailsUser(this.bookingCodeId, userModel.id);
-      this.users.push(userModel);
+      let userIndex = this.users.findIndex(user => user.id == userModel.id);
+      if (userIndex > -1) {
+        this.users[userIndex] = Object.assign({}, userModel);
+        this.modalService.dismissAll("Updated User");
+        this.setBlankUser();
+      }
+      else {
+        this.addBookingDetailsUser(this.bookingCodeId, userModel.id);
+        this.users.push(userModel);
+      }
     }
   }
 
   createBooking() {
+    this.isProcessingCreateBooking = true;
+    console.log(this.roomBookings);
     this.bookingDetailsService.PostBookingDetails()
       .subscribe((response: BookingDetailsModel) => {
         this.users.forEach((value) => {
           this.addBookingDetailsUser(response.id, value.id);
         });
         this.roomBookings.forEach((value) => {
+          console.log(value);
           value.bookingDetailsId = response.id;
           this.roomBookingService.PutRoomBookings(value)
             .subscribe((roomBookingResponse: void) => {
@@ -134,6 +127,7 @@ export class BillingDashboardComponent implements OnInit {
                 console.log(err);
               });
         });
+        this.bookingCodeId = response.id;
       },
         (err) => {
           console.log(err);
@@ -156,7 +150,8 @@ export class BillingDashboardComponent implements OnInit {
 
   setBlankRoomBooking() {
     this.newRoomBooking = {
-      id: 0
+      id: 0,
+      bookingDetailsId: this.bookingCodeId
     }
   }
 

@@ -50,6 +50,12 @@ namespace PrantikAPI.ProviderLayer
             {
                 RoomBooking roomBooking = await db.RoomBookings.FindAsync(id);
 
+                roomBooking.Amount = roomBookingModel.Amount;
+                roomBooking.BookingDetailsId = roomBookingModel.BookingDetailsId;
+                roomBooking.BookingEndDate = roomBookingModel.BookingEndDate;
+                roomBooking.BookingStartDate = roomBookingModel.BookingStartDate;
+                roomBooking.RoomRoomNumber = roomBookingModel.RoomRoomNumber;
+
                 db.Entry(roomBooking).State = EntityState.Modified;
 
                 try
@@ -80,6 +86,24 @@ namespace PrantikAPI.ProviderLayer
                     Id = roomBooking.Id,
                     RoomRoomNumber = roomBooking.RoomRoomNumber
                 };
+            }
+        }
+
+        internal async Task<RoomBookingModel> PostRoomBookingFrom(RoomBookingModel roomBookingModel)
+        {
+            using (PrantikEntities db = new PrantikEntities())
+            {
+                RoomBooking roomBooking = db.RoomBookings.Add(new RoomBooking()
+                {
+                    RoomRoomNumber = roomBookingModel.RoomRoomNumber,
+                    Amount = roomBookingModel.Amount,
+                    BookingEndDate = roomBookingModel.BookingEndDate,
+                    BookingStartDate = roomBookingModel.BookingStartDate,
+                    BookingDetailsId = roomBookingModel.BookingDetailsId > 0 ? roomBookingModel.BookingDetailsId : null
+                });                
+                await db.SaveChangesAsync();
+                roomBookingModel.Id = roomBooking.Id;
+                return roomBookingModel;
             }
         }
     }

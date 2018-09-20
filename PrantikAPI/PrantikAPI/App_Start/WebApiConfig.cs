@@ -17,7 +17,7 @@ namespace PrantikAPI
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-            config.Formatters.Clear();            
+            config.Formatters.Clear();
             JsonMediaTypeFormatter jsonMediaTypeFormatter = new JsonMediaTypeFormatter();
             jsonMediaTypeFormatter.SerializerSettings = new JsonSerializerSettings
             {
@@ -35,7 +35,7 @@ namespace PrantikAPI
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );
+            );        
         }
     }
 }

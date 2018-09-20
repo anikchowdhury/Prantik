@@ -7,4 +7,5 @@ export const PostPaymentEndpointContsant = 'http://localhost:58335/api/Payments'
 /*export const PostUserEndpointContsant = '/api/Users'; 
 export const PostRoomBookingEndpointContsant = '/api/RoomBookings';
 export const PostBookingDetailsEndpointContsant = '/api/BookingDetails';
-export const PostBookingDetailsUsersEndpointContsant = '/api/BookingDetailsUsers';*/
+export const PostBookingDetailsUsersEndpointContsant = '/api/BookingDetailsUsers';
+export const PostPaymentEndpointContsant = '/api/Payments';*/

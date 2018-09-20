@@ -68,16 +68,15 @@ namespace PrantikAPI.Controllers
         }
 
         // POST: api/RoomBookings
-        [ResponseType(typeof(RoomBooking))]
-        public async Task<IHttpActionResult> PostRoomBooking(RoomBooking roomBooking)
+        [ResponseType(typeof(RoomBookingModel))]
+        public async Task<IHttpActionResult> PostRoomBooking(RoomBookingModel roomBookingModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.RoomBookings.Add(roomBooking);
-            await db.SaveChangesAsync();
+            RoomBookingModel roomBooking = await _providerLayer.PostRoomBookingFrom(roomBookingModel);
 
             return CreatedAtRoute("DefaultApi", new { id = roomBooking.Id }, roomBooking);
         }
