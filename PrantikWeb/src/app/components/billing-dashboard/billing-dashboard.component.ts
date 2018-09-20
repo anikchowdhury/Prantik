@@ -27,13 +27,20 @@ export class BillingDashboardComponent implements OnInit {
 
   newUser: UserModel;
   newRoomBooking: RoomBookingModel;
+  newPayment: PaymentModel;
   closeResult: string;
   isProcessingCreateBooking: boolean;
 
   @ViewChild('userOperationContent') userOperationContentTpl: TemplateRef<any>;
   @ViewChild('addRoomBookingContent') roomBookingOperationContentTpl: TemplateRef<any>;
+  @ViewChild('addPayment') paymentOperationContentTpl: TemplateRef<any>;
 
   constructor(private modalService: NgbModal, private route: ActivatedRoute, private bookingDetailsService: BookingDetailsService, private roomBookingService: RoomBookingService, private paymentService: PaymentService, private bookingDetailsUserService: BookingDetailsUserService) {
+   
+    this.newPayment = {
+      id: 0,
+      bookingDetailsId: 15
+    };
     this.setBlankUser();
     this.setBlankRoomBooking();
     this.users = [];
@@ -67,6 +74,16 @@ export class BillingDashboardComponent implements OnInit {
   deleteRoomBooking(roomBookingToDelete: RoomBookingModel) {
     console.log(roomBookingToDelete);
   }
+    
+  editPayment(paymentToEdit: PaymentModel) {
+      console.log(paymentToEdit);
+    this.newPayment = Object.assign({}, paymentToEdit);
+    this.openModal(this.paymentOperationContentTpl);
+  }
+
+  deletePayment(paymentToDelete: PaymentModel) {
+    console.log(paymentToDelete);
+  }
 
   displayAddedRoom(roomBookingModel: RoomBookingModel) {
     //   this.roomBookings.push(roomBookingModel);
@@ -81,7 +98,17 @@ export class BillingDashboardComponent implements OnInit {
   }
 
   displayAddedPayment(paymentModel: PaymentModel) {
-    this.payments.push(paymentModel);
+  //  this.payments.push(paymentModel);
+      let paymentIndex = this.payments.findIndex(payment => payment.id == paymentModel.id);
+    if (paymentIndex > -1) {
+      this.payments[paymentIndex] = Object.assign({}, paymentModel);
+      this.modalService.dismissAll("Updated Room Booking");
+      this.newPayment = {
+          id: 0
+      };
+    }
+    else
+      this.payments.push(paymentModel);
   }
 
   displayAddedUser(userModel: UserModel) {

@@ -18,7 +18,7 @@
 </div>
 <div class="row">
   <div class="col-12">
-      <app-view-payment [paymentDetails]="payments"></app-view-payment>
+      <app-view-payment [payments]="payments" (editButtonClicked)="editPayment($event)" (deleteButtonClicked)="deletePayment($event)"></app-view-payment>
   </div>
   <div class="col-12">
     <button type="button" class="btn btn-lg btn-outline-primary" (click)="openModal(addPayment)">Add Payment</button>
@@ -73,7 +73,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <add-payment (paymentAddedSuccesfully)="displayAddedPayment($event)"></add-payment>
+    <add-payment [payments]="newPayment" (paymentAddedSuccesfully)="displayAddedPayment($event)"></add-payment>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PaymentModel } from '../../models/payment.model';
 import { PaymentService } from '../../services/payment.service';
 
@@ -11,11 +11,11 @@ import { PaymentService } from '../../services/payment.service';
 
 export class AddPaymentComponent implements OnInit {
     @Output() paymentAddedSuccesfully: EventEmitter<PaymentModel> = new EventEmitter();
-  paymentModel: PaymentModel;
+    @Input() payments: PaymentModel;
     paymentModes: any[];
 
   constructor(private paymentService: PaymentService) {
-    this.paymentModel = {
+    this.payments = {
       id: 0,
       bookingDetailsId: 15,
     };
@@ -30,18 +30,27 @@ export class AddPaymentComponent implements OnInit {
   }
 
   addPaymentSubmit() {
-    this.paymentService.PostPayment(this.paymentModel)
-      .subscribe((response: PaymentModel) => {
-        this.paymentAddedSuccesfully.emit({
-          id: response.id,
-          amount: response.amount,
-          paymentModeId: response.paymentModeId,
-          additionalDetails: response.additionalDetails,
-          bookingDetailsId: response.bookingDetailsId
-        });
-      },
-        (err) => {
-          console.log(err);
-        });
+     if(this.payments.id == 0)
+        this.paymentService.PostPayment(this.payments)
+          .subscribe((response: PaymentModel) => {
+            this.paymentAddedSuccesfully.emit({
+              id: response.id,
+              amount: response.amount,
+              paymentModeId: response.paymentModeId,
+              additionalDetails: response.additionalDetails,
+              bookingDetailsId: response.bookingDetailsId
+            });
+          },
+            (err) => {
+              console.log(err);
+            });
+      else
+          this.paymentService.PutPayment(this.payments)
+            .subscribe((response: void) => {
+              this.paymentAddedSuccesfully.emit(this.payments);
+            },
+              (err) => {
+                console.log(err);
+              });
   }
 }

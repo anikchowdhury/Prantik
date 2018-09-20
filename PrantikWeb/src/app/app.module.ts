@@ -66,7 +66,7 @@ const appRoutes: Routes = [
     FontAwesomeModule,
     NgxQRCodeModule,
     RouterModule.forRoot(
-      appRoutes//,
+      appRoutes,
       //{ enableTracing: true } // <-- debugging purposes only
     )
   ],
