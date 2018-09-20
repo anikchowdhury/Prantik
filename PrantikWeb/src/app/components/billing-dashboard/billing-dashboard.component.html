@@ -3,7 +3,7 @@
     <app-view-user [users]="users" (editButtonClicked)="editUser($event)" (deleteButtonClicked)="deleteUser($event)"></app-view-user>
   </div>
   <div class="col-12">
-    <button type="button" class="btn btn-lg btn-outline-primary" (click)="openModal(userOperationContent)">Add User</button>
+    <button type="button" class="btn btn-lg btn-outline-primary" (click)="setBlankUser();openModal(userOperationContent)">Add User</button>
   </div>
 </div>
 
@@ -12,7 +12,7 @@
     <app-view-room-booking [roomBookings]="roomBookings" (editButtonClicked)="editRoomBooking($event)" (deleteButtonClicked)="deleteRoomBooking($event)"></app-view-room-booking>
   </div>
   <div class="col-12">
-    <button type="button" class="btn btn-lg btn-outline-primary" (click)="openModal(addRoomBookingContent)">Add Room
+    <button type="button" class="btn btn-lg btn-outline-primary" (click)="setBlankRoomBooking();openModal(addRoomBookingContent)">Add Room
       Booking</button>
   </div>
 </div>
@@ -27,11 +27,11 @@
 
 
 
-<div class="row">
+<div class="row" *ngIf="bookingCodeId == 0">
   <button type="button" class="float-right" (click)="createBooking()">Submit</button>
 </div>
 
-<div class="row" *ngIf="bookingCodeId != ''">
+<div class="row" *ngIf="bookingCodeId != 0">
   <a [routerLink]="['/printBill', bookingCodeId]" class="btn btn-primary">Print Bill</a>
 </div>
 

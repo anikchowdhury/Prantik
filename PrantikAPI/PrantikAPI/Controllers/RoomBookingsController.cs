@@ -41,36 +41,29 @@ namespace PrantikAPI.Controllers
 
         // PUT: api/RoomBookings/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutRoomBooking(long id, RoomBooking roomBooking)
+        public async Task<IHttpActionResult> PutRoomBooking(long id, RoomBookingModel roomBookingModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != roomBooking.Id)
+            if (id != roomBookingModel.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(roomBooking).State = EntityState.Modified;
-
             try
             {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RoomBookingExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                RoomBookingModel roomBooking = await _providerLayer.PutRoomBookingFromId(id, roomBookingModel);
 
+                if (roomBooking.Id == 0)
+                    return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
             return StatusCode(HttpStatusCode.NoContent);
         }
 
@@ -112,11 +105,6 @@ namespace PrantikAPI.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool RoomBookingExists(long id)
-        {
-            return db.RoomBookings.Count(e => e.Id == id) > 0;
         }
     }
 }

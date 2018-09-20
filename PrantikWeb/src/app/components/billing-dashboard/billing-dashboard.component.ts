@@ -21,13 +21,15 @@ export class BillingDashboardComponent implements OnInit {
 
   @Input() users: UserModel[];
   @Input() roomBookings: RoomBookingModel[];
-  @Input() bookingCodeId: string;
+  @Input() bookingCodeId: number;
   @Input() payments: PaymentModel[];
+
 
   newUser: UserModel;
   newRoomBooking: RoomBookingModel;
   newPayment: PaymentModel;
   closeResult: string;
+  bookingCode: string;
 
   @ViewChild('userOperationContent') userOperationContentTpl: TemplateRef<any>;
   @ViewChild('addRoomBookingContent') roomBookingOperationContentTpl: TemplateRef<any>;
@@ -46,8 +48,8 @@ export class BillingDashboardComponent implements OnInit {
     };
     this.users = [];
     this.roomBookings = [];
-    this.bookingCodeId = '';
-    this.payments= [];
+    this.bookingCodeId = 0;
+    this.payments = [];
   }
 
   ngOnInit() {
@@ -69,9 +71,9 @@ export class BillingDashboardComponent implements OnInit {
   deleteUser(userToDelete: UserModel) {
     console.log(userToDelete);
   }
-    
+
   editRoomBooking(roomBookingToEdit: RoomBookingModel) {
-      console.log(roomBookingToEdit);
+    console.log(roomBookingToEdit);
     this.newRoomBooking = Object.assign({}, roomBookingToEdit);
     this.openModal(this.roomBookingOperationContentTpl);
   }
@@ -91,19 +93,19 @@ export class BillingDashboardComponent implements OnInit {
   }
 
   displayAddedRoom(roomBookingModel: RoomBookingModel) {
- //   this.roomBookings.push(roomBookingModel);
+    //   this.roomBookings.push(roomBookingModel);
     let roomBookingIndex = this.roomBookings.findIndex(roomBooking => roomBooking.id == roomBookingModel.id);
     if (roomBookingIndex > -1) {
       this.roomBookings[roomBookingIndex] = Object.assign({}, roomBookingModel);
       this.modalService.dismissAll("Updated Room Booking");
       this.newRoomBooking = {
-          id: 0
+        id: 0
       };
     }
     else
       this.roomBookings.push(roomBookingModel);
   }
-    
+
   displayAddedPayment(paymentModel: PaymentModel) {
   //  this.payments.push(paymentModel);
       let paymentIndex = this.payments.findIndex(payment => payment.id == paymentModel.id);
@@ -127,23 +129,17 @@ export class BillingDashboardComponent implements OnInit {
         id: 0
       };
     }
-    else
+    else {
+      this.addBookingDetailsUser(this.bookingCodeId, userModel.id);
       this.users.push(userModel);
+    }
   }
 
   createBooking() {
     this.bookingDetailsService.PostBookingDetails()
       .subscribe((response: BookingDetailsModel) => {
         this.users.forEach((value) => {
-          this.bookingDetailsUserService.PostBookingDetailsUser(
-            {
-              bookingDetailsId: response.id,
-              userId: value.id
-            }).subscribe((bookingDetailsUserResponse: BookingDetailsUserModel) => {
-            },
-              (err) => {
-                console.log(err);
-              });
+          this.addBookingDetailsUser(response.id, value.id);
         });
         this.roomBookings.forEach((value) => {
           value.bookingDetailsId = response.id;
@@ -177,6 +173,18 @@ export class BillingDashboardComponent implements OnInit {
     });
   }
 
+  setBlankUser() {
+    this.newUser = {
+      id: 0
+    };
+  }
+
+  setBlankRoomBooking() {
+    this.newRoomBooking = {
+      id: 0
+    }
+  }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -185,5 +193,17 @@ export class BillingDashboardComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  private addBookingDetailsUser(bookingId: number, userId: number): void {
+    this.bookingDetailsUserService.PostBookingDetailsUser(
+      {
+        bookingDetailsId: bookingId,
+        userId: userId
+      }).subscribe((bookingDetailsUserResponse: BookingDetailsUserModel) => {
+      },
+        (err) => {
+          console.log(err);
+        });
   }
 }

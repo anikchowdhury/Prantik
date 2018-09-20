@@ -1,1 +1,1 @@
-<app-billing-dashboard *ngIf="isBookingFound" [users]="usersForBooking" [roomBookings]="roomBookingsForBooking" [bookingCodeId]="bookingCodeId"></app-billing-dashboard>
+<app-billing-dashboard *ngIf="bookingCodeId != 0" [users]="usersForBooking" [roomBookings]="roomBookingsForBooking" [bookingCodeId]="bookingCodeId"></app-billing-dashboard>

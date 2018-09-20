@@ -13,16 +13,14 @@ import { BookingDetailsModel } from '../../models/booking-details.model';
 })
 
 export class SearchResult implements OnInit {
-    isBookingFound: boolean;
     usersForBooking: UserModel[];
     roomBookingsForBooking: RoomBookingModel[];
-    bookingCodeId: string;
+    bookingCodeId: number;
 
     constructor(private route: ActivatedRoute, private bookingDetailsService: BookingDetailsService) {
-        this.isBookingFound = false;
         this.usersForBooking = [];
         this.roomBookingsForBooking = [];
-        this.bookingCodeId = '';
+        this.bookingCodeId = 0;
     }
 
     ngOnInit() {
@@ -30,12 +28,12 @@ export class SearchResult implements OnInit {
         this.route.queryParams.subscribe(params => {            
             bookingCode = params['bookingCode'];
           });     
-          this.bookingCodeId = bookingCode;
+          
         this.bookingDetailsService.GetBookingDetails(bookingCode)
             .subscribe((response: BookingDetailsModel) => {
                 this.usersForBooking = response.users;
                 this.roomBookingsForBooking = response.rooms;
-                this.isBookingFound = true;
+                this.bookingCodeId = response.id;
             },
                 (err) => {
                     console.log(err);
