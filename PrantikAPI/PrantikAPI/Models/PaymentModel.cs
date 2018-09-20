@@ -11,6 +11,6 @@ namespace PrantikAPI.Models
         public decimal Amount { get; set; }
         public short PaymentModeId { get; set; }
         public string AdditionalDetails { get; set; }
-        public long BookingDetailsId { get; set; }
+        public long? BookingDetailsId { get; set; }
     }
 }

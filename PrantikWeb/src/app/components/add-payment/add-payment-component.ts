@@ -16,14 +16,15 @@ export class AddPaymentComponent implements OnInit {
 
   constructor(private paymentService: PaymentService) {
     this.payments = {
-      id: 0,
-      bookingDetailsId: 15,
+      id: 0
     };
       this.paymentModes=[
           {title: "Cash", value: 1},
           {title: "Cheque", value: 2},
-          {title: "Card", value: 3}
-      ]
+          {title: "Card", value: 3},
+          {title: "Paytm", value: 4},
+          {title: "AccountTransfer", value: 5}
+      ];
   }
   ngOnInit() {
 

@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { UserModel } from '../../models/user.model';
 import { RoomBookingModel } from '../../models/room-booking.model';
 import { faPhone, faHome, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-print-room-bill',
@@ -25,7 +26,7 @@ export class PrintRoomBillComponent implements OnInit {
     billingDate: string;
     elementType: string;
 
-    constructor(private userService: UserService, private roomBookingService: RoomBookingService) {       
+    constructor(private userService: UserService, private roomBookingService: RoomBookingService, private router: Router) {       
         this.faPhone = faPhone;
         this.faHome = faHome;
         let today = new Date();
@@ -37,5 +38,6 @@ export class PrintRoomBillComponent implements OnInit {
 
     printBill() {
         window.print();
+        this.router.navigate(['dashboard']);
     }
 }

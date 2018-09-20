@@ -18,7 +18,7 @@ namespace PrantikAPI.DataLayer
         public decimal Amount { get; set; }
         public short PaymentModeId { get; set; }
         public string AdditionalDetails { get; set; }
-        public long BookingDetailsId { get; set; }
+        public Nullable<long> BookingDetailsId { get; set; }
     
         public virtual BookingDetail BookingDetail { get; set; }
         public virtual MasterPaymentMode MasterPaymentMode { get; set; }

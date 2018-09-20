@@ -36,11 +36,7 @@ export class BillingDashboardComponent implements OnInit {
   @ViewChild('addPayment') paymentOperationContentTpl: TemplateRef<any>;
 
   constructor(private modalService: NgbModal, private route: ActivatedRoute, private bookingDetailsService: BookingDetailsService, private roomBookingService: RoomBookingService, private paymentService: PaymentService, private bookingDetailsUserService: BookingDetailsUserService) {
-   
-    this.newPayment = {
-      id: 0,
-      bookingDetailsId: 15
-    };
+    this.setBlankPayment();
     this.setBlankUser();
     this.setBlankRoomBooking();
     this.users = [];
@@ -176,10 +172,18 @@ export class BillingDashboardComponent implements OnInit {
   }
 
   setBlankRoomBooking() {
+    
     this.newRoomBooking = {
       id: 0,
       bookingDetailsId: this.bookingCodeId
-    }
+    };
+  }
+
+  setBlankPayment() {
+    this.newPayment = {
+      id: 0,
+      bookingDetailsId: this.bookingCodeId
+    };
   }
 
   private getDismissReason(reason: any): string {

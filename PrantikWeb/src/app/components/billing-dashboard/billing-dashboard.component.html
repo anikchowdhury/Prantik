@@ -21,7 +21,7 @@
       <app-view-payment [payments]="payments" (editButtonClicked)="editPayment($event)" (deleteButtonClicked)="deletePayment($event)"></app-view-payment>
   </div>
   <div class="col-12">
-    <button type="button" class="btn btn-lg btn-outline-primary" (click)="openModal(addPayment)">Add Payment</button>
+    <button type="button" class="btn btn-lg btn-outline-primary" (click)="setBlankPayment();openModal(addPayment)">Add Payment</button>
   </div>
 </div>
 
@@ -32,7 +32,7 @@
 </div>
 
 <div class="row" *ngIf="bookingCodeId != 0">
-  <a [routerLink]="['/printBill', bookingCodeId]" class="btn btn-primary" target="_blank">Print Bill</a>
+  <a [routerLink]="['/printBill', bookingCodeId]" class="btn btn-primary">Print Bill</a>
 </div>
 
 <ng-template #userOperationContent let-c="close" let-d="dismiss">

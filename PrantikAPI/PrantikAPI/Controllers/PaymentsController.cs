@@ -41,52 +41,37 @@ namespace PrantikAPI.Controllers
 
         // PUT: api/Payments/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutPayment(long id, Payment payment)
+        public async Task<IHttpActionResult> PutPayment(long id, PaymentModel paymentModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != payment.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(payment).State = EntityState.Modified;
-
             try
             {
-                await db.SaveChangesAsync();
+                PaymentModel payment = await _provider.PutPayment(id, paymentModel);
+                if (payment.Id == 0)
+                    return BadRequest();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!PaymentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return InternalServerError(ex);
             }
-
             return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Payments
-        [ResponseType(typeof(Payment))]
-        public async Task<IHttpActionResult> PostPayment(Payment payment)
+        [ResponseType(typeof(PaymentModel))]
+        public async Task<IHttpActionResult> PostPayment(PaymentModel paymentModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Payments.Add(payment);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = payment.Id }, payment);
+            PaymentModel payment = await _provider.PostPaymentFrom(paymentModel);
+            return CreatedAtRoute("DefaultApi", new { id = payment.Id }, paymentModel);
         }
 
         // DELETE: api/Payments/5

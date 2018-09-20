@@ -19,10 +19,10 @@
         <AssociationConnector Association="PrantikModel.FK_RoomBooking_Room" ManuallyRouted="false" />
         <AssociationConnector Association="PrantikModel.FK_RoomBooking_BookingDetails" />
         <EntityTypeShape EntityType="PrantikModel.MasterPaymentMode" Width="1.5" PointX="3.75" PointY="11.75" />
-        <EntityTypeShape EntityType="PrantikModel.Payment" Width="1.5" PointX="6" PointY="4.375" />
+        <EntityTypeShape EntityType="PrantikModel.Payment" Width="1.5" PointX="6" PointY="7.75" />
         <AssociationConnector Association="PrantikModel.FK_Payment_BookingDetails" />
         <AssociationConnector Association="PrantikModel.FK_Payment_MasterPaymentMode" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
