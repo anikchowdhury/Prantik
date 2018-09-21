@@ -43,8 +43,8 @@ namespace PrantikAPI.ProviderLayer
                     {
                         Amount = x.Amount,
                         BookingDetailsId = x.BookingDetailsId,
-                        BookingEndDate = x.BookingEndDate,
-                        BookingStartDate = x.BookingStartDate,
+                        BookingEndDate = x.BookingEndDate.ToShortDateString(),
+                        BookingStartDate = x.BookingStartDate.ToShortDateString(),
                         Id = x.Id,
                         RoomRoomNumber = x.RoomRoomNumber
                     }),

@@ -20,8 +20,8 @@ namespace PrantikAPI.ProviderLayer
                 {
                     Amount = roomBooking.Amount,
                     BookingDetailsId = roomBooking.BookingDetailsId,
-                    BookingEndDate = roomBooking.BookingEndDate,
-                    BookingStartDate = roomBooking.BookingStartDate,
+                    BookingEndDate = roomBooking.BookingEndDate.ToShortDateString(),
+                    BookingStartDate = roomBooking.BookingStartDate.ToShortDateString(),
                     Id = roomBooking.Id,
                     RoomRoomNumber = roomBooking.RoomRoomNumber
                 }).ToListAsync();
@@ -37,8 +37,8 @@ namespace PrantikAPI.ProviderLayer
                 {
                     Amount = roomBooking.Amount,
                     BookingDetailsId = roomBooking.BookingDetailsId,
-                    BookingEndDate = roomBooking.BookingEndDate,
-                    BookingStartDate = roomBooking.BookingStartDate,
+                    BookingEndDate = roomBooking.BookingEndDate.ToShortDateString(),
+                    BookingStartDate = roomBooking.BookingStartDate.ToShortDateString(),
                     Id = roomBooking.Id,
                     RoomRoomNumber = roomBooking.RoomRoomNumber
                 };
@@ -52,8 +52,8 @@ namespace PrantikAPI.ProviderLayer
 
                 roomBooking.Amount = roomBookingModel.Amount;
                 roomBooking.BookingDetailsId = roomBookingModel.BookingDetailsId;
-                roomBooking.BookingEndDate = roomBookingModel.BookingEndDate;
-                roomBooking.BookingStartDate = roomBookingModel.BookingStartDate;
+                roomBooking.BookingEndDate = Convert.ToDateTime(roomBookingModel.BookingEndDate);
+                roomBooking.BookingStartDate = Convert.ToDateTime(roomBookingModel.BookingStartDate);
                 roomBooking.RoomRoomNumber = roomBookingModel.RoomRoomNumber;
 
                 db.Entry(roomBooking).State = EntityState.Modified;
@@ -81,8 +81,8 @@ namespace PrantikAPI.ProviderLayer
                 {
                     Amount = roomBooking.Amount,
                     BookingDetailsId = roomBooking.BookingDetailsId,
-                    BookingEndDate = roomBooking.BookingEndDate,
-                    BookingStartDate = roomBooking.BookingStartDate,
+                    BookingEndDate = roomBooking.BookingEndDate.ToShortDateString(),
+                    BookingStartDate = roomBooking.BookingStartDate.ToShortDateString(),
                     Id = roomBooking.Id,
                     RoomRoomNumber = roomBooking.RoomRoomNumber
                 };
@@ -97,8 +97,8 @@ namespace PrantikAPI.ProviderLayer
                 {
                     RoomRoomNumber = roomBookingModel.RoomRoomNumber,
                     Amount = roomBookingModel.Amount,
-                    BookingEndDate = roomBookingModel.BookingEndDate,
-                    BookingStartDate = roomBookingModel.BookingStartDate,
+                    BookingEndDate = Convert.ToDateTime(roomBookingModel.BookingEndDate),
+                    BookingStartDate = Convert.ToDateTime(roomBookingModel.BookingStartDate),
                     BookingDetailsId = roomBookingModel.BookingDetailsId > 0 ? roomBookingModel.BookingDetailsId : null
                 });                
                 await db.SaveChangesAsync();

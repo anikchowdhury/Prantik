@@ -10,8 +10,8 @@ namespace PrantikAPI.Models
         public long Id { get; set; }
         public string RoomRoomNumber { get; set; }
         public Nullable<long> BookingDetailsId { get; set; }
-        public DateTime BookingStartDate { get; set; }
-        public DateTime BookingEndDate { get; set; }
+        public string BookingStartDate { get; set; }
+        public string BookingEndDate { get; set; }
         public decimal Amount { get; set; }
     }
 }
