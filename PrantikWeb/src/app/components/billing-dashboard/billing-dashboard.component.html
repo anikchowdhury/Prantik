@@ -3,36 +3,43 @@
     <app-view-user [users]="users" (editButtonClicked)="editUser($event)" (deleteButtonClicked)="deleteUser($event)"></app-view-user>
   </div>
   <div class="col-12">
-    <button type="button" class="btn btn-lg btn-outline-primary" (click)="setBlankUser();openModal(userOperationContent)">Add User</button>
+    <button type="button" class="btn btn-lg btn-outline-primary float-right" (click)="setBlankUser();openModal(userOperationContent)">Add
+      User</button>
   </div>
 </div>
 
-<div class="row">
+<div class="row mt-3">
   <div class="col-12">
-    <app-view-room-booking [roomBookings]="roomBookings" (editButtonClicked)="editRoomBooking($event)" (deleteButtonClicked)="deleteRoomBooking($event)"></app-view-room-booking>
+    <app-view-room-booking [roomBookings]="roomBookings" (editButtonClicked)="editRoomBooking($event)"
+      (deleteButtonClicked)="deleteRoomBooking($event)"></app-view-room-booking>
   </div>
   <div class="col-12">
-    <button type="button" class="btn btn-lg btn-outline-primary" (click)="setBlankRoomBooking();openModal(addRoomBookingContent)">Add Room
+    <button type="button" class="btn btn-lg btn-outline-primary float-right" (click)="setBlankRoomBooking();openModal(addRoomBookingContent)">Add
+      Room
       Booking</button>
   </div>
 </div>
-<div class="row">
+<div class="row mt-3">
   <div class="col-12">
-      <app-view-payment [payments]="payments" (editButtonClicked)="editPayment($event)" (deleteButtonClicked)="deletePayment($event)"></app-view-payment>
+    <app-view-payment [payments]="payments" (editButtonClicked)="editPayment($event)" (deleteButtonClicked)="deletePayment($event)"></app-view-payment>
   </div>
   <div class="col-12">
-    <button type="button" class="btn btn-lg btn-outline-primary" (click)="setBlankPayment();openModal(addPayment)">Add Payment</button>
+    <button type="button" class="btn btn-lg btn-outline-primary float-right" (click)="setBlankPayment();openModal(addPayment)">Add
+      Payment</button>
   </div>
 </div>
 
-
-
-<div class="row" *ngIf="bookingCodeId == 0">
-  <button type="button" class="float-right" [disabled]="isProcessingCreateBooking" (click)="createBooking()">Submit</button>
+<div class="row mt-5" *ngIf="bookingCodeId == 0">
+  <div class="col-12">
+    <button type="button" class="btn btn-primary float-right" [disabled]="roomBookings.length == 0 || users.length == 0 || isProcessingCreateBooking"
+      (click)="createBooking()">Submit</button>
+  </div>
 </div>
 
-<div class="row" *ngIf="bookingCodeId != 0">
-  <a [routerLink]="['/printBill', bookingCodeId]" class="btn btn-primary">Print Bill</a>
+<div class="row mt-5" *ngIf="bookingCodeId != 0">
+  <div class="col-12">
+    <a [routerLink]="['/printBill', bookingCodeId]" class="btn btn-primary float-right">Print Bill</a>
+  </div>
 </div>
 
 <ng-template #userOperationContent let-c="close" let-d="dismiss">
@@ -44,9 +51,6 @@
   </div>
   <div class="modal-body">
     <app-add-user [user]="newUser" (userOperationSuccess)="displayAddedUser($event)"></app-add-user>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
   </div>
 </ng-template>
 
@@ -60,9 +64,6 @@
   <div class="modal-body">
     <app-add-room-booking [roomBooking]="newRoomBooking" (roomAddedSuccesfully)="displayAddedRoom($event)"></app-add-room-booking>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
-  </div>
 </ng-template>
 
 <ng-template #addPayment let-c="close" let-d="dismiss">
@@ -75,11 +76,4 @@
   <div class="modal-body">
     <add-payment [payments]="newPayment" (paymentAddedSuccesfully)="displayAddedPayment($event)"></add-payment>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
-  </div>
 </ng-template>
-
-<hr>
-
-<pre>{{closeResult}}</pre>
