@@ -37,6 +37,7 @@ export class ViewRoomBookingComponent implements OnInit, DoCheck {
         if (changes) {
             this.cd.markForCheck();
             this.totalAmount = 0;
+            this.gstAmount = 0;
             this.roomBookings.forEach(element => {
                 this.totalAmount += element.amount;
                 this.gstAmount += element.gst
