@@ -13,5 +13,7 @@ namespace PrantikAPI.Models
         public string BookingStartDate { get; set; }
         public string BookingEndDate { get; set; }
         public decimal Amount { get; set; }
+        public decimal? GST { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 }

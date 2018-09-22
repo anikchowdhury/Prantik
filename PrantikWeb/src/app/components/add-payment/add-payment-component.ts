@@ -23,7 +23,7 @@ export class AddPaymentComponent implements OnInit {
           {title: "Cheque", value: 2},
           {title: "Card", value: 3},
           {title: "Paytm", value: 4},
-          {title: "AccountTransfer", value: 5}
+          {title: "Account Transfer", value: 5}
       ];
   }
   ngOnInit() {
@@ -39,7 +39,8 @@ export class AddPaymentComponent implements OnInit {
               amount: response.amount,
               paymentModeId: response.paymentModeId,
               additionalDetails: response.additionalDetails,
-              bookingDetailsId: response.bookingDetailsId
+              bookingDetailsId: response.bookingDetailsId,
+              createDate: response.createDate
             });
           },
             (err) => {

@@ -37,7 +37,8 @@ namespace PrantikAPI.ProviderLayer
                         Name = x.User.Name,
                         PhoneNumber = x.User.PhoneNumber,
                         Profession = x.User.Profession,
-                        RelativeName = x.User.RelativeName
+                        RelativeName = x.User.RelativeName,
+                        CreateDate = x.User.CreateDate
                     }),
                     Rooms = bookingDetail.RoomBookings.Select(x => new RoomBookingModel()
                     {
@@ -46,7 +47,9 @@ namespace PrantikAPI.ProviderLayer
                         BookingEndDate = x.BookingEndDate.ToShortDateString(),
                         BookingStartDate = x.BookingStartDate.ToShortDateString(),
                         Id = x.Id,
-                        RoomRoomNumber = x.RoomRoomNumber
+                        RoomRoomNumber = x.RoomRoomNumber,
+                        GST = x.GST,
+                        CreateDate = x.CreateDate
                     }),
                     Payments = bookingDetail.Payments.Select(x => new PaymentModel()
                     {
@@ -54,10 +57,28 @@ namespace PrantikAPI.ProviderLayer
                         AdditionalDetails = x.AdditionalDetails,
                         Amount = x.Amount,
                         BookingDetailsId = x.BookingDetailsId,
-                        PaymentModeId = x.PaymentModeId
+                        PaymentModeId = x.PaymentModeId,
+                        CreateDate = x.CreateDate
                     })
                 };
             }
+        }
+
+        internal async Task<BookingDetailModel> PostBookingDetail(BookingDetailModel bookingDetailModel)
+        {
+            using (PrantikEntities db = new PrantikEntities())
+            {
+                BookingDetail bookingDetail = new BookingDetail()
+                {
+                    BookingCode = bookingDetailModel.BookingCode,
+                    CreateDate = bookingDetailModel.CreateDate
+                };
+                
+                db.BookingDetails.Add(bookingDetail);
+                await db.SaveChangesAsync();
+                bookingDetailModel.Id = bookingDetail.Id;                
+            }
+            return bookingDetailModel;
         }
     }
 }

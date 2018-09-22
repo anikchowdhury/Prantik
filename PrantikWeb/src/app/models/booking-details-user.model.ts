@@ -3,4 +3,5 @@ export class BookingDetailsUserModel {
     bookingDetailsId?: number;
     userId?: number;
     isPrimary?: boolean;
+    createDate?: string;
 }

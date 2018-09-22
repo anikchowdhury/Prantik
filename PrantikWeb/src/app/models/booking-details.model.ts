@@ -8,4 +8,5 @@ export class BookingDetailsModel {
     users: UserModel[];
     rooms: RoomBookingModel[];
     payments: PaymentModel[];
+    createDate?: string;
 }

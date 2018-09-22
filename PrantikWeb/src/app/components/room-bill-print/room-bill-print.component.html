@@ -43,14 +43,14 @@
       <thead>
         <tr>
           <th colspan="1">Bill Date &amp; Time:<span class="font-weight-normal"> {{billingDate}}</span></th>
-          <th colspan="3">Bill #{{qrValue}}</th>
+          <th colspan="4">Bill #{{qrValue}}</th>
           <th colspan="1" class="p-1">
             <ngx-qrcode qrc-class="qr-size-class" [qrc-element-type]="elementType" [qrc-value]="qrValue">
             </ngx-qrcode>
           </th>
         </tr>
         <tr>
-          <th colspan="5">
+          <th colspan="6">
             <div class="row">
               <div class="col-1">
                 <div class="row">
@@ -79,7 +79,8 @@
           <th>Room Number</th>
           <th>Arrival Date</th>
           <th>Depurture Date</th>
-          <th>Rent</th>
+          <th class="text-right">Rent</th>
+          <th class="text-right">GST</th>
         </tr>
       </thead>
       <tbody>
@@ -89,16 +90,22 @@
           <td>{{roomBooking.bookingStartDate}}</td>
           <td>{{roomBooking.bookingEndDate}}</td>
           <td class="text-right">{{roomBooking.amount}}</td>
+          <td class="text-right">{{roomBooking.gst}}</td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
           <td class="text-right font-weight-bold" colspan="4">Total</td>
           <td class="text-right font-weight-bold">{{totalAmount}}</td>
+          <td class="text-right font-weight-bold">{{gstTotal}}</td>
+        </tr>
+        <tr>
+          <td class="text-right font-weight-bold" colspan="5">Grand Total</td>
+          <td class="text-right font-weight-bold">{{totalAmount + gstTotal}}</td>
         </tr>
         <tr></tr>
         <tr>
-          <td colspan="5" class="text-right font-weight-bold pt-5">Signature &amp; Stamp</td>
+          <td colspan="6" class="text-right font-weight-bold pt-5">Signature &amp; Stamp</td>
         </tr>
       </tfoot>
     </table>

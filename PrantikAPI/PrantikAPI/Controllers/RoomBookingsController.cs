@@ -75,10 +75,10 @@ namespace PrantikAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
+            roomBookingModel.CreateDate = DateTime.Today;
+            roomBookingModel = await _providerLayer.PostRoomBookingFrom(roomBookingModel);
 
-            RoomBookingModel roomBooking = await _providerLayer.PostRoomBookingFrom(roomBookingModel);
-
-            return CreatedAtRoute("DefaultApi", new { id = roomBooking.Id }, roomBooking);
+            return CreatedAtRoute("DefaultApi", new { id = roomBookingModel.Id }, roomBookingModel);
         }
 
         // DELETE: api/RoomBookings/5

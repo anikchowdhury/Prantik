@@ -16,13 +16,15 @@ export class BillPrintComponent implements OnInit {
     customerDetail: UserModel;
     totalAmount: number;
     qrValue: string;
+    gstTotal: number;
 
     constructor(private route: ActivatedRoute, private bookingDetailsService: BookingDetailsService) {
         this.roomBookings = [];
         this.totalAmount = 0;
         this.qrValue = '';
+        this.gstTotal = 0;
         this.customerDetail = {
-            name:'',
+            name: '',
             address: '',
             phoneNumber: '',
             comingFrom: ''
@@ -30,7 +32,7 @@ export class BillPrintComponent implements OnInit {
     }
     ngOnInit() {
         this.route.paramMap.pipe(
-            switchMap((params: Params) => 
+            switchMap((params: Params) =>
                 this.bookingDetailsService.GetBookingDetails(params.get('bookingCode'))
             )).subscribe((response: BookingDetailsModel) => {
                 console.log(response);
@@ -38,21 +40,12 @@ export class BillPrintComponent implements OnInit {
                 this.roomBookings = response.rooms;
                 this.roomBookings.forEach((value) => {
                     this.totalAmount += value.amount;
+                    this.gstTotal += value.gst;
                 });
                 this.qrValue = response.bookingCode;
             },
                 (err) => {
                     console.log(err);
                 });
-
-        /*this.bookingDetailsService.GetBookingDetails(params.get('bookingCode'))
-            .subscribe((response: BookingDetailsModel) => {
-                console.log(response);
-                this.customerDetail = response.users[0];
-                this.roomBookings = response.rooms;
-            },
-                (err) => {
-                    console.log(err);
-                }));*/
     }
 }

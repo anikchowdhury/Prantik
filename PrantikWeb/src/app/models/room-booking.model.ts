@@ -5,4 +5,6 @@ export class RoomBookingModel {
     bookingStartDate?: string;
     bookingEndDate?: string;
     amount?: number;
+    gst?: number;
+    createDate?: string;
 }

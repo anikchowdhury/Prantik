@@ -12,5 +12,6 @@ namespace PrantikAPI.Models
         public short PaymentModeId { get; set; }
         public string AdditionalDetails { get; set; }
         public long? BookingDetailsId { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 }

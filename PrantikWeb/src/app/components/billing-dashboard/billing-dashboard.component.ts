@@ -23,13 +23,14 @@ export class BillingDashboardComponent implements OnInit {
   @Input() roomBookings: RoomBookingModel[];
   @Input() bookingCodeId: number;
   @Input() payments: PaymentModel[];
-
+  @Input() bookingCodeToDisplay: string;
 
   newUser: UserModel;
   newRoomBooking: RoomBookingModel;
   newPayment: PaymentModel;
   closeResult: string;
   isProcessingCreateBooking: boolean;
+  
 
   @ViewChild('userOperationContent') userOperationContentTpl: TemplateRef<any>;
   @ViewChild('addRoomBookingContent') roomBookingOperationContentTpl: TemplateRef<any>;
@@ -43,6 +44,7 @@ export class BillingDashboardComponent implements OnInit {
     this.roomBookings = [];
     this.bookingCodeId = 0;
     this.payments = [];
+    this.bookingCodeToDisplay = '';
     this.isProcessingCreateBooking = false;
   }
 
@@ -82,6 +84,7 @@ export class BillingDashboardComponent implements OnInit {
   }
 
   displayAddedRoom(roomBookingModel: RoomBookingModel) {
+    console.log(roomBookingModel);
     //   this.roomBookings.push(roomBookingModel);
     let roomBookingIndex = this.roomBookings.findIndex(roomBooking => roomBooking.id == roomBookingModel.id);
     if (roomBookingIndex > -1) {
@@ -151,6 +154,7 @@ export class BillingDashboardComponent implements OnInit {
               });
         });
         this.bookingCodeId = response.id;
+        this.bookingCodeToDisplay = response.bookingCode;
       },
         (err) => {
           console.log(err);

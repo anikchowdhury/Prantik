@@ -5,6 +5,7 @@
                 <th scope="col">Booking Start Date</th>
                 <th scope="col">Booking End Date</th>
                 <th scope="col">Amount</th>
+                <th scope="col">GST</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -15,6 +16,7 @@
                 <td>{{roomBooking.bookingStartDate}}</td>
                 <td>{{roomBooking.bookingEndDate}}</td>
                 <td>{{roomBooking.amount}}</td>
+                <td>{{roomBooking.gst}}</td>
                 <td (click)="notifyEdit(roomBooking)"><fa-icon [icon]="faEdit"></fa-icon></td>           
                 <td (click)="notifyDelete(roomBoking)"><fa-icon [icon]="faTrashAlt"></fa-icon></td>
             </tr>
@@ -23,6 +25,9 @@
                 <td></td>
                 <td></td>
                 <td>{{totalAmount}}</td>
+                <td>{{gstAmount}}</td>
+                <td></td>
+                <td></td>
             </tr>
         </tbody>
     </table>

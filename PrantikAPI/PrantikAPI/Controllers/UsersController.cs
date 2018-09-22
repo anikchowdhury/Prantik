@@ -41,7 +41,7 @@ namespace PrantikAPI.Controllers
 
         // PUT: api/Users/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutUser(long id, User user)
+        public async Task<IHttpActionResult> PutUser(long id, UserModel user)
         {
             if (!ModelState.IsValid)
             {
@@ -53,40 +53,23 @@ namespace PrantikAPI.Controllers
                 return BadRequest();
             }
 
-            db.Entry(user).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            user = await _provider.PutUser(user);
+            
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Users
-        [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> PostUser(User user)
+        [ResponseType(typeof(UserModel))]
+        public async Task<IHttpActionResult> PostUser(UserModel userModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            db.Users.Add(user);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
+            userModel.CreateDate = DateTime.Today;
+            userModel = await _provider.PostUser(userModel);
+            return CreatedAtRoute("DefaultApi", new { id = userModel.Id }, userModel);
         }
 
         // DELETE: api/Users/5
@@ -112,11 +95,6 @@ namespace PrantikAPI.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool UserExists(long id)
-        {
-            return db.Users.Count(e => e.Id == id) > 0;
         }
     }
 }

@@ -20,6 +20,7 @@ namespace PrantikAPI.DataLayer
         public short Quantity { get; set; }
         public decimal Price { get; set; }
         public System.DateTime OrderDate { get; set; }
+        public System.DateTime CreateDate { get; set; }
     
         public virtual BookingDetail BookingDetail { get; set; }
         public virtual Menu Menu { get; set; }

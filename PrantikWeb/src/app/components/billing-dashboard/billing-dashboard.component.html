@@ -1,3 +1,10 @@
+
+<div class="row text-center" *ngIf="bookingCodeId != 0">
+    <div class="col-12">
+        <strong>{{bookingCodeToDisplay}}</strong>
+    </div>
+</div>
+
 <div class="row">
   <div class="col-12">
     <app-view-user [users]="users" (editButtonClicked)="editUser($event)" (deleteButtonClicked)="deleteUser($event)"></app-view-user>

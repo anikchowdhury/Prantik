@@ -79,7 +79,7 @@ namespace PrantikAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            bookingDetailsUser.CreateDate = DateTime.Today;
             db.BookingDetailsUsers.Add(bookingDetailsUser);
             await db.SaveChangesAsync();
 

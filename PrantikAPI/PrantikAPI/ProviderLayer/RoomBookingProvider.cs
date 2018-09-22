@@ -23,7 +23,9 @@ namespace PrantikAPI.ProviderLayer
                     BookingEndDate = roomBooking.BookingEndDate.ToShortDateString(),
                     BookingStartDate = roomBooking.BookingStartDate.ToShortDateString(),
                     Id = roomBooking.Id,
-                    RoomRoomNumber = roomBooking.RoomRoomNumber
+                    RoomRoomNumber = roomBooking.RoomRoomNumber,
+                    GST = roomBooking.GST,
+                    CreateDate = roomBooking.CreateDate
                 }).ToListAsync();
             }
         }
@@ -40,7 +42,9 @@ namespace PrantikAPI.ProviderLayer
                     BookingEndDate = roomBooking.BookingEndDate.ToShortDateString(),
                     BookingStartDate = roomBooking.BookingStartDate.ToShortDateString(),
                     Id = roomBooking.Id,
-                    RoomRoomNumber = roomBooking.RoomRoomNumber
+                    RoomRoomNumber = roomBooking.RoomRoomNumber,
+                    GST = roomBooking.GST,
+                    CreateDate = roomBooking.CreateDate
                 };
             }
         }
@@ -55,6 +59,8 @@ namespace PrantikAPI.ProviderLayer
                 roomBooking.BookingEndDate = Convert.ToDateTime(roomBookingModel.BookingEndDate);
                 roomBooking.BookingStartDate = Convert.ToDateTime(roomBookingModel.BookingStartDate);
                 roomBooking.RoomRoomNumber = roomBookingModel.RoomRoomNumber;
+                roomBooking.GST = roomBookingModel.GST;
+                roomBooking.CreateDate = roomBookingModel.CreateDate;
 
                 db.Entry(roomBooking).State = EntityState.Modified;
 
@@ -84,7 +90,8 @@ namespace PrantikAPI.ProviderLayer
                     BookingEndDate = roomBooking.BookingEndDate.ToShortDateString(),
                     BookingStartDate = roomBooking.BookingStartDate.ToShortDateString(),
                     Id = roomBooking.Id,
-                    RoomRoomNumber = roomBooking.RoomRoomNumber
+                    RoomRoomNumber = roomBooking.RoomRoomNumber,
+                    GST = roomBooking.GST
                 };
             }
         }
@@ -99,10 +106,20 @@ namespace PrantikAPI.ProviderLayer
                     Amount = roomBookingModel.Amount,
                     BookingEndDate = Convert.ToDateTime(roomBookingModel.BookingEndDate),
                     BookingStartDate = Convert.ToDateTime(roomBookingModel.BookingStartDate),
-                    BookingDetailsId = roomBookingModel.BookingDetailsId > 0 ? roomBookingModel.BookingDetailsId : null
-                });                
-                await db.SaveChangesAsync();
-                roomBookingModel.Id = roomBooking.Id;
+                    GST = roomBookingModel.GST,
+                    BookingDetailsId = roomBookingModel.BookingDetailsId > 0 ? roomBookingModel.BookingDetailsId : null,
+                    CreateDate = roomBookingModel.CreateDate
+                });
+                try
+                {
+                    await db.SaveChangesAsync();
+                    roomBookingModel.Id = roomBooking.Id;
+                }
+                catch
+                {
+
+                    throw;
+                }                                
                 return roomBookingModel;
             }
         }

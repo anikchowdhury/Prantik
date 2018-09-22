@@ -4,4 +4,5 @@ export class PaymentModel{
     paymentModeId?: number;
     additionalDetails?: string;
     bookingDetailsId?: number;
+    createDate?: string;
 }

@@ -18,6 +18,7 @@ namespace PrantikAPI.DataLayer
         public long BookingDetailsId { get; set; }
         public long UserId { get; set; }
         public bool IsPrimary { get; set; }
+        public System.DateTime CreateDate { get; set; }
     
         public virtual BookingDetail BookingDetail { get; set; }
         public virtual User User { get; set; }

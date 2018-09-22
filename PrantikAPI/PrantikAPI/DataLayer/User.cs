@@ -30,6 +30,7 @@ namespace PrantikAPI.DataLayer
         public string IdCardNumber { get; set; }
         public string RelativeName { get; set; }
         public string Profession { get; set; }
+        public System.DateTime CreateDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingDetailsUser> BookingDetailsUsers { get; set; }

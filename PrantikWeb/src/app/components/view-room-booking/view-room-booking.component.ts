@@ -18,10 +18,12 @@ export class ViewRoomBookingComponent implements OnInit, DoCheck {
     differ: IterableDiffer<RoomBookingModel>;
     faEdit: IconDefinition;
     faTrashAlt: IconDefinition;
+    gstAmount: number;
 
     constructor(private iterableDiffer: IterableDiffers, private cd:ChangeDetectorRef) {
         this.roomBookings = [];
         this.totalAmount = 0;
+        this.gstAmount = 0;
         this.differ =  this.iterableDiffer.find(this.roomBookings).create(null);
         this.faEdit = faEdit;
         this.faTrashAlt = faTrashAlt;
@@ -37,16 +39,15 @@ export class ViewRoomBookingComponent implements OnInit, DoCheck {
             this.totalAmount = 0;
             this.roomBookings.forEach(element => {
                 this.totalAmount += element.amount;
+                this.gstAmount += element.gst
             });
         }
     }
     
-    notifyEdit(roomBookingToEmit: RoomBookingModel){
-        console.log(roomBookingToEmit);
+    notifyEdit(roomBookingToEmit: RoomBookingModel) {
         this.editButtonClicked.emit(roomBookingToEmit);
     }
-    notifyDelete(roomBookingToEmit: RoomBookingModel){
-        console.log(roomBookingToEmit);
+    notifyDelete(roomBookingToEmit: RoomBookingModel) {
         this.deleteButtonClicked.emit(roomBookingToEmit);
     }
 }

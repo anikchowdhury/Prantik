@@ -69,9 +69,9 @@ namespace PrantikAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            PaymentModel payment = await _provider.PostPaymentFrom(paymentModel);
-            return CreatedAtRoute("DefaultApi", new { id = payment.Id }, paymentModel);
+            paymentModel.CreateDate = DateTime.Today;
+            paymentModel = await _provider.PostPaymentFrom(paymentModel);
+            return CreatedAtRoute("DefaultApi", new { id = paymentModel.Id }, paymentModel);
         }
 
         // DELETE: api/Payments/5

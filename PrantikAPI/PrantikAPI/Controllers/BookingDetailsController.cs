@@ -76,18 +76,17 @@ namespace PrantikAPI.Controllers
         }
 
         // POST: api/BookingDetails
-        [ResponseType(typeof(BookingDetail))]
+        [ResponseType(typeof(BookingDetailModel))]
         public async Task<IHttpActionResult> PostBookingDetail()
         {
-            var bookingDetail = new BookingDetail()
+            var bookingDetailModel = new BookingDetailModel()
             {
-                BookingCode = $"PR/{DateTime.Now.ToString("yyyyMMdd")}/{DateTime.Now.ToString("HHmm")}"
+                BookingCode = $"PR/{DateTime.Now.ToString("yyyyMMdd")}/{DateTime.Now.ToString("HHmm")}",
+                CreateDate = DateTime.Today
             };
+            bookingDetailModel = await _provider.PostBookingDetail(bookingDetailModel);
 
-            db.BookingDetails.Add(bookingDetail);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = bookingDetail.Id }, bookingDetail);
+            return CreatedAtRoute("DefaultApi", new { id = bookingDetailModel.Id }, bookingDetailModel);
         }
 
         // DELETE: api/BookingDetails/5

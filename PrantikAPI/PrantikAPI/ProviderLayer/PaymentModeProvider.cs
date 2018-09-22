@@ -21,7 +21,8 @@ namespace PrantikAPI.ProviderLayer
                     Amount = payment.Amount,
                     BookingDetailsId = payment.BookingDetailsId,
                     Id = payment.Id,
-                    PaymentModeId = payment.PaymentModeId
+                    PaymentModeId = payment.PaymentModeId,
+                    CreateDate = payment.CreateDate
                 }).ToListAsync();
             }
         }
@@ -37,7 +38,8 @@ namespace PrantikAPI.ProviderLayer
                     Amount = payment.Amount,
                     BookingDetailsId = payment.BookingDetailsId,
                     Id = payment.Id,
-                    PaymentModeId = payment.PaymentModeId
+                    PaymentModeId = payment.PaymentModeId,
+                    CreateDate = payment.CreateDate
                 };
             }
         }
@@ -51,7 +53,8 @@ namespace PrantikAPI.ProviderLayer
                     AdditionalDetails = paymentModel.AdditionalDetails,
                     Amount = paymentModel.Amount,
                     BookingDetailsId = paymentModel.BookingDetailsId == 0 ? null : paymentModel.BookingDetailsId,
-                    PaymentModeId = paymentModel.PaymentModeId
+                    PaymentModeId = paymentModel.PaymentModeId,
+                    CreateDate = paymentModel.CreateDate
                 });
                 await db.SaveChangesAsync();
                 paymentModel.Id = payment.Id;
@@ -68,6 +71,7 @@ namespace PrantikAPI.ProviderLayer
                 payment.AdditionalDetails = paymentModel.AdditionalDetails;
                 payment.Amount = paymentModel.Amount;
                 payment.PaymentModeId = paymentModel.PaymentModeId;
+                payment.CreateDate = paymentModel.CreateDate;
                 db.Entry(payment).State = EntityState.Modified;
 
                 try

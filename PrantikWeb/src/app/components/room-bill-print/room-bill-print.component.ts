@@ -20,6 +20,7 @@ export class PrintRoomBillComponent implements OnInit {
     @Input() roomBookings: RoomBookingModel[];
     @Input() totalAmount: number;
     @Input() qrValue: string;
+    @Input() gstTotal: number;
     
     faPhone: IconDefinition;
     faHome: IconDefinition;

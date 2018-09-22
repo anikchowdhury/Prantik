@@ -9,4 +9,5 @@ export class UserModel {
     comingFrom?: string;
     goingTo?: string;
     phoneNumber?: string;
+    createDate?: string;
 }

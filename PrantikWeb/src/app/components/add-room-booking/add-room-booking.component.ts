@@ -48,12 +48,15 @@ export class AddRoomBookingComponent implements OnInit {
       if(this.roomBooking.id == 0)
         this.roomBookingService.PostRoomBookings(this.roomBooking)
           .subscribe((response: RoomBookingModel) => {
+            console.log(response);
             this.roomAddedSuccesfully.emit({
               id: response.id,
               roomRoomNumber: response.roomRoomNumber,
               bookingStartDate: response.bookingStartDate,
               bookingEndDate: response.bookingEndDate,
-              amount: response.amount
+              amount: response.amount,
+              gst: response.gst,
+              createDate: response.createDate
             });
           },
             (err) => {

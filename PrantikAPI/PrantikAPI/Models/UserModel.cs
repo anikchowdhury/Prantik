@@ -17,5 +17,6 @@ namespace PrantikAPI.Models
         public string IdCardNumber { get; set; }
         public string RelativeName { get; set; }
         public string Profession { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 }

@@ -17,24 +17,22 @@ export class SearchResult implements OnInit {
     usersForBooking: UserModel[];
     roomBookingsForBooking: RoomBookingModel[];
     bookingCodeId: number;
-    bookingCodeToDisplay: string;
     payments: PaymentModel[];
+    bookingCode: string;
 
     constructor(private route: ActivatedRoute, private bookingDetailsService: BookingDetailsService) {
         this.usersForBooking = [];
         this.roomBookingsForBooking = [];
         this.bookingCodeId = 0;
-        this.bookingCodeToDisplay = '';
+        this.bookingCode = ''
     }
 
-    ngOnInit() {
-        let bookingCode: string; 
+    ngOnInit() {        
         this.route.queryParams.subscribe(params => {            
-            bookingCode = params['bookingCode'];
-            this.bookingCodeToDisplay = params['bookingCode'];
+            this.bookingCode = params['bookingCode'];
           });     
           
-        this.bookingDetailsService.GetBookingDetails(bookingCode)
+        this.bookingDetailsService.GetBookingDetails(this.bookingCode)
             .subscribe((response: BookingDetailsModel) => {
                 this.usersForBooking = response.users;
                 this.roomBookingsForBooking = response.rooms;

@@ -11,6 +11,7 @@
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BookingCode" Type="char" MaxLength="16" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="BookingDetailsUser">
           <Key>
@@ -20,6 +21,7 @@
           <Property Name="BookingDetailsId" Type="bigint" Nullable="false" />
           <Property Name="UserId" Type="bigint" Nullable="false" />
           <Property Name="IsPrimary" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="MasterPaymentMode">
           <Key>
@@ -45,6 +47,7 @@
           <Property Name="Quantity" Type="smallint" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
           <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -55,6 +58,7 @@
           <Property Name="PaymentModeId" Type="smallint" Nullable="false" />
           <Property Name="AdditionalDetails" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="BookingDetailsId" Type="bigint" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
@@ -72,6 +76,8 @@
           <Property Name="BookingStartDate" Type="date" Nullable="false" />
           <Property Name="BookingEndDate" Type="date" Nullable="false" />
           <Property Name="Amount" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="GST" Type="decimal" Precision="12" Scale="2" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -87,6 +93,7 @@
           <Property Name="IdCardNumber" Type="varchar" MaxLength="30" />
           <Property Name="RelativeName" Type="varchar" MaxLength="100" />
           <Property Name="Profession" Type="varchar" MaxLength="20" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK_BookingDetailsUser_BookingDetails">
           <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="1" />
@@ -241,6 +248,7 @@
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_BookingDetails" FromRole="BookingDetails" ToRole="OrderDetails" />
           <NavigationProperty Name="RoomBookings" Relationship="PrantikModel.FK_RoomBooking_BookingDetails" FromRole="BookingDetail" ToRole="RoomBooking" />
           <NavigationProperty Name="Payments" Relationship="PrantikModel.FK_Payment_BookingDetails" FromRole="BookingDetail" ToRole="Payment" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="BookingDetailsUser">
           <Key>
@@ -252,6 +260,7 @@
           <NavigationProperty Name="BookingDetail" Relationship="Self.FK_BookingDetailsUser_BookingDetails" FromRole="BookingDetailsUser" ToRole="BookingDetails" />
           <NavigationProperty Name="User" Relationship="Self.FK_BookingDetailsUser_User" FromRole="BookingDetailsUser" ToRole="User" />
           <Property Name="IsPrimary" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -273,6 +282,7 @@
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="BookingDetail" Relationship="Self.FK_OrderDetails_BookingDetails" FromRole="OrderDetails" ToRole="BookingDetails" />
           <NavigationProperty Name="Menu" Relationship="Self.FK_OrderDetails_Menu" FromRole="OrderDetails" ToRole="Menu" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
@@ -293,6 +303,8 @@
           <Property Name="Amount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
           <NavigationProperty Name="Room" Relationship="Self.FK_RoomBooking_Room" FromRole="RoomBooking" ToRole="Room" />
           <NavigationProperty Name="BookingDetail" Relationship="PrantikModel.FK_RoomBooking_BookingDetails" FromRole="RoomBooking" ToRole="BookingDetail" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GST" Type="Decimal" Precision="12" Scale="2" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -309,6 +321,7 @@
           <Property Name="IdCardNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="RelativeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Profession" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="FK_BookingDetailsUser_BookingDetails">
           <End Role="BookingDetails" Type="Self.BookingDetail" Multiplicity="1" />
@@ -444,6 +457,7 @@
           <Property Name="BookingDetailsId" Type="Int64" />
           <NavigationProperty Name="BookingDetail" Relationship="PrantikModel.FK_Payment_BookingDetails" FromRole="Payment" ToRole="BookingDetail" />
           <NavigationProperty Name="MasterPaymentMode" Relationship="PrantikModel.FK_Payment_MasterPaymentMode" FromRole="Payment" ToRole="MasterPaymentMode" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="FK_Payment_BookingDetails">
           <End Type="PrantikModel.BookingDetail" Role="BookingDetail" Multiplicity="0..1" />
@@ -478,6 +492,7 @@
           <EntitySetMapping Name="BookingDetails">
             <EntityTypeMapping TypeName="PrantikModel.BookingDetail">
               <MappingFragment StoreEntitySet="BookingDetails">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="BookingCode" ColumnName="BookingCode" />
               </MappingFragment>
@@ -486,6 +501,7 @@
           <EntitySetMapping Name="BookingDetailsUsers">
             <EntityTypeMapping TypeName="PrantikModel.BookingDetailsUser">
               <MappingFragment StoreEntitySet="BookingDetailsUser">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="BookingDetailsId" ColumnName="BookingDetailsId" />
@@ -504,6 +520,7 @@
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="PrantikModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="BookingDetailsId" ColumnName="BookingDetailsId" />
                 <ScalarProperty Name="MenuId" ColumnName="MenuId" />
@@ -523,6 +540,8 @@
           <EntitySetMapping Name="RoomBookings">
             <EntityTypeMapping TypeName="PrantikModel.RoomBooking">
               <MappingFragment StoreEntitySet="RoomBooking">
+                <ScalarProperty Name="GST" ColumnName="GST" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="RoomRoomNumber" ColumnName="RoomRoomNumber" />
                 <ScalarProperty Name="BookingDetailsId" ColumnName="BookingDetailsId" />
@@ -535,6 +554,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="PrantikModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Profession" ColumnName="Profession" />
                 <ScalarProperty Name="RelativeName" ColumnName="RelativeName" />
                 <ScalarProperty Name="IdCardNumber" ColumnName="IdCardNumber" />
@@ -559,6 +579,7 @@
           <EntitySetMapping Name="Payments">
             <EntityTypeMapping TypeName="PrantikModel.Payment">
               <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="BookingDetailsId" ColumnName="BookingDetailsId" />
                 <ScalarProperty Name="AdditionalDetails" ColumnName="AdditionalDetails" />
                 <ScalarProperty Name="PaymentModeId" ColumnName="PaymentModeId" />

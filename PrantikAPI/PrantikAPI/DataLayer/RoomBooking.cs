@@ -20,6 +20,8 @@ namespace PrantikAPI.DataLayer
         public System.DateTime BookingStartDate { get; set; }
         public System.DateTime BookingEndDate { get; set; }
         public decimal Amount { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public Nullable<decimal> GST { get; set; }
     
         public virtual Room Room { get; set; }
         public virtual BookingDetail BookingDetail { get; set; }

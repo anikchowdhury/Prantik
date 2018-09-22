@@ -3,6 +3,7 @@ using PrantikAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -26,7 +27,8 @@ namespace PrantikAPI.ProviderLayer
                     Name = user.Name,
                     PhoneNumber = user.PhoneNumber,
                     Profession = user.Profession,
-                    RelativeName = user.RelativeName
+                    RelativeName = user.RelativeName,
+                    CreateDate = user.CreateDate
                 }).ToListAsync();
             }
         }
@@ -47,9 +49,77 @@ namespace PrantikAPI.ProviderLayer
                     Name = user.Name,
                     PhoneNumber = user.PhoneNumber,
                     Profession = user.Profession,
-                    RelativeName = user.RelativeName
+                    RelativeName = user.RelativeName,
+                    CreateDate = user.CreateDate
                 };
             }
+        }
+
+        internal async Task<UserModel> PutUser(UserModel userModel)
+        {
+            using (PrantikEntities db = new PrantikEntities())
+            {
+                User user = new User()
+                {
+                    Address = userModel.Address,
+                    Age = userModel.Age,
+                    ComingFrom = userModel.ComingFrom,
+                    GoingTo = userModel.GoingTo,
+                    Id = userModel.Id,
+                    IdCardNumber = userModel.IdCardNumber,
+                    Name = userModel.Name,
+                    PhoneNumber = userModel.PhoneNumber,
+                    Profession = userModel.Profession,
+                    RelativeName = userModel.RelativeName,
+                    CreateDate = userModel.CreateDate
+                };
+                db.Entry(user).State = EntityState.Modified;
+
+                try
+                {
+                    await db.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (db.Users.Count(e => e.Id == userModel.Id) == 0)
+                    {
+                        return new UserModel()
+                        {
+                            Id = 0
+                        };
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return userModel;
+            }
+        }
+
+        internal async Task<UserModel> PostUser(UserModel userModel)
+        {
+            using (PrantikEntities db = new PrantikEntities())
+            {
+                User user = new User()
+                {
+                    Address = userModel.Address,
+                    Age = userModel.Age,
+                    ComingFrom = userModel.ComingFrom,
+                    GoingTo = userModel.GoingTo,
+                    Id = userModel.Id,
+                    IdCardNumber = userModel.IdCardNumber,
+                    Name = userModel.Name,
+                    PhoneNumber = userModel.PhoneNumber,
+                    Profession = userModel.Profession,
+                    RelativeName = userModel.RelativeName,
+                    CreateDate = userModel.CreateDate
+                };
+                db.Users.Add(user);
+                await db.SaveChangesAsync();
+                userModel.Id = user.Id;                
+            }
+            return userModel;
         }
     }
 }

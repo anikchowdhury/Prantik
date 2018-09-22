@@ -25,6 +25,7 @@ namespace PrantikAPI.DataLayer
     
         public long Id { get; set; }
         public string BookingCode { get; set; }
+        public System.DateTime CreateDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingDetailsUser> BookingDetailsUsers { get; set; }

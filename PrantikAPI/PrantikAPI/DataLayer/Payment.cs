@@ -19,6 +19,7 @@ namespace PrantikAPI.DataLayer
         public short PaymentModeId { get; set; }
         public string AdditionalDetails { get; set; }
         public Nullable<long> BookingDetailsId { get; set; }
+        public System.DateTime CreateDate { get; set; }
     
         public virtual BookingDetail BookingDetail { get; set; }
         public virtual MasterPaymentMode MasterPaymentMode { get; set; }
