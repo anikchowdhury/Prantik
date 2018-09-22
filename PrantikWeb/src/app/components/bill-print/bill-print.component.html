@@ -1,1 +1,33 @@
-<app-print-room-bill [roomBookings]="roomBookings" [customerDetail]="customerDetail" [totalAmount]="totalAmount" [qrValue]="qrValue" [gstTotal]="gstTotal"></app-print-room-bill>
+<app-print-room-bill [roomBookings]="roomBookings" [customerDetail]="customerDetail" [totalAmount]="totalAmount"
+    [qrValue]="qrValue" [gstTotal]="gstTotal"></app-print-room-bill>
+
+<ng-template #billerSelect let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Select Biller</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Phone Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users" (click)="setUserForBill(user)">
+                            <td>{{user.name}}</td>
+                            <td>{{user.address}}</td>
+                            <td>{{user.phoneNumber}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</ng-template>
