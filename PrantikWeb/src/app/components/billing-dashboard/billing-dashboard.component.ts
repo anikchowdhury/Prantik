@@ -30,7 +30,7 @@ export class BillingDashboardComponent implements OnInit {
   newPayment: PaymentModel;
   closeResult: string;
   isProcessingCreateBooking: boolean;
-  
+
 
   @ViewChild('userOperationContent') userOperationContentTpl: TemplateRef<any>;
   @ViewChild('addRoomBookingContent') roomBookingOperationContentTpl: TemplateRef<any>;
@@ -72,9 +72,9 @@ export class BillingDashboardComponent implements OnInit {
   deleteRoomBooking(roomBookingToDelete: RoomBookingModel) {
     console.log(roomBookingToDelete);
   }
-    
+
   editPayment(paymentToEdit: PaymentModel) {
-      console.log(paymentToEdit);
+    console.log(paymentToEdit);
     this.newPayment = Object.assign({}, paymentToEdit);
     this.openModal(this.paymentOperationContentTpl);
   }
@@ -97,13 +97,13 @@ export class BillingDashboardComponent implements OnInit {
   }
 
   displayAddedPayment(paymentModel: PaymentModel) {
-  //  this.payments.push(paymentModel);
-      let paymentIndex = this.payments.findIndex(payment => payment.id == paymentModel.id);
+    //  this.payments.push(paymentModel);
+    let paymentIndex = this.payments.findIndex(payment => payment.id == paymentModel.id);
     if (paymentIndex > -1) {
       this.payments[paymentIndex] = Object.assign({}, paymentModel);
       this.modalService.dismissAll("Updated Room Booking");
       this.newPayment = {
-          id: 0
+        id: 0
       };
     }
     else
@@ -111,18 +111,15 @@ export class BillingDashboardComponent implements OnInit {
   }
 
   displayAddedUser(userModel: UserModel) {
-    if (this.bookingCodeId == 0) this.users.push(userModel);
+    let userIndex = this.users.findIndex(user => user.id == userModel.id);
+    if (userIndex > -1) {
+      this.users[userIndex] = Object.assign({}, userModel);
+      this.modalService.dismissAll("Updated User");
+      this.setBlankUser();
+    }
     else {
-      let userIndex = this.users.findIndex(user => user.id == userModel.id);
-      if (userIndex > -1) {
-        this.users[userIndex] = Object.assign({}, userModel);
-        this.modalService.dismissAll("Updated User");
-        this.setBlankUser();
-      }
-      else {
-        this.addBookingDetailsUser(this.bookingCodeId, userModel.id);
-        this.users.push(userModel);
-      }
+       this.users.push(userModel);
+       if (this.bookingCodeId > 0) this.addBookingDetailsUser(this.bookingCodeId, userModel.id);
     }
   }
 
@@ -176,7 +173,7 @@ export class BillingDashboardComponent implements OnInit {
   }
 
   setBlankRoomBooking() {
-    
+
     this.newRoomBooking = {
       id: 0,
       bookingDetailsId: this.bookingCodeId

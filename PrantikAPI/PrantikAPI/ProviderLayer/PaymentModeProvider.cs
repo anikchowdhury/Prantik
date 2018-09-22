@@ -67,7 +67,7 @@ namespace PrantikAPI.ProviderLayer
             using (PrantikEntities db = new PrantikEntities())
             {
                 Payment payment = await db.Payments.FindAsync(id);
-                payment.BookingDetailsId = paymentModel.BookingDetailsId;
+                payment.BookingDetailsId = paymentModel.BookingDetailsId == 0 ? null : paymentModel.BookingDetailsId;
                 payment.AdditionalDetails = paymentModel.AdditionalDetails;
                 payment.Amount = paymentModel.Amount;
                 payment.PaymentModeId = paymentModel.PaymentModeId;

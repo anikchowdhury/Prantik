@@ -55,7 +55,7 @@ namespace PrantikAPI.Controllers
 
             try
             {
-                RoomBookingModel roomBooking = await _providerLayer.PutRoomBookingFromId(id, roomBookingModel);
+                RoomBookingModel roomBooking = await _providerLayer.PutRoomBooking(id, roomBookingModel);
 
                 if (roomBooking.Id == 0)
                     return BadRequest();

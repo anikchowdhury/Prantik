@@ -48,14 +48,14 @@ namespace PrantikAPI.ProviderLayer
                 };
             }
         }
-        internal async Task<RoomBookingModel> PutRoomBookingFromId(long id, RoomBookingModel roomBookingModel)
+        internal async Task<RoomBookingModel> PutRoomBooking(long id, RoomBookingModel roomBookingModel)
         {
             using (PrantikEntities db = new PrantikEntities())
             {
                 RoomBooking roomBooking = await db.RoomBookings.FindAsync(id);
 
                 roomBooking.Amount = roomBookingModel.Amount;
-                roomBooking.BookingDetailsId = roomBookingModel.BookingDetailsId;
+                roomBooking.BookingDetailsId = roomBookingModel.BookingDetailsId == 0 ? null : roomBookingModel.BookingDetailsId;
                 roomBooking.BookingEndDate = Convert.ToDateTime(roomBookingModel.BookingEndDate);
                 roomBooking.BookingStartDate = Convert.ToDateTime(roomBookingModel.BookingStartDate);
                 roomBooking.RoomRoomNumber = roomBookingModel.RoomRoomNumber;
