@@ -17,11 +17,11 @@ namespace PrantikAPI.Controllers
 {
     public class UsersController : ApiController
     {
-        private PrantikEntities db = new PrantikEntities();
+       // private PrantikEntities db = new PrantikEntities();
         private UserProvider _provider = new UserProvider();
 
         // GET: api/Users
-        public Task<IEnumerable<UserModel>> GetUsers()
+      /*  public Task<IEnumerable<UserModel>> GetUsers()
         {
             return _provider.GetUsers();
         }
@@ -37,7 +37,7 @@ namespace PrantikAPI.Controllers
             }
 
             return Ok(user);
-        }
+        }*/
 
         // PUT: api/Users/5
         [ResponseType(typeof(void))]
@@ -73,7 +73,7 @@ namespace PrantikAPI.Controllers
         }
 
         // DELETE: api/Users/5
-        [ResponseType(typeof(User))]
+       /* [ResponseType(typeof(User))]
         public async Task<IHttpActionResult> DeleteUser(long id)
         {
             User user = await db.Users.FindAsync(id);
@@ -95,6 +95,6 @@ namespace PrantikAPI.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }*/
     }
 }

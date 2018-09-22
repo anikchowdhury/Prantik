@@ -35,7 +35,6 @@ export class BillPrintComponent implements OnInit {
             switchMap((params: Params) =>
                 this.bookingDetailsService.GetBookingDetails(params.get('bookingCode'))
             )).subscribe((response: BookingDetailsModel) => {
-                console.log(response);
                 this.customerDetail = response.users[0];
                 this.roomBookings = response.rooms;
                 this.roomBookings.forEach((value) => {

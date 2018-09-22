@@ -15,7 +15,7 @@ namespace PrantikAPI.Controllers
 {
     public class OrderDetailsController : ApiController
     {
-        private PrantikEntities db = new PrantikEntities();
+       /* private PrantikEntities db = new PrantikEntities();
 
         // GET: api/OrderDetails
         public IQueryable<OrderDetail> GetOrderDetails()
@@ -114,6 +114,6 @@ namespace PrantikAPI.Controllers
         private bool OrderDetailExists(long id)
         {
             return db.OrderDetails.Count(e => e.Id == id) > 0;
-        }
+        }*/
     }
 }

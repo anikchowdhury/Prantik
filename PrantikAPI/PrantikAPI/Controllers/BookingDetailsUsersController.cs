@@ -18,7 +18,7 @@ namespace PrantikAPI.Controllers
         private PrantikEntities db = new PrantikEntities();
 
         // GET: api/BookingDetailsUsers
-        public IQueryable<BookingDetailsUser> GetBookingDetailsUsers()
+       /* public IQueryable<BookingDetailsUser> GetBookingDetailsUsers()
         {
             return db.BookingDetailsUsers;
         }
@@ -69,7 +69,7 @@ namespace PrantikAPI.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
-        }
+        }*/
 
         // POST: api/BookingDetailsUsers
         [ResponseType(typeof(BookingDetailsUser))]
@@ -87,7 +87,7 @@ namespace PrantikAPI.Controllers
         }
 
         // DELETE: api/BookingDetailsUsers/5
-        [ResponseType(typeof(BookingDetailsUser))]
+      /*  [ResponseType(typeof(BookingDetailsUser))]
         public async Task<IHttpActionResult> DeleteBookingDetailsUser(long id)
         {
             BookingDetailsUser bookingDetailsUser = await db.BookingDetailsUsers.FindAsync(id);
@@ -114,6 +114,6 @@ namespace PrantikAPI.Controllers
         private bool BookingDetailsUserExists(long id)
         {
             return db.BookingDetailsUsers.Count(e => e.Id == id) > 0;
-        }
+        }*/
     }
 }

@@ -12,7 +12,7 @@ namespace PrantikAPI.ProviderLayer
 {
     public class UserProvider
     {
-        internal async Task<IEnumerable<UserModel>> GetUsers()
+        /*internal async Task<IEnumerable<UserModel>> GetUsers()
         {
             using (PrantikEntities db = new PrantikEntities())
             {
@@ -32,7 +32,7 @@ namespace PrantikAPI.ProviderLayer
                 }).ToListAsync();
             }
         }
-
+        */
         internal async Task<UserModel> GetUserById(long id)
         {
             using (PrantikEntities db = new PrantikEntities())
@@ -41,7 +41,7 @@ namespace PrantikAPI.ProviderLayer
                 return new UserModel()
                 {
                     Address = user.Address,
-                    Age = user.Age,
+                    Age = user.Age.Trim(),
                     ComingFrom = user.ComingFrom,
                     GoingTo = user.GoingTo,
                     Id = user.Id,
@@ -62,7 +62,7 @@ namespace PrantikAPI.ProviderLayer
                 User user = new User()
                 {
                     Address = userModel.Address,
-                    Age = userModel.Age,
+                    Age = userModel.Age.Trim(),
                     ComingFrom = userModel.ComingFrom,
                     GoingTo = userModel.GoingTo,
                     Id = userModel.Id,
@@ -104,7 +104,7 @@ namespace PrantikAPI.ProviderLayer
                 User user = new User()
                 {
                     Address = userModel.Address,
-                    Age = userModel.Age,
+                    Age = userModel.Age.Trim(),
                     ComingFrom = userModel.ComingFrom,
                     GoingTo = userModel.GoingTo,
                     Id = userModel.Id,

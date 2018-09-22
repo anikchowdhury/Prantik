@@ -15,7 +15,7 @@ namespace PrantikAPI.Controllers
 {
     public class RoomsController : ApiController
     {
-        private PrantikEntities db = new PrantikEntities();
+       /* private PrantikEntities db = new PrantikEntities();
 
         // GET: api/Rooms
         public IQueryable<Room> GetRooms()
@@ -43,6 +43,6 @@ namespace PrantikAPI.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }*/
     }
 }

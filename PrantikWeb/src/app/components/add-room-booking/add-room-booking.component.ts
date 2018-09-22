@@ -36,7 +36,6 @@ export class AddRoomBookingComponent implements OnInit {
   }
 
   ngOnInit() {
-      console.log(this.roomBooking);
   }
     
   dateRange(){

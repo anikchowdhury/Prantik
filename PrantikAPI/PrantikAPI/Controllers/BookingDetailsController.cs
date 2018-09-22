@@ -17,15 +17,15 @@ namespace PrantikAPI.Controllers
 {
     public class BookingDetailsController : ApiController
     {
-        private PrantikEntities db = new PrantikEntities();
+       // private PrantikEntities db = new PrantikEntities();
         private BookingDetailProvider _provider = new BookingDetailProvider();
 
         // GET: api/BookingDetails
-        public IQueryable<BookingDetail> GetBookingDetails()
+      /*  public IQueryable<BookingDetail> GetBookingDetails()
         {
             return db.BookingDetails;
         }
-
+        */
         // GET: api/BookingDetails/5
         [ResponseType(typeof(BookingDetailModel))]
         public async Task<IHttpActionResult> GetBookingDetail(string bookingCode)
@@ -40,7 +40,7 @@ namespace PrantikAPI.Controllers
             return Ok(bookingDetail);
         }
 
-        // PUT: api/BookingDetails/5
+      /*  // PUT: api/BookingDetails/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutBookingDetail(long id, BookingDetail bookingDetail)
         {
@@ -73,7 +73,7 @@ namespace PrantikAPI.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
-        }
+        }*/
 
         // POST: api/BookingDetails
         [ResponseType(typeof(BookingDetailModel))]
@@ -90,7 +90,7 @@ namespace PrantikAPI.Controllers
         }
 
         // DELETE: api/BookingDetails/5
-        [ResponseType(typeof(BookingDetail))]
+      /*  [ResponseType(typeof(BookingDetail))]
         public async Task<IHttpActionResult> DeleteBookingDetail(long id)
         {
             BookingDetail bookingDetail = await db.BookingDetails.FindAsync(id);
@@ -117,6 +117,6 @@ namespace PrantikAPI.Controllers
         private bool BookingDetailExists(long id)
         {
             return db.BookingDetails.Count(e => e.Id == id) > 0;
-        }
+        }*/
     }
 }

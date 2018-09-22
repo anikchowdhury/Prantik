@@ -15,7 +15,7 @@ namespace PrantikAPI.Controllers
 {
     public class MenusController : ApiController
     {
-        private PrantikEntities db = new PrantikEntities();
+       /* private PrantikEntities db = new PrantikEntities();
 
         // GET: api/Menus
         public IQueryable<Menu> GetMenus()
@@ -43,6 +43,6 @@ namespace PrantikAPI.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }*/
     }
 }

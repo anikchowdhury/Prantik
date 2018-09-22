@@ -17,11 +17,11 @@ namespace PrantikAPI.Controllers
 {
     public class RoomBookingsController : ApiController
     {
-        private PrantikEntities db = new PrantikEntities();
+       // private PrantikEntities db = new PrantikEntities();
         private RoomBookingProvider _providerLayer = new RoomBookingProvider();
 
         // GET: api/RoomBookings
-        public async Task<IEnumerable<RoomBookingModel>> GetRoomBookings()
+      /*  public async Task<IEnumerable<RoomBookingModel>> GetRoomBookings()
         {
             return await _providerLayer.GetRoomBookings();
         }
@@ -38,7 +38,7 @@ namespace PrantikAPI.Controllers
             }
             return Ok(roomBooking);
         }
-
+        */
         // PUT: api/RoomBookings/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutRoomBooking(long id, RoomBookingModel roomBookingModel)
@@ -75,14 +75,14 @@ namespace PrantikAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            roomBookingModel.CreateDate = DateTime.Today;
+            roomBookingModel.CreateDate = DateTime.Now;
             roomBookingModel = await _providerLayer.PostRoomBookingFrom(roomBookingModel);
 
             return CreatedAtRoute("DefaultApi", new { id = roomBookingModel.Id }, roomBookingModel);
         }
 
         // DELETE: api/RoomBookings/5
-        [ResponseType(typeof(RoomBooking))]
+       /* [ResponseType(typeof(RoomBooking))]
         public async Task<IHttpActionResult> DeleteRoomBooking(long id)
         {
             RoomBooking roomBooking = await db.RoomBookings.FindAsync(id);
@@ -104,6 +104,6 @@ namespace PrantikAPI.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }*/
     }
 }

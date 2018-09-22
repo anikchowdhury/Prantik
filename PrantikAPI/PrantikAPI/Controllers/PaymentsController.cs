@@ -17,11 +17,11 @@ namespace PrantikAPI.Controllers
 {
     public class PaymentsController : ApiController
     {
-        private PrantikEntities db = new PrantikEntities();
+      //  private PrantikEntities db = new PrantikEntities();
         private PaymentModeProvider _provider = new PaymentModeProvider();
 
         // GET: api/Payments
-        public async Task<IEnumerable<PaymentModel>> GetPayments()
+      /*  public async Task<IEnumerable<PaymentModel>> GetPayments()
         {
             return await _provider.GetPayments();
         }
@@ -37,7 +37,7 @@ namespace PrantikAPI.Controllers
             }
 
             return Ok(payment);
-        }
+        }*/
 
         // PUT: api/Payments/5
         [ResponseType(typeof(void))]
@@ -75,7 +75,7 @@ namespace PrantikAPI.Controllers
         }
 
         // DELETE: api/Payments/5
-        [ResponseType(typeof(Payment))]
+      /*  [ResponseType(typeof(Payment))]
         public async Task<IHttpActionResult> DeletePayment(long id)
         {
             Payment payment = await db.Payments.FindAsync(id);
@@ -102,6 +102,6 @@ namespace PrantikAPI.Controllers
         private bool PaymentExists(long id)
         {
             return db.Payments.Count(e => e.Id == id) > 0;
-        }
+        }*/
     }
 }

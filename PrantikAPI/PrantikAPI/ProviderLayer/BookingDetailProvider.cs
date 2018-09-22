@@ -29,7 +29,7 @@ namespace PrantikAPI.ProviderLayer
                     Users = bookingDetail.BookingDetailsUsers.Select(x => new UserModel()
                     {
                         Address = x.User.Address,
-                        Age = x.User.Age,
+                        Age = x.User.Age.Trim(),
                         ComingFrom = x.User.ComingFrom,
                         GoingTo = x.User.GoingTo,
                         Id = x.User.Id,

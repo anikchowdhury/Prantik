@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.searchBookingFn = (text$: Observable<UserModel[]>) =>
+   /* this.searchBookingFn = (text$: Observable<UserModel[]>) =>
       text$.pipe(
         debounceTime(300),
         distinctUntilChanged(),
@@ -47,12 +47,10 @@ export class DashboardComponent implements OnInit {
             }))
         ),
         tap(() => this.searching = false)
-      )
+      )*/
   }
 
   selectBooking(booking: NgbTypeaheadSelectItemEvent) {
-    console.log(booking);
-    console.log(booking.item.name);
   }
 
   searchBooking() {
