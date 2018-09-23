@@ -18,9 +18,9 @@ namespace PrantikAPI.ProviderLayer
             {
                 BookingDetail bookingDetail = null;
                 if (long.TryParse(bookingCode, out long outVal))
-                    bookingDetail = await db.BookingDetails.Include(x => x.BookingDetailsUsers.Select(y => y.User)).Include(x => x.RoomBookings).FirstOrDefaultAsync(item => item.Id == outVal);
+                    bookingDetail = await db.BookingDetails.Include(x => x.BookingDetailsUsers.Select(y => y.User)).Include(x => x.RoomBookings).Include(x => x.OrderDetails.Select(y => y.Menu)).FirstOrDefaultAsync(item => item.Id == outVal);
                 else
-                    bookingDetail = await db.BookingDetails.Include(x => x.BookingDetailsUsers.Select(y => y.User)).Include(x => x.RoomBookings).FirstOrDefaultAsync(item => item.BookingCode.ToUpper() == bookingCode.ToUpper());
+                    bookingDetail = await db.BookingDetails.Include(x => x.BookingDetailsUsers.Select(y => y.User)).Include(x => x.RoomBookings).Include(x => x.OrderDetails.Select(y => y.Menu)).FirstOrDefaultAsync(item => item.BookingCode.ToUpper() == bookingCode.ToUpper());
 
                 return new BookingDetailModel()
                 {
@@ -59,7 +59,20 @@ namespace PrantikAPI.ProviderLayer
                         BookingDetailsId = x.BookingDetailsId,
                         PaymentModeId = x.PaymentModeId,
                         CreateDate = x.CreateDate
-                    })
+                    }),
+                    FoodOrders = bookingDetail.OrderDetails.Select(x => new FoodOrderModel()
+                    {
+                         BookingDetailsId = x.BookingDetailsId,
+                         CreateDate = x.CreateDate,
+                         Id = x.Id,
+                         MenuId = x.MenuId,
+                         MenuName = x.Menu.ItemName,
+                         OrderExpectedDeliveryDate = x.OrderExpectedDeliveryDate,
+                         OrderExpectedDeliveryTime = x.OrderExpectedDeliveryTime,
+                         Price = x.Price,
+                         Quantity = x.Quantity
+                    }),
+                    CreateDate = bookingDetail.CreateDate
                 };
             }
         }

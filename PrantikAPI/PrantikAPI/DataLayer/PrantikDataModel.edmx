@@ -42,12 +42,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BookingDetailsId" Type="bigint" Nullable="false" />
+          <Property Name="BookingDetailsId" Type="bigint" />
           <Property Name="MenuId" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="smallint" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
-          <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="OrderExpectedDeliveryDate" Type="date" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="OrderExpectedDeliveryTime" Type="time" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -120,7 +121,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderDetails_BookingDetails">
-          <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="1" />
+          <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="0..1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BookingDetails">
@@ -245,10 +246,10 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BookingCode" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="BookingDetailsUsers" Relationship="Self.FK_BookingDetailsUser_BookingDetails" FromRole="BookingDetails" ToRole="BookingDetailsUser" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_BookingDetails" FromRole="BookingDetails" ToRole="OrderDetails" />
           <NavigationProperty Name="RoomBookings" Relationship="PrantikModel.FK_RoomBooking_BookingDetails" FromRole="BookingDetail" ToRole="RoomBooking" />
           <NavigationProperty Name="Payments" Relationship="PrantikModel.FK_Payment_BookingDetails" FromRole="BookingDetail" ToRole="Payment" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="OrderDetails" Relationship="PrantikModel.FK_OrderDetails_BookingDetails" FromRole="BookingDetail" ToRole="OrderDetail" />
         </EntityType>
         <EntityType Name="BookingDetailsUser">
           <Key>
@@ -268,21 +269,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Menu" FromRole="Menu" ToRole="OrderDetails" />
-        </EntityType>
-        <EntityType Name="OrderDetail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BookingDetailsId" Type="Int64" Nullable="false" />
-          <Property Name="MenuId" Type="Int32" Nullable="false" />
-          <Property Name="Quantity" Type="Int16" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
-          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="BookingDetail" Relationship="Self.FK_OrderDetails_BookingDetails" FromRole="OrderDetails" ToRole="BookingDetails" />
-          <NavigationProperty Name="Menu" Relationship="Self.FK_OrderDetails_Menu" FromRole="OrderDetails" ToRole="Menu" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="OrderDetails" Relationship="PrantikModel.FK_OrderDetails_Menu" FromRole="Menu" ToRole="OrderDetail" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
@@ -335,18 +322,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderDetails_BookingDetails">
-          <End Role="BookingDetails" Type="Self.BookingDetail" Multiplicity="1" />
-          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BookingDetails">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OrderDetails">
-              <PropertyRef Name="BookingDetailsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_BookingDetailsUser_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="BookingDetailsUser" Type="Self.BookingDetailsUser" Multiplicity="*" />
@@ -356,18 +331,6 @@
             </Principal>
             <Dependent Role="BookingDetailsUser">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderDetails_Menu">
-          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
-          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Menu">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OrderDetails">
-              <PropertyRef Name="MenuId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -387,7 +350,6 @@
           <EntitySet Name="BookingDetails" EntityType="Self.BookingDetail" />
           <EntitySet Name="BookingDetailsUsers" EntityType="Self.BookingDetailsUser" />
           <EntitySet Name="Menus" EntityType="Self.Menu" />
-          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Rooms" EntityType="Self.Room" />
           <EntitySet Name="RoomBookings" EntityType="Self.RoomBooking" />
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -395,17 +357,9 @@
             <End Role="BookingDetails" EntitySet="BookingDetails" />
             <End Role="BookingDetailsUser" EntitySet="BookingDetailsUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_BookingDetails" Association="Self.FK_OrderDetails_BookingDetails">
-            <End Role="BookingDetails" EntitySet="BookingDetails" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_BookingDetailsUser_User" Association="Self.FK_BookingDetailsUser_User">
             <End Role="User" EntitySet="Users" />
             <End Role="BookingDetailsUser" EntitySet="BookingDetailsUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Menu" Association="Self.FK_OrderDetails_Menu">
-            <End Role="Menu" EntitySet="Menus" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_RoomBooking_Room" Association="Self.FK_RoomBooking_Room">
             <End Role="Room" EntitySet="Rooms" />
@@ -424,6 +378,15 @@
           <AssociationSet Name="FK_Payment_MasterPaymentMode" Association="PrantikModel.FK_Payment_MasterPaymentMode">
             <End Role="MasterPaymentMode" EntitySet="MasterPaymentModes" />
             <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <EntitySet Name="OrderDetails" EntityType="PrantikModel.OrderDetail" />
+          <AssociationSet Name="FK_OrderDetails_BookingDetails" Association="PrantikModel.FK_OrderDetails_BookingDetails">
+            <End Role="BookingDetail" EntitySet="BookingDetails" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Menu" Association="PrantikModel.FK_OrderDetails_Menu">
+            <End Role="Menu" EntitySet="Menus" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
           </AssociationSet>
           </EntityContainer>
         <Association Name="FK_RoomBooking_BookingDetails">
@@ -483,6 +446,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingDetailsId" Type="Int64" />
+          <Property Name="MenuId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int16" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="OrderExpectedDeliveryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OrderExpectedDeliveryTime" Type="Time" Nullable="false" Precision="0" />
+          <NavigationProperty Name="BookingDetail" Relationship="PrantikModel.FK_OrderDetails_BookingDetails" FromRole="OrderDetail" ToRole="BookingDetail" />
+          <NavigationProperty Name="Menu" Relationship="PrantikModel.FK_OrderDetails_Menu" FromRole="OrderDetail" ToRole="Menu" />
+        </EntityType>
+        <Association Name="FK_OrderDetails_BookingDetails">
+          <End Type="PrantikModel.BookingDetail" Role="BookingDetail" Multiplicity="0..1" />
+          <End Type="PrantikModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="BookingDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_Menu">
+          <End Type="PrantikModel.Menu" Role="Menu" Multiplicity="1" />
+          <End Type="PrantikModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -514,19 +516,6 @@
               <MappingFragment StoreEntitySet="Menu">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ItemName" ColumnName="ItemName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="PrantikModel.OrderDetail">
-              <MappingFragment StoreEntitySet="OrderDetails">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="BookingDetailsId" ColumnName="BookingDetailsId" />
-                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -584,6 +573,20 @@
                 <ScalarProperty Name="AdditionalDetails" ColumnName="AdditionalDetails" />
                 <ScalarProperty Name="PaymentModeId" ColumnName="PaymentModeId" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="PrantikModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="OrderExpectedDeliveryTime" ColumnName="OrderExpectedDeliveryTime" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="OrderExpectedDeliveryDate" ColumnName="OrderExpectedDeliveryDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="BookingDetailsId" ColumnName="BookingDetailsId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

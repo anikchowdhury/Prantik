@@ -10,9 +10,9 @@ namespace PrantikAPI.Models
         public long Id { get; set; }
         public string BookingCode { get; set; }
         public DateTime CreateDate { get; set; }
-        public virtual IEnumerable<UserModel> Users { get; set; }
-        //public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public IEnumerable<UserModel> Users { get; set; }
+        public IEnumerable<FoodOrderModel> FoodOrders { get; set; }
         public IEnumerable<RoomBookingModel> Rooms { get; set; }
-        public IEnumerable<PaymentModel> Payments { get; set; }
+        public IEnumerable<PaymentModel> Payments { get; set; }        
     }
 }

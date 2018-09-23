@@ -8,20 +8,20 @@
         <EntityTypeShape EntityType="PrantikModel.BookingDetail" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PrantikModel.BookingDetailsUser" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PrantikModel.Menu" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PrantikModel.OrderDetail" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="PrantikModel.Room" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
         <EntityTypeShape EntityType="PrantikModel.RoomBooking" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="PrantikModel.User" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
         <AssociationConnector Association="PrantikModel.FK_BookingDetailsUser_BookingDetails" ManuallyRouted="false" />
-        <AssociationConnector Association="PrantikModel.FK_OrderDetails_BookingDetails" ManuallyRouted="false" />
         <AssociationConnector Association="PrantikModel.FK_BookingDetailsUser_User" ManuallyRouted="false" />
-        <AssociationConnector Association="PrantikModel.FK_OrderDetails_Menu" ManuallyRouted="false" />
         <AssociationConnector Association="PrantikModel.FK_RoomBooking_Room" ManuallyRouted="false" />
         <AssociationConnector Association="PrantikModel.FK_RoomBooking_BookingDetails" />
         <EntityTypeShape EntityType="PrantikModel.MasterPaymentMode" Width="1.5" PointX="3.75" PointY="11.75" />
         <EntityTypeShape EntityType="PrantikModel.Payment" Width="1.5" PointX="6" PointY="7.75" />
         <AssociationConnector Association="PrantikModel.FK_Payment_BookingDetails" />
         <AssociationConnector Association="PrantikModel.FK_Payment_MasterPaymentMode" />
+        <EntityTypeShape EntityType="PrantikModel.OrderDetail" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="PrantikModel.FK_OrderDetails_BookingDetails" />
+        <AssociationConnector Association="PrantikModel.FK_OrderDetails_Menu" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

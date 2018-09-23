@@ -15,12 +15,13 @@ namespace PrantikAPI.DataLayer
     public partial class OrderDetail
     {
         public long Id { get; set; }
-        public long BookingDetailsId { get; set; }
+        public Nullable<long> BookingDetailsId { get; set; }
         public int MenuId { get; set; }
         public short Quantity { get; set; }
         public decimal Price { get; set; }
-        public System.DateTime OrderDate { get; set; }
+        public System.DateTime OrderExpectedDeliveryDate { get; set; }
         public System.DateTime CreateDate { get; set; }
+        public System.TimeSpan OrderExpectedDeliveryTime { get; set; }
     
         public virtual BookingDetail BookingDetail { get; set; }
         public virtual Menu Menu { get; set; }

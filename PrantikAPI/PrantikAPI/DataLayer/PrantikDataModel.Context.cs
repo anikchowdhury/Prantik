@@ -28,11 +28,11 @@ namespace PrantikAPI.DataLayer
         public virtual DbSet<BookingDetail> BookingDetails { get; set; }
         public virtual DbSet<BookingDetailsUser> BookingDetailsUsers { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
-        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<RoomBooking> RoomBookings { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<MasterPaymentMode> MasterPaymentModes { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
     }
 }

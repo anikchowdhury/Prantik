@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PaymentModel } from '../../models/payment.model';
 import { PaymentService } from '../../services/payment.service';
+import { PaymentModesConstant } from '../../constants/master-data.constant';
 
 @Component({
     selector: 'add-payment',
@@ -18,13 +19,7 @@ export class AddPaymentComponent implements OnInit {
     this.payments = {
       id: 0
     };
-      this.paymentModes=[
-          {title: "Cash", value: 1},
-          {title: "Cheque", value: 2},
-          {title: "Card", value: 3},
-          {title: "Paytm", value: 4},
-          {title: "Account Transfer", value: 5}
-      ];
+      this.paymentModes = PaymentModesConstant;
   }
   ngOnInit() {
 

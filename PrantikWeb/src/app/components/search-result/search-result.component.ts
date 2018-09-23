@@ -5,6 +5,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { BookingDetailsService } from '../../services/booking-details.service';
 import { BookingDetailsModel } from '../../models/booking-details.model';
 import { PaymentModel } from '../../models/payment.model';
+import { FoodOrderModel } from '../../models/food-order.model';
 
 @Component({
     selector: 'app-search-result',
@@ -16,15 +17,17 @@ import { PaymentModel } from '../../models/payment.model';
 export class SearchResult implements OnInit {
     usersForBooking: UserModel[];
     roomBookingsForBooking: RoomBookingModel[];
-    bookingCodeId: number;
+    foodOrdersForBooking: FoodOrderModel[];
     payments: PaymentModel[];
+    bookingCodeId: number;
     bookingCode: string;
 
     constructor(private route: ActivatedRoute, private bookingDetailsService: BookingDetailsService) {
         this.usersForBooking = [];
         this.roomBookingsForBooking = [];
+        this.foodOrdersForBooking = [];
         this.bookingCodeId = 0;
-        this.bookingCode = ''
+        this.bookingCode = ''        
     }
 
     ngOnInit() {        
@@ -38,6 +41,7 @@ export class SearchResult implements OnInit {
                 this.roomBookingsForBooking = response.rooms;
                 this.bookingCodeId = response.id;
                 this.payments = response.payments;
+                this.foodOrdersForBooking = response.foodOrders;
             },
                 (err) => {
                     console.log(err);

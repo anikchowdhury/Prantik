@@ -10,14 +10,17 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PrantikAPI.DataLayer;
+using PrantikAPI.Models;
+using PrantikAPI.ProviderLayer;
 
 namespace PrantikAPI.Controllers
 {
     public class OrderDetailsController : ApiController
     {
-       /* private PrantikEntities db = new PrantikEntities();
+        private FoodOrderProvider _providerLayer = new FoodOrderProvider();
+        //private PrantikEntities db = new PrantikEntities();
 
-        // GET: api/OrderDetails
+        /*// GET: api/OrderDetails
         public IQueryable<OrderDetail> GetOrderDetails()
         {
             return db.OrderDetails;
@@ -34,59 +37,50 @@ namespace PrantikAPI.Controllers
             }
 
             return Ok(orderDetail);
-        }
+        }*/
 
         // PUT: api/OrderDetails/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutOrderDetail(long id, OrderDetail orderDetail)
+        public async Task<IHttpActionResult> PutOrderDetail(long id, FoodOrderModel foodOrderModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != orderDetail.Id)
+            if (id != foodOrderModel.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(orderDetail).State = EntityState.Modified;
-
             try
             {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrderDetailExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                foodOrderModel = await _providerLayer.PutOrderDetail(id, foodOrderModel);
 
+                if (foodOrderModel.Id == 0)
+                    return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
             return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/OrderDetails
-        [ResponseType(typeof(OrderDetail))]
-        public async Task<IHttpActionResult> PostOrderDetail(OrderDetail orderDetail)
+        [ResponseType(typeof(FoodOrderModel))]
+        public async Task<IHttpActionResult> PostOrderDetail(FoodOrderModel foodOrderModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            db.OrderDetails.Add(orderDetail);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = orderDetail.Id }, orderDetail);
+            foodOrderModel.CreateDate = DateTime.Today;
+            await _providerLayer.PostOrderDetail(foodOrderModel);
+            return CreatedAtRoute("DefaultApi", new { id = foodOrderModel.Id }, foodOrderModel);
         }
 
-        // DELETE: api/OrderDetails/5
+      /*  // DELETE: api/OrderDetails/5
         [ResponseType(typeof(OrderDetail))]
         public async Task<IHttpActionResult> DeleteOrderDetail(long id)
         {
@@ -110,10 +104,6 @@ namespace PrantikAPI.Controllers
             }
             base.Dispose(disposing);
         }
-
-        private bool OrderDetailExists(long id)
-        {
-            return db.OrderDetails.Count(e => e.Id == id) > 0;
-        }*/
+        */
     }
 }

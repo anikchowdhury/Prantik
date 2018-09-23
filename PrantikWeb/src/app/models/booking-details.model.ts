@@ -1,6 +1,7 @@
 import { UserModel } from "./user.model";
 import { RoomBookingModel } from "./room-booking.model";
 import { PaymentModel } from "./payment.model";
+import { FoodOrderModel } from "./food-order.model";
 
 export class BookingDetailsModel {
     id?: number;
@@ -8,5 +9,6 @@ export class BookingDetailsModel {
     users: UserModel[];
     rooms: RoomBookingModel[];
     payments: PaymentModel[];
+    foodOrders: FoodOrderModel[];
     createDate?: string;
 }

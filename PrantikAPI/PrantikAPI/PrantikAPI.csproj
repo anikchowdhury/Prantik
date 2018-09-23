@@ -220,12 +220,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BookingDetailModel.cs" />
+    <Compile Include="Models\FoodOrderModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\RoomBookingModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderLayer\BookingDetailProvider.cs" />
+    <Compile Include="ProviderLayer\FoodOrderProvider.cs" />
     <Compile Include="ProviderLayer\PaymentModeProvider.cs" />
     <Compile Include="ProviderLayer\RoomBookingProvider.cs" />
     <Compile Include="ProviderLayer\UserProvider.cs" />
