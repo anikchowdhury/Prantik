@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, IterableDiffers, IterableDiffer } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, IterableDiffers, IterableDiffer, DoCheck } from '@angular/core';
 import { faEdit, faTrashAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { PaymentModel } from '../../models/payment.model';
 
@@ -8,7 +8,7 @@ import { PaymentModel } from '../../models/payment.model';
     styleUrls: ['./view-payment.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ViewPaymentComponent implements OnInit {
+export class ViewPaymentComponent implements OnInit, DoCheck {
     @Input() payments: PaymentModel[];
     @Output() editButtonClicked: EventEmitter<PaymentModel> = new EventEmitter();
     @Output() deleteButtonClicked: EventEmitter<PaymentModel> = new EventEmitter();

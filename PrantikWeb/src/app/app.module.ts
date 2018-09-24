@@ -23,6 +23,7 @@ import { SearchResult } from './components/search-result/search-result.component
 import { ViewPaymentComponent } from './components/view-payment/view-payment.component';
 import { BillPrintComponent } from './components/bill-print/bill-print.component';
 import { AddFoodComponent } from './components/add-food-order/add-food-order.component';
+import { ViewFoodComponent } from './components/view-food-order/view-food-order.component';
 
 
 const appRoutes: Routes = [
@@ -57,7 +58,8 @@ const appRoutes: Routes = [
     BillPrintComponent,
     SearchResult,
     ViewPaymentComponent,
-    AddFoodComponent
+    AddFoodComponent,
+    ViewFoodComponent
   ],
   imports: [
     BrowserModule,
