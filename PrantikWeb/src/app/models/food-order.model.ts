@@ -1,11 +1,11 @@
 export class FoodOrderModel {
-    Id?: number;
-    BookingDetailsId?: number;
-    MenuId?: number;
-    Quantity?: number;
-    Price?: number;
-    OrderExpectedDeliveryDate?: string;
-    CreateDate?: string
-    OrderExpectedDeliveryTime?: string
-    MenuName?: string;
+    id?: number;
+    bookingDetailsId?: number;
+    menuId?: number;
+    quantity?: number;
+    price?: number;
+    orderExpectedDeliveryDate?: string;
+    createDate?: string;
+    orderExpectedDeliveryTime?: string;
+    menuName?: string;
 }

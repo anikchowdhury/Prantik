@@ -3,6 +3,7 @@ import { UserModel } from '../../models/user.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { RoomBookingModel } from '../../models/room-booking.model';
 import { PaymentModel } from '../../models/payment.model';
+import { FoodOrderModel } from '../../models/food-order.model';
 import { ActivatedRoute } from '@angular/router';
 import { BookingDetailsService } from '../../services/booking-details.service';
 import { BookingDetailsModel } from '../../models/booking-details.model';
@@ -10,12 +11,13 @@ import { BookingDetailsUserService } from '../../services/booking-details-user.s
 import { BookingDetailsUserModel } from '../../models/booking-details-user.model';
 import { RoomBookingService } from '../../services/room-booking.service';
 import { PaymentService } from '../../services/payment.service';
+import { FoodOrderService } from '../../services/food-order.service';
 
 @Component({
   selector: 'app-billing-dashboard',
   templateUrl: './billing-dashboard.component.html',
   styleUrls: ['./billing-dashboard.component.css'],
-  providers: [BookingDetailsService, BookingDetailsUserService, RoomBookingService, PaymentService]
+  providers: [BookingDetailsService, BookingDetailsUserService, RoomBookingService, PaymentService, FoodOrderService]
 })
 export class BillingDashboardComponent implements OnInit {
 
@@ -23,11 +25,13 @@ export class BillingDashboardComponent implements OnInit {
   @Input() roomBookings: RoomBookingModel[];
   @Input() bookingCodeId: number;
   @Input() payments: PaymentModel[];
+  @Input() foodOrders: FoodOrderModel[];
   @Input() bookingCodeToDisplay: string;
 
   newUser: UserModel;
   newRoomBooking: RoomBookingModel;
   newPayment: PaymentModel;
+  newFoodOrder: FoodOrderModel;
   closeResult: string;
   isProcessingCreateBooking: boolean;
 
@@ -35,15 +39,18 @@ export class BillingDashboardComponent implements OnInit {
   @ViewChild('userOperationContent') userOperationContentTpl: TemplateRef<any>;
   @ViewChild('addRoomBookingContent') roomBookingOperationContentTpl: TemplateRef<any>;
   @ViewChild('addPayment') paymentOperationContentTpl: TemplateRef<any>;
+  @ViewChild('addFoorOrder') foodOrderOperationContentTpl: TemplateRef<any>;
 
-  constructor(private modalService: NgbModal, private route: ActivatedRoute, private bookingDetailsService: BookingDetailsService, private roomBookingService: RoomBookingService, private paymentService: PaymentService, private bookingDetailsUserService: BookingDetailsUserService) {
+  constructor(private modalService: NgbModal, private route: ActivatedRoute, private bookingDetailsService: BookingDetailsService, private roomBookingService: RoomBookingService, private paymentService: PaymentService, private foodOrderService: FoodOrderService, private bookingDetailsUserService: BookingDetailsUserService) {
     this.setBlankPayment();
     this.setBlankUser();
     this.setBlankRoomBooking();
+    this.setBlankFoodOrder();
     this.users = [];
     this.roomBookings = [];
     this.bookingCodeId = 0;
     this.payments = [];
+    this.foodOrders = [];
     this.bookingCodeToDisplay = '';
     this.isProcessingCreateBooking = false;
   }
@@ -182,6 +189,13 @@ export class BillingDashboardComponent implements OnInit {
 
   setBlankPayment() {
     this.newPayment = {
+      id: 0,
+      bookingDetailsId: this.bookingCodeId
+    };
+  }
+    
+  setBlankFoodOrder() {
+    this.newFoodOrder = {
       id: 0,
       bookingDetailsId: this.bookingCodeId
     };

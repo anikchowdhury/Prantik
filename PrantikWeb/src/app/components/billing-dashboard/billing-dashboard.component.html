@@ -35,6 +35,16 @@
       Payment</button>
   </div>
 </div>
+<div class="row mt-3">
+  <div class="col-12">
+ <!--   <app-view-payment [payments]="payments" (editButtonClicked)="editPayment($event)" (deleteButtonClicked)="deletePayment($event)"></app-view-payment>-->
+  </div>
+  <div class="col-12">
+    <button type="button" class="btn btn-lg btn-outline-primary float-right" (click)="setBlankFoodOrder();openModal(addFoodOrder)">Add
+      Food Order</button>
+  </div>
+</div>
+
 
 <div class="row mt-5" *ngIf="bookingCodeId == 0">
   <div class="col-12">
@@ -82,5 +92,17 @@
   </div>
   <div class="modal-body">
     <add-payment [payments]="newPayment" (paymentAddedSuccesfully)="displayAddedPayment($event)"></add-payment>
+  </div>
+</ng-template>
+
+<ng-template #addFoodOrder let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Food Order</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-add-food-order [foodOrders]="newFoodOrder" (foodOrderAddedSuccesfully)="displayAddedFoodOrder($event)"></app-add-food-order>
   </div>
 </ng-template>

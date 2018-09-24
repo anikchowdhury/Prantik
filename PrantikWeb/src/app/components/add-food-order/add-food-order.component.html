@@ -1,0 +1,31 @@
+<form (ngSubmit)="addFoodOrderSubmit()" #addFoodOrderForm="ngForm">
+  <div class="row">
+   <div class="col-12 col-md-6">
+      <label for="foodOrders.menuId">Payment Type</label>
+        <select type="number" class="form-control" id="foodOrders.menuId" [(ngModel)]="foodOrders.menuId" name="foodOrders.menuId" required>
+            <option *ngFor="let foodName of foodMenu" [value]="foodName.menuId">{{foodName.menuName}}</option>
+        </select>
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="foodOrders.quantity">Quantity</label>
+      <input type="number" class="form-control" id="foodOrders.quantity" [(ngModel)]="foodOrders.quantity" name="foodOrders.quantity" required>
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="foodOrders.price">Price</label>
+      <input type="number" class="form-control" id="foodOrders.price" [(ngModel)]="foodOrders.price" name="foodOrders.price" required>
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="foodOrders.orderExpectedDeliveryDate">Expected Delivery Date</label>
+      <input type="date" class="form-control" id="foodOrders.orderExpectedDeliveryDate" [(ngModel)]="foodOrders.orderExpectedDeliveryDate" name="foodOrders.orderExpectedDeliveryDate" required>
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="foodOrders.orderExpectedDeliveryTime">Expected Delivery Time</label>
+      <input type="time" class="form-control" id="foodOrders.orderExpectedDeliveryTime" [(ngModel)]="foodOrders.orderExpectedDeliveryTime" name="foodOrders.orderExpectedDeliveryTime" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary float-right" [disabled]="!addFoodOrderForm.form.valid">Submit</button>
+    </div>
+  </div>
+</form>
