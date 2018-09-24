@@ -1,0 +1,36 @@
+<table class="table">
+    <thead>
+        <tr>       
+            <th scope="col">Menu</th>
+            <th scope="col">Additional Details</th>
+            <th scope="col">Order Date</th>            
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Menu Total</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orders">
+            <td>{{order.menuName}}</td>
+            <td>{{order.additionalDetails}}</td>
+            <td>{{order.orderExpectedDeliveryDate}}</td>
+            <td>{{order.quantity}}</td>
+            <td>{{order.price}}</td>
+            <td>{{order.quantity * order.price}}</td>
+            <td (click)="notifyEdit(order)"><fa-icon [icon]="faEdit"></fa-icon></td>           
+            <td (click)="notifyDelete(order)"><fa-icon [icon]="faTrashAlt"></fa-icon></td>
+        </tr>
+        <tr>                
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>            
+            <td></td>
+            <td>{{totalFoodAmount}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
