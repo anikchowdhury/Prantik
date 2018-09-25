@@ -7,5 +7,7 @@ export class FoodOrderModel {
     orderExpectedDeliveryDate?: string;
     createDate?: string;
     orderExpectedDeliveryTime?: string;
+    additionalDetails?: string;
     menuName?: string;
+    orderExpectedDeliveryDateFormated?: string;
 }

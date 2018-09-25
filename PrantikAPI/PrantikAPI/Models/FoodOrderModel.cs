@@ -16,5 +16,7 @@ namespace PrantikAPI.Models
         public DateTime CreateDate { get; set; }
         public TimeSpan OrderExpectedDeliveryTime { get; set; }
         public string MenuName { get; set; }
+        public string AdditionalDetails { get; set; }
+        public string OrderExpectedDeliveryDateFormated { get { return OrderExpectedDeliveryDate.ToShortDateString(); } }
     }
 }

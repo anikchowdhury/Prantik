@@ -23,7 +23,8 @@ namespace PrantikAPI.ProviderLayer
                     OrderExpectedDeliveryDate = foodOrderModel.OrderExpectedDeliveryDate,
                     OrderExpectedDeliveryTime = foodOrderModel.OrderExpectedDeliveryTime,
                     Price = foodOrderModel.Price,
-                    Quantity = foodOrderModel.Quantity
+                    Quantity = foodOrderModel.Quantity,
+                    AdditionalDetails = foodOrderModel.AdditionalDetails
                 };
 
                 db.OrderDetails.Add(orderDetail);
@@ -44,6 +45,7 @@ namespace PrantikAPI.ProviderLayer
                 orderDetail.OrderExpectedDeliveryTime = foodOrderModel.OrderExpectedDeliveryTime;
                 orderDetail.Price = foodOrderModel.Price;
                 orderDetail.Quantity = foodOrderModel.Quantity;
+                orderDetail.AdditionalDetails = foodOrderModel.AdditionalDetails;
 
                 db.Entry(orderDetail).State = System.Data.Entity.EntityState.Modified;
                 try

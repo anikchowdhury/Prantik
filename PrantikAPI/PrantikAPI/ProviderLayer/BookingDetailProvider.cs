@@ -70,7 +70,8 @@ namespace PrantikAPI.ProviderLayer
                          OrderExpectedDeliveryDate = x.OrderExpectedDeliveryDate,
                          OrderExpectedDeliveryTime = x.OrderExpectedDeliveryTime,
                          Price = x.Price,
-                         Quantity = x.Quantity
+                         Quantity = x.Quantity,
+                         AdditionalDetails = x.AdditionalDetails
                     }),
                     CreateDate = bookingDetail.CreateDate
                 };

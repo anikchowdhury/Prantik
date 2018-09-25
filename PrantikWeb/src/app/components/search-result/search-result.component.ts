@@ -18,7 +18,7 @@ export class SearchResult implements OnInit {
     usersForBooking: UserModel[];
     roomBookingsForBooking: RoomBookingModel[];
     foodOrdersForBooking: FoodOrderModel[];
-    payments: PaymentModel[];
+    payments: PaymentModel[];    
     bookingCodeId: number;
     bookingCode: string;
 

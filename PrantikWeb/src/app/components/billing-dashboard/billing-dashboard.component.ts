@@ -39,7 +39,7 @@ export class BillingDashboardComponent implements OnInit {
   @ViewChild('userOperationContent') userOperationContentTpl: TemplateRef<any>;
   @ViewChild('addRoomBookingContent') roomBookingOperationContentTpl: TemplateRef<any>;
   @ViewChild('addPayment') paymentOperationContentTpl: TemplateRef<any>;
-  @ViewChild('addFoorOrder') foodOrderOperationContentTpl: TemplateRef<any>;
+  @ViewChild('addFoodOrder') foodOrderOperationContentTpl: TemplateRef<any>;
 
   constructor(private modalService: NgbModal, private route: ActivatedRoute, private bookingDetailsService: BookingDetailsService, private roomBookingService: RoomBookingService, private paymentService: PaymentService, private foodOrderService: FoodOrderService, private bookingDetailsUserService: BookingDetailsUserService) {
     this.setBlankPayment();
@@ -67,17 +67,14 @@ export class BillingDashboardComponent implements OnInit {
     this.openModal(this.userOperationContentTpl);
   }
 
-  deleteUser(userToDelete: UserModel) {
-    console.log(userToDelete);
+  editFoodOrder(foodOrderToEdit: FoodOrderModel) {
+    this.newFoodOrder = Object.assign({}, foodOrderToEdit);
+    this.openModal(this.foodOrderOperationContentTpl);
   }
 
   editRoomBooking(roomBookingToEdit: RoomBookingModel) {
     this.newRoomBooking = Object.assign({}, roomBookingToEdit);
     this.openModal(this.roomBookingOperationContentTpl);
-  }
-
-  deleteRoomBooking(roomBookingToDelete: RoomBookingModel) {
-    console.log(roomBookingToDelete);
   }
 
   editPayment(paymentToEdit: PaymentModel) {
@@ -86,32 +83,39 @@ export class BillingDashboardComponent implements OnInit {
     this.openModal(this.paymentOperationContentTpl);
   }
 
+  deleteUser(userToDelete: UserModel) {
+    console.log(userToDelete);
+  }
+
+  deleteFoodOrder(foodOrderToDelete: FoodOrderModel) {
+    console.log(foodOrderToDelete);
+  }
+
+  deleteRoomBooking(roomBookingToDelete: RoomBookingModel) {
+    console.log(roomBookingToDelete);
+  }
+
   deletePayment(paymentToDelete: PaymentModel) {
     console.log(paymentToDelete);
   }
 
   displayAddedRoom(roomBookingModel: RoomBookingModel) {
-    console.log(roomBookingModel);
-    //   this.roomBookings.push(roomBookingModel);
     let roomBookingIndex = this.roomBookings.findIndex(roomBooking => roomBooking.id == roomBookingModel.id);
     if (roomBookingIndex > -1) {
       this.roomBookings[roomBookingIndex] = Object.assign({}, roomBookingModel);
-      this.modalService.dismissAll("Updated Room Booking");
       this.setBlankRoomBooking();
+      this.modalService.dismissAll("Updated Room Booking");
     }
     else
       this.roomBookings.push(roomBookingModel);
   }
 
   displayAddedPayment(paymentModel: PaymentModel) {
-    //  this.payments.push(paymentModel);
     let paymentIndex = this.payments.findIndex(payment => payment.id == paymentModel.id);
     if (paymentIndex > -1) {
       this.payments[paymentIndex] = Object.assign({}, paymentModel);
+      this.setBlankPayment();
       this.modalService.dismissAll("Updated Room Booking");
-      this.newPayment = {
-        id: 0
-      };
     }
     else
       this.payments.push(paymentModel);
@@ -121,13 +125,25 @@ export class BillingDashboardComponent implements OnInit {
     let userIndex = this.users.findIndex(user => user.id == userModel.id);
     if (userIndex > -1) {
       this.users[userIndex] = Object.assign({}, userModel);
-      this.modalService.dismissAll("Updated User");
       this.setBlankUser();
+      this.modalService.dismissAll("Updated User");
     }
     else {
-       this.users.push(userModel);
-       if (this.bookingCodeId > 0) this.addBookingDetailsUser(this.bookingCodeId, userModel.id);
+      this.users.push(userModel);
+      if (this.bookingCodeId > 0) this.addBookingDetailsUser(this.bookingCodeId, userModel.id);
     }
+  }
+
+  displayAddedFoodOrder(foodModel: FoodOrderModel) {
+    console.log(foodModel);
+    let foodOrderIndex = this.foodOrders.findIndex(foodOrder => foodOrder.id == foodModel.id);
+    if (foodOrderIndex > -1) {
+      this.foodOrders[foodOrderIndex] = Object.assign({}, foodModel);
+      this.setBlankFoodOrder();
+      this.modalService.dismissAll("Updated Room Booking");
+    }
+    else
+      this.foodOrders.push(foodModel);
   }
 
   createBooking() {
@@ -152,6 +168,16 @@ export class BillingDashboardComponent implements OnInit {
           value.bookingDetailsId = response.id;
           this.paymentService.PutPayment(value)
             .subscribe((paymentResponse: void) => {
+            },
+              (err) => {
+                console.log(err);
+              });
+        });
+        this.foodOrders.forEach((value) => {
+          value.bookingDetailsId = response.id;
+          this.foodOrderService.PutFoodOrder(value)
+            .subscribe((foodOrderResponse: void) => {
+
             },
               (err) => {
                 console.log(err);
@@ -193,7 +219,7 @@ export class BillingDashboardComponent implements OnInit {
       bookingDetailsId: this.bookingCodeId
     };
   }
-    
+
   setBlankFoodOrder() {
     this.newFoodOrder = {
       id: 0,

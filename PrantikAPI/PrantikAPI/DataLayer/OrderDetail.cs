@@ -22,6 +22,7 @@ namespace PrantikAPI.DataLayer
         public System.DateTime OrderExpectedDeliveryDate { get; set; }
         public System.DateTime CreateDate { get; set; }
         public System.TimeSpan OrderExpectedDeliveryTime { get; set; }
+        public string AdditionalDetails { get; set; }
     
         public virtual BookingDetail BookingDetail { get; set; }
         public virtual Menu Menu { get; set; }

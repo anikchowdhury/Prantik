@@ -1,26 +1,30 @@
-<form (ngSubmit)="addFoodOrderSubmit()" #addFoodOrderForm="ngForm">
+<form (ngSubmit)="addfoodOrderubmit()" #addFoodOrderForm="ngForm">
   <div class="row">
    <div class="col-12 col-md-6">
-      <label for="foodOrders.menuId">Payment Type</label>
-        <select type="number" class="form-control" id="foodOrders.menuId" [(ngModel)]="foodOrders.menuId" name="foodOrders.menuId" required>
+      <label for="foodOrder.menuId">Menu Name</label>
+        <select type="number" class="form-control" id="foodOrder.menuId" [(ngModel)]="foodOrder.menuId" name="foodOrder.menuId" required>
             <option *ngFor="let foodName of foodMenu" [value]="foodName.menuId">{{foodName.menuName}}</option>
         </select>
     </div>
     <div class="col-12 col-md-6">
-      <label for="foodOrders.quantity">Quantity</label>
-      <input type="number" class="form-control" id="foodOrders.quantity" [(ngModel)]="foodOrders.quantity" name="foodOrders.quantity" required>
+      <label for="foodOrder.quantity">Quantity</label>
+      <input type="number" class="form-control" id="foodOrder.quantity" [(ngModel)]="foodOrder.quantity" name="foodOrder.quantity" required>
     </div>
     <div class="col-12 col-md-6">
-      <label for="foodOrders.price">Price</label>
-      <input type="number" class="form-control" id="foodOrders.price" [(ngModel)]="foodOrders.price" name="foodOrders.price" required>
+      <label for="foodOrder.price">Price</label>
+      <input type="number" class="form-control" id="foodOrder.price" [(ngModel)]="foodOrder.price" name="foodOrder.price" required>
     </div>
     <div class="col-12 col-md-6">
-      <label for="foodOrders.orderExpectedDeliveryDate">Expected Delivery Date</label>
-      <input type="date" class="form-control" id="foodOrders.orderExpectedDeliveryDate" [(ngModel)]="foodOrders.orderExpectedDeliveryDate" name="foodOrders.orderExpectedDeliveryDate" required>
+      <label for="foodOrder.price">Additional Details</label>
+      <input type="text" class="form-control" id="foodOrder.price" [(ngModel)]="foodOrder.additionalDetails" name="foodOrder.additionalDetails">
     </div>
     <div class="col-12 col-md-6">
-      <label for="foodOrders.orderExpectedDeliveryTime">Expected Delivery Time</label>
-      <input type="time" class="form-control" id="foodOrders.orderExpectedDeliveryTime" [(ngModel)]="foodOrders.orderExpectedDeliveryTime" name="foodOrders.orderExpectedDeliveryTime" required>
+      <label for="foodOrder.orderExpectedDeliveryDate">Expected Service Date</label>
+      <input type="date" class="form-control" id="foodOrder.orderExpectedDeliveryDate" [(ngModel)]="foodOrder.orderExpectedDeliveryDate" name="foodOrder.orderExpectedDeliveryDate" required>
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="foodOrder.orderExpectedDeliveryTime">Expected Service Time</label>
+      <input type="time" class="form-control" id="foodOrder.orderExpectedDeliveryTime" [(ngModel)]="foodOrder.orderExpectedDeliveryTime" name="foodOrder.orderExpectedDeliveryTime" required>
     </div>
   </div>
   <div class="row">

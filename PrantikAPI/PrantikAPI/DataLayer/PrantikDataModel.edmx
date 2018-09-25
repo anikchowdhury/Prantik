@@ -49,6 +49,7 @@
           <Property Name="OrderExpectedDeliveryDate" Type="date" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="OrderExpectedDeliveryTime" Type="time" Precision="0" Nullable="false" />
+          <Property Name="AdditionalDetails" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -460,6 +461,7 @@
           <Property Name="OrderExpectedDeliveryTime" Type="Time" Nullable="false" Precision="0" />
           <NavigationProperty Name="BookingDetail" Relationship="PrantikModel.FK_OrderDetails_BookingDetails" FromRole="OrderDetail" ToRole="BookingDetail" />
           <NavigationProperty Name="Menu" Relationship="PrantikModel.FK_OrderDetails_Menu" FromRole="OrderDetail" ToRole="Menu" />
+          <Property Name="AdditionalDetails" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_OrderDetails_BookingDetails">
           <End Type="PrantikModel.BookingDetail" Role="BookingDetail" Multiplicity="0..1" />
@@ -580,6 +582,7 @@
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="PrantikModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="AdditionalDetails" ColumnName="AdditionalDetails" />
                 <ScalarProperty Name="OrderExpectedDeliveryTime" ColumnName="OrderExpectedDeliveryTime" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="OrderExpectedDeliveryDate" ColumnName="OrderExpectedDeliveryDate" />

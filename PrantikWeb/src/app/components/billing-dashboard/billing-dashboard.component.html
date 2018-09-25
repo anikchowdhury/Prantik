@@ -1,8 +1,7 @@
-
 <div class="row text-center" *ngIf="bookingCodeId != 0">
-    <div class="col-12">
-        <strong>{{bookingCodeToDisplay}}</strong>
-    </div>
+  <div class="col-12">
+    <strong>{{bookingCodeToDisplay}}</strong>
+  </div>
 </div>
 
 <div class="row">
@@ -28,6 +27,15 @@
 </div>
 <div class="row mt-3">
   <div class="col-12">
+    <app-view-food [orders]="foodOrders" (editButtonClicked)="editFoodOrder($event)" (deleteButtonClicked)="deleteFoodOrder($event)"></app-view-food>
+  </div>
+  <div class="col-12">
+    <button type="button" class="btn btn-lg btn-outline-primary float-right" (click)="setBlankFoodOrder();openModal(addFoodOrder)">Add
+      Food Order</button>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-12">
     <app-view-payment [payments]="payments" (editButtonClicked)="editPayment($event)" (deleteButtonClicked)="deletePayment($event)"></app-view-payment>
   </div>
   <div class="col-12">
@@ -35,16 +43,6 @@
       Payment</button>
   </div>
 </div>
-<div class="row mt-3">
-  <div class="col-12">
- <!--   <app-view-payment [payments]="payments" (editButtonClicked)="editPayment($event)" (deleteButtonClicked)="deletePayment($event)"></app-view-payment>-->
-  </div>
-  <div class="col-12">
-    <button type="button" class="btn btn-lg btn-outline-primary float-right" (click)="setBlankFoodOrder();openModal(addFoodOrder)">Add
-      Food Order</button>
-  </div>
-</div>
-
 
 <div class="row mt-5" *ngIf="bookingCodeId == 0">
   <div class="col-12">
@@ -103,6 +101,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-add-food-order [foodOrders]="newFoodOrder" (foodOrderAddedSuccesfully)="displayAddedFoodOrder($event)"></app-add-food-order>
+    <app-add-food-order [foodOrder]="newFoodOrder" (foodOrderAddedSuccesfully)="displayAddedFoodOrder($event)"></app-add-food-order>
   </div>
 </ng-template>
