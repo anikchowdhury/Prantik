@@ -18,5 +18,8 @@ export const MenuItemsConstant = [
     { menuId: 2, menuName: 'Bread, Omelette' },
     { menuId: 3, menuName: 'Katla/Rohu Fish Meal' },
     { menuId: 4, menuName: 'Chicken Meal' },
-    { menuId: 5, menuName: 'Mutton Meal' }
+    { menuId: 5, menuName: 'Mutton Meal' },
+    { menuId: 6, menuName: 'Food Combo Pack' },
+    { menuId: 7, menuName: 'Tea' },
+    { menuId: 8, menuName: 'Coffee' }
 ]
