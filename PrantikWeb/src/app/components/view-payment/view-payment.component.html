@@ -1,7 +1,8 @@
 <table class="table">
     <thead>
-        <tr>       
+        <tr>
             <th scope="col">Payment Mode</th>
+            <th scope="col">Payment For</th>
             <th scope="col">Details</th>
             <th scope="col">Amount</th>
             <th></th>
@@ -10,15 +11,22 @@
     </thead>
     <tbody>
         <tr *ngFor="let payment of payments">
-            <td>{{payment.paymentModeId == 1 ? 'Cash' : (payment.paymentModeId == 2 ? 'Cheque' : (payment.paymentModeId == 3 ? 'Card' : (payment.paymentModeId == 4 ? 'Paytm' : 'Account Transfer')))}}</td>
+            <td>{{payment.paymentModeId == 1 ? 'Cash' : (payment.paymentModeId == 2 ? 'Cheque' : (payment.paymentModeId
+                == 3 ? 'Card' : (payment.paymentModeId == 4 ? 'Paytm' : 'Account Transfer')))}}</td>
+            <td>{{payment.paymentFor}}</td>
             <td>{{payment.additionalDetails}}</td>
             <td>{{payment.amount}}</td>
-            <td (click)="notifyEdit(payment)"><fa-icon [icon]="faEdit"></fa-icon></td>           
-            <td (click)="notifyDelete(payment)"><fa-icon [icon]="faTrashAlt"></fa-icon></td>
+            <td (click)="notifyEdit(payment)">
+                <fa-icon [icon]="faEdit"></fa-icon>
+            </td>
+            <td (click)="notifyDelete(payment)">
+                <fa-icon [icon]="faTrashAlt"></fa-icon>
+            </td>
         </tr>
-        <tr>                
+        <tr>
             <td></td>
-            <td></td>            
+            <td></td>
+            <td></td>
             <td>{{totalAmount}}</td>
             <td></td>
             <td></td>

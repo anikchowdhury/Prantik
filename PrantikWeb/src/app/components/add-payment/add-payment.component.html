@@ -4,9 +4,15 @@
       <label for="payments.amount">Amount</label>
       <input type="number" class="form-control" id="payments.amount" [(ngModel)]="payments.amount" name="payments.amount" required>
     </div>
+    <div class="col-12 col-md-6">
+      <label for="payments.paymentFor">Payment For</label>
+      <select class="form-control" id="payments.paymentFor" [(ngModel)]="payments.paymentFor" name="payments.paymentFor" required>
+        <option *ngFor="let paymentFor of paymentForList" [value]="paymentFor.value">{{paymentFor.title}}</option>
+    </select>
+    </div>
    <div class="col-12 col-md-6">
       <label for="payments.paymentModeId">Payment Type</label>
-        <select type="number" class="form-control" id="payments.paymentModeId" [(ngModel)]="payments.paymentModeId" name="payments.paymentModeId" required>
+        <select class="form-control" id="payments.paymentModeId" [(ngModel)]="payments.paymentModeId" name="payments.paymentModeId" required>
             <option *ngFor="let mode of paymentModes" [value]="mode.value">{{mode.title}}</option>
         </select>
     </div>

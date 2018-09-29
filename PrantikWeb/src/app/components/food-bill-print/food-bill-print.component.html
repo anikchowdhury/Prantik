@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col-12">
+        <app-billing-contact-details-template></app-billing-contact-details-template>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="1">Bill Date &amp; Time:<span class="font-weight-normal"> {{billingDate}}</span></th>
+                    <th colspan="4">Bill #{{qrValue}}</th>
+                    <th colspan="1" class="p-1">
+                        <ngx-qrcode qrc-class="qr-size-class" [qrc-element-type]="elementType" [qrc-value]="qrValue">
+                        </ngx-qrcode>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="6">
+                        <div class="row">
+                            <div class="col-1">
+                                <div class="row">
+                                    <div class="col-12">Name: </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">Address: </div>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <div class="row">
+                                    <div class="col-12 font-weight-normal">{{customerDetail.name}}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 font-weight-normal">{{customerDetail.address}}</div>
+                                </div>
+                            </div>
+                            <div class="col-2 text-right">
+                                <fa-icon [icon]="faPhone"></fa-icon><span class="font-weight-normal">
+                                    {{customerDetail.phoneNumber}}</span>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Item</th>
+                    <th class="text-right">Quantity</th>
+                    <th class="text-right">Price</th>
+                    <th class="text-right">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let foodOrder of foodOrders; let i = index;">
+                    <td>{{i+1}}</td>
+                    <td>{{foodOrder.orderExpectedDeliveryDateFormated}}</td>
+                    <td>{{foodOrder.menuName}}</td>                                        
+                    <td class="text-right">{{foodOrder.quantity}}</td>
+                    <td class="text-right">{{foodOrder.price}}</td>
+                    <td class="text-right">{{foodOrder.quantity * foodOrder.price}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="text-right font-weight-bold" colspan="5">Total</td>
+                    <td class="text-right font-weight-bold">{{totalAmount}}</td>
+                </tr>
+                <tr></tr>
+                <tr>
+                    <td colspan="6" class="text-right font-weight-bold pt-5">Signature &amp; Stamp</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="col-12 text-center"><button type="button" class="btn btn-link" (click)="printBill()">&copy; Prantik
+            Hotel
+            And Resorts</button></div>
+</div>

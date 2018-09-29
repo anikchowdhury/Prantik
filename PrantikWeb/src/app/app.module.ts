@@ -24,12 +24,14 @@ import { ViewPaymentComponent } from './components/view-payment/view-payment.com
 import { BillPrintComponent } from './components/bill-print/bill-print.component';
 import { AddFoodComponent } from './components/add-food-order/add-food-order.component';
 import { ViewFoodComponent } from './components/view-food-order/view-food-order.component';
+import { BillingContactDetailsTemplate } from './components/static-templates/billing-contact-details.template';
+import { FoodBillPrintPayment } from './components/food-bill-print/food-bill-print.component';
 
 
 const appRoutes: Routes = [
    { path: 'dashboard', component: DashboardComponent },
    { path: 'billing', component: BillingDashboardComponent },
-   { path: 'printBill/:bookingCode', component: BillPrintComponent },
+   { path: 'printBill/:bookingCode/:isRoomBillPrint', component: BillPrintComponent },
    { path: 'searchResult', component: SearchResult },
   // {
   //   path: 'heroes',
@@ -59,7 +61,9 @@ const appRoutes: Routes = [
     SearchResult,
     ViewPaymentComponent,
     AddFoodComponent,
-    ViewFoodComponent
+    ViewFoodComponent,
+    FoodBillPrintPayment,
+    BillingContactDetailsTemplate
   ],
   imports: [
     BrowserModule,

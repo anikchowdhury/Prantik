@@ -18,8 +18,7 @@ namespace PrantikAPI.ProviderLayer
                 return await db.Payments.Select(payment => new PaymentModel()
                 {
                     AdditionalDetails = payment.AdditionalDetails,
-                    Amount = payment.Amount,
-                    BookingDetailsId = payment.BookingDetailsId,
+                    Amount = payment.Amount,                    
                     Id = payment.Id,
                     PaymentModeId = payment.PaymentModeId,
                     CreateDate = payment.CreateDate
@@ -36,7 +35,6 @@ namespace PrantikAPI.ProviderLayer
                 {
                     AdditionalDetails = payment.AdditionalDetails,
                     Amount = payment.Amount,
-                    BookingDetailsId = payment.BookingDetailsId,
                     Id = payment.Id,
                     PaymentModeId = payment.PaymentModeId,
                     CreateDate = payment.CreateDate
@@ -52,7 +50,6 @@ namespace PrantikAPI.ProviderLayer
                 {
                     AdditionalDetails = paymentModel.AdditionalDetails,
                     Amount = paymentModel.Amount,
-                    BookingDetailsId = paymentModel.BookingDetailsId == 0 ? null : paymentModel.BookingDetailsId,
                     PaymentModeId = paymentModel.PaymentModeId,
                     CreateDate = paymentModel.CreateDate
                 });
@@ -66,11 +63,10 @@ namespace PrantikAPI.ProviderLayer
         {
             using (PrantikEntities db = new PrantikEntities())
             {
-                Payment payment = await db.Payments.FindAsync(id);
-                payment.BookingDetailsId = paymentModel.BookingDetailsId == 0 ? null : paymentModel.BookingDetailsId;
+                Payment payment = await db.Payments.FindAsync(id);                
                 payment.AdditionalDetails = paymentModel.AdditionalDetails;
                 payment.Amount = paymentModel.Amount;
-                payment.PaymentModeId = paymentModel.PaymentModeId;
+                payment.PaymentModeId = paymentModel.PaymentModeId;                
                 payment.CreateDate = paymentModel.CreateDate;
                 db.Entry(payment).State = EntityState.Modified;
 

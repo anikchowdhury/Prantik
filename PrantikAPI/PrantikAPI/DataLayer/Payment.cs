@@ -14,14 +14,20 @@ namespace PrantikAPI.DataLayer
     
     public partial class Payment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Payment()
+        {
+            this.BookingDetailsPayments = new HashSet<BookingDetailsPayment>();
+        }
+    
         public long Id { get; set; }
         public decimal Amount { get; set; }
         public short PaymentModeId { get; set; }
         public string AdditionalDetails { get; set; }
-        public Nullable<long> BookingDetailsId { get; set; }
         public System.DateTime CreateDate { get; set; }
     
-        public virtual BookingDetail BookingDetail { get; set; }
         public virtual MasterPaymentMode MasterPaymentMode { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BookingDetailsPayment> BookingDetailsPayments { get; set; }
     }
 }

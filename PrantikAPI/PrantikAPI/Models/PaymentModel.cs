@@ -5,13 +5,8 @@ using System.Web;
 
 namespace PrantikAPI.Models
 {
-    public class PaymentModel
+    public class PaymentModel : BasePaymentModel
     {
-        public long Id { get; set; }
-        public decimal Amount { get; set; }
-        public short PaymentModeId { get; set; }
-        public string AdditionalDetails { get; set; }
-        public long? BookingDetailsId { get; set; }
-        public DateTime CreateDate { get; set; }
+        public string PaymentFor { get; set; }
     }
 }

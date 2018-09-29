@@ -12,12 +12,13 @@ import { BookingDetailsUserModel } from '../../models/booking-details-user.model
 import { RoomBookingService } from '../../services/room-booking.service';
 import { PaymentService } from '../../services/payment.service';
 import { FoodOrderService } from '../../services/food-order.service';
+import { BookingDetailsPaymentService } from '../../services/booking-details-payment.service';
 
 @Component({
   selector: 'app-billing-dashboard',
   templateUrl: './billing-dashboard.component.html',
   styleUrls: ['./billing-dashboard.component.css'],
-  providers: [BookingDetailsService, BookingDetailsUserService, RoomBookingService, PaymentService, FoodOrderService]
+  providers: [BookingDetailsService, BookingDetailsUserService, RoomBookingService, PaymentService, FoodOrderService, BookingDetailsPaymentService]
 })
 export class BillingDashboardComponent implements OnInit {
 
@@ -41,7 +42,7 @@ export class BillingDashboardComponent implements OnInit {
   @ViewChild('addPayment') paymentOperationContentTpl: TemplateRef<any>;
   @ViewChild('addFoodOrder') foodOrderOperationContentTpl: TemplateRef<any>;
 
-  constructor(private modalService: NgbModal, private route: ActivatedRoute, private bookingDetailsService: BookingDetailsService, private roomBookingService: RoomBookingService, private paymentService: PaymentService, private foodOrderService: FoodOrderService, private bookingDetailsUserService: BookingDetailsUserService) {
+  constructor(private modalService: NgbModal, private route: ActivatedRoute, private bookingDetailsService: BookingDetailsService, private roomBookingService: RoomBookingService, private paymentService: PaymentService, private foodOrderService: FoodOrderService, private bookingDetailsUserService: BookingDetailsUserService, private bookingDetailsPaymentService: BookingDetailsPaymentService) {
     this.setBlankPayment();
     this.setBlankUser();
     this.setBlankRoomBooking();
@@ -117,8 +118,20 @@ export class BillingDashboardComponent implements OnInit {
       this.setBlankPayment();
       this.modalService.dismissAll("Updated Room Booking");
     }
-    else
-      this.payments.push(paymentModel);
+    else {
+      if (this.bookingCodeId > 0)
+        this.bookingDetailsPaymentService.PostBookingDetailsPayment({
+          bookingDetailsId: this.bookingCodeId,
+          paymentId: paymentModel.id,
+          paymentFor: paymentModel.paymentFor
+        }).subscribe(() => {
+          this.payments.push(paymentModel);
+        },
+          (err) => {
+
+          });
+      else this.payments.push(paymentModel);
+    }
   }
 
   displayAddedUser(userModel: UserModel) {
@@ -165,9 +178,12 @@ export class BillingDashboardComponent implements OnInit {
               });
         });
         this.payments.forEach((value) => {
-          value.bookingDetailsId = response.id;
-          this.paymentService.PutPayment(value)
-            .subscribe((paymentResponse: void) => {
+          this.bookingDetailsPaymentService.PostBookingDetailsPayment({
+            bookingDetailsId: response.id,
+            paymentId: value.id,
+            paymentFor: value.paymentFor
+          })
+            .subscribe(() => {
             },
               (err) => {
                 console.log(err);
@@ -215,8 +231,7 @@ export class BillingDashboardComponent implements OnInit {
 
   setBlankPayment() {
     this.newPayment = {
-      id: 0,
-      bookingDetailsId: this.bookingCodeId
+      id: 0
     };
   }
 

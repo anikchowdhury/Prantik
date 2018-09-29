@@ -13,6 +13,7 @@ namespace PrantikAPI.Models
         public IEnumerable<UserModel> Users { get; set; }
         public IEnumerable<FoodOrderModel> FoodOrders { get; set; }
         public IEnumerable<RoomBookingModel> Rooms { get; set; }
-        public IEnumerable<PaymentModel> Payments { get; set; }        
+        public IEnumerable<PaymentModel> Payments { get; set; }
+        public IEnumerable<BookingDetailsPaymentModel> BookingDetailsPayments { get; set; }
     }
 }

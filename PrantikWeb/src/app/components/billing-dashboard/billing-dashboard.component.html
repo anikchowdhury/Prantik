@@ -53,10 +53,12 @@
 
 <div class="row mt-5" *ngIf="bookingCodeId != 0">
   <div class="col-12">
-    <a [routerLink]="['/printBill', bookingCodeId]" class="btn btn-primary float-right">Print Bill</a>
+    <a [routerLink]="['/printBill', bookingCodeId, true]" class="btn btn-primary float-right">Print Room Bill</a>
   </div>
+  <div class="col-12 mt-2" *ngIf="foodOrders.length > 0">
+      <a [routerLink]="['/printBill', bookingCodeId, false]" class="btn btn-primary float-right">Print Food Bill</a>
+    </div>
 </div>
-
 <ng-template #userOperationContent let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Profile update</h4>

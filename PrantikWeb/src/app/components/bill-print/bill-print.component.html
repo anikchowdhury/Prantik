@@ -1,5 +1,8 @@
-<app-print-room-bill [roomBookings]="roomBookings" [customerDetail]="customerDetail" [totalAmount]="totalAmount"
-    [qrValue]="qrValue" [gstTotal]="gstTotal"></app-print-room-bill>
+<app-print-room-bill *ngIf="isRoomBillPrint == 'true'" [roomBookings]="roomBookings" [customerDetail]="customerDetail"
+    [totalAmount]="totalAmount" [qrValue]="qrValue" [gstTotal]="gstTotal"></app-print-room-bill>
+
+<app-food-bill-print *ngIf="isRoomBillPrint == 'false'" [foodOrders]="foodOrders" [customerDetail]="customerDetail"
+    [totalAmount]="totalAmount" [qrValue]="qrValue" ></app-food-bill-print>
 
 <ng-template #billerSelect let-c="close" let-d="dismiss">
     <div class="modal-header">

@@ -1,8 +1,5 @@
-export class PaymentModel{
-    id?: number;
-    amount?: number;
-    paymentModeId?: number;
-    additionalDetails?: string;
-    bookingDetailsId?: number;
-    createDate?: string;
+import { BasePaymentModel } from "./base-payment.model";
+
+export class PaymentModel extends BasePaymentModel{
+    paymentFor?: string;
 }

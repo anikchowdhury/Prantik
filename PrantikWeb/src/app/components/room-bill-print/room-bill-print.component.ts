@@ -4,7 +4,7 @@ import { RoomBookingService } from '../../services/room-booking.service';
 import { UserService } from '../../services/user.service';
 import { UserModel } from '../../models/user.model';
 import { RoomBookingModel } from '../../models/room-booking.model';
-import { faPhone, faHome, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faPhone, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,13 +23,11 @@ export class PrintRoomBillComponent implements OnInit {
     @Input() gstTotal: number;
     
     faPhone: IconDefinition;
-    faHome: IconDefinition;
     billingDate: string;
     elementType: string;
 
     constructor(private userService: UserService, private roomBookingService: RoomBookingService, private router: Router) {       
-        this.faPhone = faPhone;
-        this.faHome = faHome;
+        this.faPhone = faPhone;        
         let today = new Date();
         this.billingDate = formatDate(today, 'dd-MM-yyyy hh:mm:ss a', 'en-IN', '+0530');
         this.elementType = 'img';        

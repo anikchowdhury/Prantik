@@ -6,6 +6,11 @@ export const PaymentModesConstant = [
     {title: "Account Transfer", value: 5}
 ];
 
+export const PaymentForContsant = [
+    {title: "Room", value: "Room"},
+    {title: "Food", value: "Food"}
+];
+
 export const RoomNumbersConstant = [
     101, 102, 103, 104, 105, 106, 107, 108, 109,
     201, 202, 203, 204, 205, 206, 207, 208, 209,
@@ -22,4 +27,4 @@ export const MenuItemsConstant = [
     { menuId: 6, menuName: 'Food Combo Pack' },
     { menuId: 7, menuName: 'Tea' },
     { menuId: 8, menuName: 'Coffee' }
-]
+];

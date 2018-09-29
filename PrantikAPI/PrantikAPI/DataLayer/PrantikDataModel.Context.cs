@@ -34,5 +34,6 @@ namespace PrantikAPI.DataLayer
         public virtual DbSet<MasterPaymentMode> MasterPaymentModes { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+        public virtual DbSet<BookingDetailsPayment> BookingDetailsPayments { get; set; }
     }
 }

@@ -18,9 +18,9 @@ namespace PrantikAPI.ProviderLayer
             {
                 BookingDetail bookingDetail = null;
                 if (long.TryParse(bookingCode, out long outVal))
-                    bookingDetail = await db.BookingDetails.Include(x => x.BookingDetailsUsers.Select(y => y.User)).Include(x => x.RoomBookings).Include(x => x.OrderDetails.Select(y => y.Menu)).FirstOrDefaultAsync(item => item.Id == outVal);
+                    bookingDetail = await db.BookingDetails.Include(x => x.BookingDetailsUsers.Select(y => y.User)).Include(x => x.RoomBookings).Include(x => x.OrderDetails.Select(y => y.Menu)).Include(x => x.BookingDetailsPayments.Select(y => y.Payment)).FirstOrDefaultAsync(item => item.Id == outVal);
                 else
-                    bookingDetail = await db.BookingDetails.Include(x => x.BookingDetailsUsers.Select(y => y.User)).Include(x => x.RoomBookings).Include(x => x.OrderDetails.Select(y => y.Menu)).FirstOrDefaultAsync(item => item.BookingCode.ToUpper() == bookingCode.ToUpper());
+                    bookingDetail = await db.BookingDetails.Include(x => x.BookingDetailsUsers.Select(y => y.User)).Include(x => x.RoomBookings).Include(x => x.OrderDetails.Select(y => y.Menu)).Include(x => x.BookingDetailsPayments.Select(y => y.Payment)).FirstOrDefaultAsync(item => item.BookingCode.ToUpper() == bookingCode.ToUpper());
 
                 return new BookingDetailModel()
                 {
@@ -51,14 +51,14 @@ namespace PrantikAPI.ProviderLayer
                         GST = x.GST,
                         CreateDate = x.CreateDate
                     }),
-                    Payments = bookingDetail.Payments.Select(x => new PaymentModel()
+                    Payments = bookingDetail.BookingDetailsPayments.Select(x => new PaymentModel()
                     {
                         Id = x.Id,
-                        AdditionalDetails = x.AdditionalDetails,
-                        Amount = x.Amount,
-                        BookingDetailsId = x.BookingDetailsId,
-                        PaymentModeId = x.PaymentModeId,
-                        CreateDate = x.CreateDate
+                        AdditionalDetails = x.Payment.AdditionalDetails,
+                        Amount = x.Payment.Amount,                        
+                        PaymentModeId = x.Payment.PaymentModeId,
+                        CreateDate = x.Payment.CreateDate,
+                        PaymentFor = x.PaymentFor                        
                     }),
                     FoodOrders = bookingDetail.OrderDetails.Select(x => new FoodOrderModel()
                     {
