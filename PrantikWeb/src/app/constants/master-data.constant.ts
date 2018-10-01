@@ -8,7 +8,9 @@ export const PaymentModesConstant = [
 
 export const PaymentForContsant = [
     {title: "Room", value: "Room"},
-    {title: "Food", value: "Food"}
+    {title: "Food", value: "Food"},
+    {title: "DDA Tax", value: "DDA Tax"},
+    {title: "Washing", value: "Washing"}
 ];
 
 export const RoomNumbersConstant = [
