@@ -38,6 +38,6 @@ export class FoodBillPrintPayment implements OnInit {
 
     printBill() {
         window.print();
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['']);
     }
 }

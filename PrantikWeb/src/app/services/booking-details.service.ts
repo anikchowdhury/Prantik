@@ -16,6 +16,10 @@ export class BookingDetailsService {
     }
 
     public GetBookingDetails(bookingCode: string): Observable<BookingDetailsModel> {
-        return this.httpClient.get<BookingDetailsModel>(PostBookingDetailsEndpointContsant + '?bookingCode=' + bookingCode)
+        return this.httpClient.get<BookingDetailsModel>(PostBookingDetailsEndpointContsant + '?bookingCode=' + bookingCode);
+    }
+
+    public GetAllBookingDetails(): Observable<BookingDetailsModel[]> {
+        return this.httpClient.get<BookingDetailsModel[]>(PostBookingDetailsEndpointContsant);
     }
 }

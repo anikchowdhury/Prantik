@@ -29,10 +29,10 @@ import { FoodBillPrintPayment } from './components/food-bill-print/food-bill-pri
 
 
 const appRoutes: Routes = [
-   { path: 'dashboard', component: DashboardComponent },
+   { path: '', component: DashboardComponent },
    { path: 'billing', component: BillingDashboardComponent },
    { path: 'printBill/:bookingCode/:isRoomBillPrint', component: BillPrintComponent },
-   { path: 'searchResult', component: SearchResult },
+   { path: 'searchResult', component: SearchResult }/*,
   // {
   //   path: 'heroes',
   //   component: HeroListComponent,
@@ -41,7 +41,7 @@ const appRoutes: Routes = [
    { path: '',
      redirectTo: '/dashboard',
      pathMatch: 'full'
-   },
+   },*/
   // { path: '**', component: PageNotFoundComponent }
 ];
 

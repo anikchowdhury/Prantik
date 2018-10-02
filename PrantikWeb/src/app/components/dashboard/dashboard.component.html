@@ -11,12 +11,36 @@
 </div>
 
 <div class="row mt-2">
-  <div class="col-10">    
-   <!--  <input class="form-control" type="text" [(ngModel)]="searchBookingModel" (selectItem)="selectBooking($event)"
+  <div class="col-10">
+    <!--  <input class="form-control" type="text" [(ngModel)]="searchBookingModel" (selectItem)="selectBooking($event)"
       [class.is-invalid]="searchFailed" [ngbTypeahead]="searchBookingFn" [resultFormatter]="bookingSearchFormatter" [inputFormatter]="bookingSearchFormatter"> -->
-      <input class="form-control" type="text" [(ngModel)]="searchBookingModel">
+    <input class="form-control" type="text" [(ngModel)]="searchBookingModel">
   </div>
   <div class="col-2">
     <button type="button" class="btn btn-outline-primary" (click)="searchBooking()">Search</button>
+  </div>
+</div>
+
+<div class="row mt-2">
+  <div *ngFor="let bookingDetail of bookingDetails" class="col-12 border">
+    <div class="row">
+      <div class="col-2"><a [routerLink]="['/searchResult']" [queryParams]="{ bookingCode: bookingDetail.bookingCode }">{{bookingDetail.bookingCode}}</a></div>
+      <div class="col-8">
+        <div *ngFor="let roomBookingDetail of bookingDetail.rooms" class="row">
+          <div class="col-4">
+            {{roomBookingDetail.roomRoomNumber}}
+          </div>
+          <div class="col-4">
+            {{roomBookingDetail.bookingStartDate}}
+          </div>
+          <div class="col-4">
+            {{roomBookingDetail.bookingEndDate}}
+          </div>
+        </div>
+      </div>
+      <div class="col-2">
+
+      </div>
+    </div>
   </div>
 </div>

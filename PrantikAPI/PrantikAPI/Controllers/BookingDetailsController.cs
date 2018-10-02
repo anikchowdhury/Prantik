@@ -17,15 +17,15 @@ namespace PrantikAPI.Controllers
 {
     public class BookingDetailsController : ApiController
     {
-       // private PrantikEntities db = new PrantikEntities();
+        // private PrantikEntities db = new PrantikEntities();
         private BookingDetailProvider _provider = new BookingDetailProvider();
 
         // GET: api/BookingDetails
-      /*  public IQueryable<BookingDetail> GetBookingDetails()
+        public IEnumerable<BookingDetailModel> GetBookingDetails()
         {
-            return db.BookingDetails;
+            return _provider.GetBookingDetails();
         }
-        */
+
         // GET: api/BookingDetails/5
         [ResponseType(typeof(BookingDetailModel))]
         public async Task<IHttpActionResult> GetBookingDetail(string bookingCode)
@@ -40,40 +40,40 @@ namespace PrantikAPI.Controllers
             return Ok(bookingDetail);
         }
 
-      /*  // PUT: api/BookingDetails/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutBookingDetail(long id, BookingDetail bookingDetail)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        /*  // PUT: api/BookingDetails/5
+          [ResponseType(typeof(void))]
+          public async Task<IHttpActionResult> PutBookingDetail(long id, BookingDetail bookingDetail)
+          {
+              if (!ModelState.IsValid)
+              {
+                  return BadRequest(ModelState);
+              }
 
-            if (id != bookingDetail.Id)
-            {
-                return BadRequest();
-            }
+              if (id != bookingDetail.Id)
+              {
+                  return BadRequest();
+              }
 
-            db.Entry(bookingDetail).State = EntityState.Modified;
+              db.Entry(bookingDetail).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookingDetailExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+              try
+              {
+                  await db.SaveChangesAsync();
+              }
+              catch (DbUpdateConcurrencyException)
+              {
+                  if (!BookingDetailExists(id))
+                  {
+                      return NotFound();
+                  }
+                  else
+                  {
+                      throw;
+                  }
+              }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }*/
+              return StatusCode(HttpStatusCode.NoContent);
+          }*/
 
         // POST: api/BookingDetails
         [ResponseType(typeof(BookingDetailModel))]
@@ -90,33 +90,33 @@ namespace PrantikAPI.Controllers
         }
 
         // DELETE: api/BookingDetails/5
-      /*  [ResponseType(typeof(BookingDetail))]
-        public async Task<IHttpActionResult> DeleteBookingDetail(long id)
-        {
-            BookingDetail bookingDetail = await db.BookingDetails.FindAsync(id);
-            if (bookingDetail == null)
-            {
-                return NotFound();
-            }
+        /*  [ResponseType(typeof(BookingDetail))]
+          public async Task<IHttpActionResult> DeleteBookingDetail(long id)
+          {
+              BookingDetail bookingDetail = await db.BookingDetails.FindAsync(id);
+              if (bookingDetail == null)
+              {
+                  return NotFound();
+              }
 
-            db.BookingDetails.Remove(bookingDetail);
-            await db.SaveChangesAsync();
+              db.BookingDetails.Remove(bookingDetail);
+              await db.SaveChangesAsync();
 
-            return Ok(bookingDetail);
-        }
+              return Ok(bookingDetail);
+          }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+          protected override void Dispose(bool disposing)
+          {
+              if (disposing)
+              {
+                  db.Dispose();
+              }
+              base.Dispose(disposing);
+          }
 
-        private bool BookingDetailExists(long id)
-        {
-            return db.BookingDetails.Count(e => e.Id == id) > 0;
-        }*/
+          private bool BookingDetailExists(long id)
+          {
+              return db.BookingDetails.Count(e => e.Id == id) > 0;
+          }*/
     }
 }
